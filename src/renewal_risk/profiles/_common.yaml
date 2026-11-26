@@ -42,6 +42,14 @@ alerts:
     severity: high
     message: Three or more P1 tickets or escalations in the last 90 days
     when: [[p1_tickets_90d, ">=", 3]]
+  - id: support_strain
+    severity: medium
+    message: Support is struggling to fix issues (a quarter or more of tickets reopened, or a median fix time over five days)
+    when: [[tickets_90d, ">=", 3], [support_strain_flag, "==", 1]]
+  - id: support_gone_quiet
+    severity: medium
+    message: Support tickets nearly stopped while product usage fell (often disengagement, not a fixed product)
+    when: [[support_silence_flag, "==", 1], [usage_trend_pct, "<=", -10]]
   - id: payment_risk
     severity: high
     message: Invoice 60+ days past due

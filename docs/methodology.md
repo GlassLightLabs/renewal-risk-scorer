@@ -64,6 +64,10 @@ CS teams trust their scorecard; models catch interactions it misses. Rather than
 
 **Watermelons** are where the two disagree in a dangerous direction: green on the scorecard, but the model alone puts churn risk at least 4 times the churn rate green accounts showed in training (and never below 8%). These are the accounts to pressure-test before the renewal call.
 
+### Support signals from Zendesk
+
+Support data enters through the Zendesk add-on ([docs/add-ons.md](add-ons.md)) or the CRM export. Raw ticket counts mostly measure customer size, so volume is scored per 100 seats, and each account is compared with its own previous quarter. Reopen rate and median time to resolution are scored measures in every profile's support or service group. Two alerts combine signals instead of reading one number: support strain (reopens of 25% or more, or a median fix over 120 hours, on at least three tickets) and support gone quiet (six or more tickets last quarter, at most 30% of that now, with active users down 10% or more). The second follows help-desk practitioners who read a sudden silence from an active account as disengagement ([Giva](https://www.givainc.com/blog/customer-health-score-help-desk-data/)). Thresholds are informed defaults; tune them in the profile YAML.
+
 ## 5. From probability to priority
 
 - **Expected ARR loss** = ARR × (P(churn) + (1 − P(churn)) × P(contraction) × expected contraction depth).

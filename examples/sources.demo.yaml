@@ -1,0 +1,5 @@
+# Simulated Zendesk for demos: no account or credentials needed.
+#   renewal-risk demo --profile saas --sources examples/sources.demo.yaml
+sources:
+  zendesk:
+    simulate: true

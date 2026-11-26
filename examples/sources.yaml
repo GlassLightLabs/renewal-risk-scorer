@@ -1,0 +1,13 @@
+# Data add-ons pulled into the book before scoring:  renewal-risk score book.csv --sources examples/sources.yaml
+# Check the settings first:                         renewal-risk sources test --sources examples/sources.yaml
+#
+# Never write a token into this file. ${NAME} reads an environment variable at run time, e.g.
+#   export ZENDESK_EMAIL=admin@yourco.com ZENDESK_API_TOKEN=...
+sources:
+  zendesk:
+    enabled: true
+    subdomain: yourco            # the part before .zendesk.com
+    email: ${ZENDESK_EMAIL}      # the admin who owns the token
+    api_token: ${ZENDESK_API_TOKEN}
+    match_on: auto               # auto | external_id | name | field:<organization field key>
+    urgent_priorities: urgent    # or "urgent,high"

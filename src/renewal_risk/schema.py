@@ -169,7 +169,25 @@ FIELDS: tuple[Field, ...] = (
         "P1 tickets (90d)",
         ("p1 tickets", "p1 tickets 90d", "critical tickets", "sev1 tickets", "priority 1 cases", "escalated cases"),
     ),
+    Field(
+        "tickets_90d_prior",
+        "float",
+        "Support tickets (prior 90d)",
+        ("tickets prior 90d", "prior tickets", "tickets previous 90 days", "tickets 90d prior", "prior case count"),
+    ),
     Field("csat", "float", "CSAT", ("csat", "csat score", "support csat", "customer satisfaction")),
+    Field(
+        "ticket_reopen_rate_pct",
+        "float",
+        "Ticket reopen rate",
+        ("reopen rate", "ticket reopen rate", "reopened tickets pct", "reopen pct", "reopened rate"),
+    ),
+    Field(
+        "ticket_resolution_hours",
+        "float",
+        "Median time to resolution (hours)",
+        ("resolution hours", "median resolution hours", "time to resolution", "full resolution time hours"),
+    ),
     Field("nps", "float", "NPS", ("nps", "nps score", "latest nps", "nps response", "likelihood to recommend")),
     Field(
         "csm_sentiment",

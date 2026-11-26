@@ -18,3 +18,13 @@ def test_demo_app_renders_without_errors() -> None:
     assert not at.exception, at.exception
     assert len(at.tabs) >= 4
     assert at.metric, "expected KPI metrics on the first screen"
+
+
+def test_demo_app_pulls_in_simulated_zendesk() -> None:
+    at = AppTest.from_file(str(APP), default_timeout=180)
+    at.run()
+    assert not at.exception, at.exception
+    assert any("Zendesk: matched" in s.value for s in at.success), "expected the add-on match report"
+    at.checkbox(key="zendesk_on").uncheck().run()
+    assert not at.exception, at.exception
+    assert not any("Zendesk: matched" in s.value for s in at.success)

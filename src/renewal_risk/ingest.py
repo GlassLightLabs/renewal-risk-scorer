@@ -270,6 +270,7 @@ def _normalize_scales(df: pd.DataFrame, report: DataQualityReport) -> None:
         "milestones_on_time_pct",
         "production_usage_pct",
         "deprecated_model_usage_pct",
+        "ticket_reopen_rate_pct",
     ):
         if pct in df.columns:
             df[pct] = _as_percent(df[pct], pct, report)
@@ -312,6 +313,13 @@ def _normalize_scales(df: pd.DataFrame, report: DataQualityReport) -> None:
             if neg.any():
                 report.warnings.append(f"{int(neg.sum())} negative values in {count} treated as missing.")
                 df.loc[neg, count] = np.nan
+
+
+def rederive(df: pd.DataFrame, as_of: date | str | pd.Timestamp | None = None) -> pd.DataFrame:
+    """Recompute derived signals after columns change (for example after a data add-on fills ticket counts)."""
+    out = df.copy()
+    _derive(out, pd.Timestamp(as_of) if as_of is not None else pd.Timestamp(date.today()))
+    return out
 
 
 def _derive(df: pd.DataFrame, as_of: pd.Timestamp) -> None:
@@ -370,6 +378,21 @@ def _derive(df: pd.DataFrame, as_of: pd.Timestamp) -> None:
     if {"contracted_hours", "hours_used"} <= set(df.columns):
         hours = df["contracted_hours"].where(df["contracted_hours"] > 0)
         df["hours_pacing_pct"] = (df["hours_used"] / (hours * elapsed) * 100).clip(0, 300)
+    if {"ticket_reopen_rate_pct", "ticket_resolution_hours"} & set(df.columns):
+        # Support strain: a quarter or more of tickets reopened, or a median fix time over five days.
+        reopen = df.get("ticket_reopen_rate_pct", pd.Series(np.nan, index=df.index))
+        hours = df.get("ticket_resolution_hours", pd.Series(np.nan, index=df.index))
+        strain = (reopen >= 25) | (hours >= 120)
+        df["support_strain_flag"] = strain.astype(float).where(reopen.notna() | hours.notna())
+    if {"tickets_90d", "tickets_90d_prior"} <= set(df.columns):
+        prior = df["tickets_90d_prior"]
+        change = (df["tickets_90d"] - prior) / prior.where(prior > 0) * 100.0
+        df["ticket_volume_change_pct"] = change.clip(-100, 300)
+        # Support gone quiet: an account that used to file tickets has nearly stopped. Practitioners read a
+        # sudden silence as disengagement more often than as a product that suddenly works.
+        known = df["tickets_90d"].notna() & prior.notna()
+        silent = (prior >= 6) & (df["tickets_90d"] <= prior * 0.3)
+        df["support_silence_flag"] = silent.astype(float).where(known)
     if "contract_start_date" in df.columns:
         # Tenure at the renewal being scored, so training history and the current book measure the same thing.
         df["tenure_months"] = ((df["renewal_date"] - df["contract_start_date"]).dt.days / 30.44).clip(lower=0)

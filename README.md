@@ -9,7 +9,8 @@ Feed it a Salesforce or Gainsight export of open renewals. It returns every acco
 - a **save play** with an owner, timing and steps,
 - a **GRR forecast** with a P10 to P90 range for the quarter,
 - **watermelon** flags (green on the scorecard, red underneath),
-- optional **Claude-written account briefs** for call prep, with a rules-based fallback when no API key is set.
+- optional **Claude-written account briefs** for call prep, with a rules-based fallback when no API key is set,
+- **data add-ons** that pull signals from other tools, starting with **Zendesk** (ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution), configured in the app or a YAML file.
 
 It runs as a Streamlit app for reps and leaders, and as a CLI for RevOps and scheduled runs.
 
@@ -66,7 +67,7 @@ GRR forecast (316 renewals): expected 88.6%, P10 86.0% to P90 90.9%
 4. **Open an account.** Top risk drivers in plain English, alerts, group scores, the recommended play, and a one-click brief for call prep.
 5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
 
-Data stays on the machine running the app. The only outbound call is the optional account brief, which sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
+Data stays on the machine running the app. The outbound calls are the ones you turn on: a data add-on reads from its tool (Zendesk, read-only), and the optional account brief sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
 
 ## Bring your own data
 
@@ -85,6 +86,17 @@ renewal-risk inspect examples/salesforce_report.csv --mapping examples/mapping.y
 The minimum is an account ID, ARR and a renewal date. Every other signal is optional: missing measures are reweighted, and each account gets a confidence level so thin data is visible. For training, history needs an outcome column (renewed, contracted or churned; common CRM values like "Closed Lost" are recognized).
 
 To tune a profile, copy its YAML from `src/renewal_risk/profiles/`, edit breakpoints, weights or alerts, and pass `--config my_profile.yaml`.
+
+## Data add-ons
+
+A CRM export rarely carries good support data. Add-ons fetch it from the source and merge it into the book before scoring. In the app, open **Data add-ons** in the sidebar, tick Zendesk, enter a subdomain, admin email and API token, and press **Test connection**. The synthetic demo has a simulated Zendesk switched on, so you can see it without an account. On the command line:
+
+```bash
+renewal-risk sources test --sources examples/sources.yaml
+renewal-risk score my_renewals.csv --model model.json --sources examples/sources.yaml
+```
+
+The Zendesk add-on doesn't just copy ticket counts. It scores volume per 100 seats, compares each account with its own previous quarter, raises **support strain** when reopens or fix times climb, and raises **support gone quiet** when a formerly active account stops filing tickets while its usage falls. It honors Zendesk's rate limits, explains bad credentials in one line, and never prints a token. Other tools plug in the same way, as separate pip-installable packages. See [docs/add-ons.md](docs/add-ons.md) to set one up or write your own.
 
 ## Profiles
 
@@ -142,9 +154,14 @@ src/renewal_risk/
   report.py      CSV, JSON and Markdown outputs
   synth.py       synthetic history and books for every profile
   cli.py         the renewal-risk command
+  sources/       data add-ons: plug-in contract, HTTP client, registry, Zendesk
 app/streamlit_app.py
-tests/           ingest, scorecard, model, pipeline, narratives, CLI and app smoke tests
+tests/           ingest, scorecard, model, pipeline, add-ons, narratives, CLI and app smoke tests
 ```
+
+## Host the demo
+
+The app runs on [Streamlit Community Cloud](https://streamlit.io/cloud) with no secrets: it opens on synthetic data with a simulated Zendesk. Sign in there with GitHub, choose **Create app**, pick this repository, branch `main` and main file `app/streamlit_app.py`, and set Python 3.12 under Advanced settings. `app/requirements.txt` and `packages.txt` cover the dependencies.
 
 ## Development
 

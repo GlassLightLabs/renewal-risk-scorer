@@ -47,6 +47,8 @@ groups:
     measures:
       p1_tickets_90d: {weight: 50, points: [[0, 100], [1, 70], [2, 45], [4, 15], [6, 0]]}
       csat:           {weight: 50, points: [[60, 0], [75, 45], [85, 80], [95, 100]]}
+      ticket_reopen_rate_pct:  {weight: 15, points: [[5, 100], [10, 80], [20, 45], [30, 15], [40, 0]]}
+      ticket_resolution_hours: {weight: 15, points: [[8, 100], [24, 80], [72, 45], [168, 10], [240, 0]]}
 
   commercial:
     label: Commercial

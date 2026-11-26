@@ -51,6 +51,24 @@ ALERT_PLAYS: dict[str, Play] = {
             "Hold a post-incident review before the renewal conversation",
         ],
     },
+    "support_strain": {
+        "play": "Support quality recovery",
+        "owner": "Support manager + CSM",
+        "actions": [
+            "Review the account's reopened and slow tickets with the support lead and find the common cause",
+            "Assign a named support contact until reopen rate and fix time are back to normal",
+            "Share the fix plan with the customer's admin before the renewal conversation",
+        ],
+    },
+    "support_gone_quiet": {
+        "play": "Re-engagement check",
+        "owner": "CSM",
+        "actions": [
+            "Ask the customer's admin directly whether they are still rolling out, or working around problems",
+            "Compare which teams stopped using the product with which stopped filing tickets",
+            "Book a working session on their next milestone before the renewal conversation starts",
+        ],
+    },
     "eosl_cliff": {
         "play": "Lifecycle refresh",
         "owner": "Account Executive + Solutions Engineer",

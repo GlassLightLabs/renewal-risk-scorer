@@ -66,6 +66,8 @@ groups:
       nps:               {weight: 15, points: [[0, 0], [4, 15], [6, 40], [7, 60], [8, 80], [9, 100]]}
       csm_sentiment:     {weight: 20, points: [[1, 0], [2, 25], [3, 55], [4, 80], [5, 100]]}
       p1_tickets_90d:    {weight: 15, points: [[0, 100], [1, 65], [2, 40], [4, 10], [6, 0]]}
+      ticket_reopen_rate_pct:  {weight: 8, points: [[5, 100], [10, 80], [20, 45], [30, 15], [40, 0]]}
+      ticket_resolution_hours: {weight: 7, points: [[8, 100], [24, 80], [72, 45], [168, 10], [240, 0]]}
 
 model_features:
   - [projected_commit_use_pct, 0, burn, Projected commit use at term end, pct]

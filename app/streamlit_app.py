@@ -7,6 +7,7 @@ a renewal history to train on or a model.json from `renewal-risk train`.
 from __future__ import annotations
 
 import io
+import sys
 import tempfile
 from datetime import date
 from pathlib import Path
@@ -14,12 +15,18 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+try:
+    import renewal_risk  # noqa: F401
+except ImportError:  # hosted demo: run from a clone without installing the package
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
 from renewal_risk.config import list_profiles, load_config
 from renewal_risk.ingest import ingest
 from renewal_risk.model import RiskModel, train
 from renewal_risk.narrate import narrate_one
 from renewal_risk.pipeline import ScoreResult, score
 from renewal_risk.report import accounts_table, markdown_report
+from renewal_risk.sources import DataSource, SourceError, SourceRun, apply_sources, discover
 from renewal_risk.synth import generate_book, generate_history
 
 st.set_page_config(page_title="Renewal Risk Scorer", layout="wide")
@@ -80,6 +87,86 @@ def load_inputs(profile: str, as_of: date, source: str) -> tuple[pd.DataFrame, R
     else:
         st.warning("No history or model uploaded: risk comes from the scorecard alone, uncalibrated.")
     return book, model, report
+
+
+def _secret_defaults(name: str) -> dict[str, str]:
+    """Settings from .streamlit/secrets.toml ([zendesk] subdomain=..., email=..., api_token=...), if any."""
+    try:
+        return {str(k): str(v) for k, v in dict(st.secrets.get(name, {})).items()}
+    except Exception:  # no secrets file is the normal case
+        return {}
+
+
+def addon_settings(src: DataSource, demo: bool) -> dict[str, object] | None:
+    """Draw one add-on's settings from its declared fields. Returns its config, or None when it is off."""
+    name = src.name
+    if not st.checkbox(f"Use {src.label}", value=demo, key=f"{name}_on", help=src.description):
+        return None
+    if src.supports_simulation and st.toggle(
+        "Simulated demo data", value=demo, key=f"{name}_sim", help="No account or credentials needed."
+    ):
+        return {"simulate": True}
+    saved = _secret_defaults(name)
+    cfg: dict[str, object] = {}
+    for f in src.fields:
+        key = f"{name}_{f.name}"
+        default = saved.get(f.name, "" if f.default is None else str(f.default))
+        if f.kind == "choice" and f.choices:
+            plain = [c for c in f.choices if not c.endswith(":")]
+            options = plain + (["custom field"] if len(plain) < len(f.choices) else [])
+            picked = st.selectbox(f.label, options, key=key, help=f.help)
+            if picked == "custom field":
+                field_key = st.text_input("Organization field key", key=f"{key}_field", placeholder="sfdc_account_id")
+                cfg[f.name] = f"field:{field_key.strip()}" if field_key.strip() else "auto"
+            else:
+                cfg[f.name] = picked
+        else:
+            cfg[f.name] = st.text_input(
+                f.label, value=default, key=key, help=f.help, type="password" if f.secret else "default"
+            )
+    if st.button("Test connection", key=f"{name}_test"):
+        try:
+            st.success(src.test_connection(cfg))
+        except SourceError as err:
+            st.error(str(err))
+    return cfg
+
+
+def addons_panel(demo: bool) -> dict[str, dict[str, object]]:
+    sources, problems = discover()
+    chosen: dict[str, dict[str, object]] = {}
+    with st.sidebar.expander("Data add-ons", expanded=False):
+        st.caption("Pull signals from other tools into the book before scoring. Read-only.")
+        for name, cls in sorted(sources.items()):
+            cfg = addon_settings(cls(), demo)
+            if cfg is not None:
+                chosen[name] = cfg
+        for p in problems:
+            st.warning(p)
+    return chosen
+
+
+@st.cache_data(ttl=900, show_spinner="Reading data add-ons...")
+def run_addons(
+    book: pd.DataFrame, sources: dict[str, dict[str, object]], as_of: date
+) -> tuple[pd.DataFrame, SourceRun]:
+    # Cached for 15 minutes so moving around the app doesn't re-read Zendesk (and hit its rate limit).
+    return apply_sources(book, sources, as_of=as_of)
+
+
+def addons_report(run: SourceRun) -> None:
+    if not run.results and not run.errors:
+        st.caption("No data add-ons in use. Turn one on under Data add-ons in the sidebar.")
+        return
+    for res in run.results:
+        st.success(res.summary())
+        for w in res.warnings:
+            st.caption(w)
+        if res.unmatched_accounts:
+            with st.expander(f"{len(res.unmatched_accounts)} accounts not found in {res.source}"):
+                st.write(", ".join(res.unmatched_accounts[:500]))
+    for name, err in run.errors.items():
+        st.error(f"{name}: not used. {err}")
 
 
 def kpis(r: ScoreResult) -> None:
@@ -231,6 +318,12 @@ def model_tab(r: ScoreResult) -> None:
 def main() -> None:
     profile, as_of, horizon, source = sidebar()
     book, model, report = load_inputs(profile, as_of, source)
+    chosen = addons_panel(demo=source == "Synthetic demo")
+    run = SourceRun()
+    if chosen:
+        book, run = run_addons(book, chosen, as_of)
+        for name, err in run.errors.items():
+            st.sidebar.error(f"{name}: {err}")
     result = score(book, load_config(profile), model, as_of=as_of, horizon_days=horizon, quality=report)  # type: ignore[arg-type]
     st.title(f"Renewal risk: {result.config.label}")
     st.caption(f"Risk source: {result.summary['risk_source']}")
@@ -245,6 +338,9 @@ def main() -> None:
     with tabs[3]:
         model_tab(result)
     with tabs[4]:
+        st.subheader("Data add-ons")
+        addons_report(run)
+        st.subheader("Columns and coverage")
         st.text(report.summary())  # type: ignore[attr-defined]
 
 

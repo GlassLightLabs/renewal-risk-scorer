@@ -6,6 +6,10 @@ renewal-risk generate --profile ai_usage --out data/     write synthetic history
 renewal-risk train history.csv --profile ai_usage        train and evaluate; writes model.json
 renewal-risk score book.csv --model model.json           rank, explain and dollarize renewal risk
 renewal-risk demo --profile ai_usage                     all of the above on synthetic data
+renewal-risk sources list                                show installed data add-ons (Zendesk...)
+renewal-risk sources test --sources sources.yaml         check add-on settings and credentials
+
+score, inspect and demo take --sources sources.yaml to pull add-on signals into the book before scoring.
 """
 
 from __future__ import annotations
@@ -23,6 +27,18 @@ from .model import RiskModel, train
 from .narrate import narrate, to_markdown
 from .pipeline import ScoreResult, score
 from .report import write_outputs
+from .sources import SourceError, apply_sources, discover, get_source, load_sources_config
+
+
+def _with_sources(args: argparse.Namespace, df: Any, as_of: date | None) -> Any:
+    """Run the add-ons named in --sources and merge their signals; report what matched and what failed."""
+    path = getattr(args, "sources", None)
+    if not path:
+        return df
+    out, run = apply_sources(df, load_sources_config(path), as_of=as_of or date.today())
+    for line in run.lines():
+        print(line)
+    return out
 
 
 def _config(args: argparse.Namespace) -> ScorecardConfig:
@@ -87,6 +103,7 @@ def cmd_profiles(args: argparse.Namespace) -> int:
 def cmd_inspect(args: argparse.Namespace) -> int:
     df, report = ingest(args.file, as_of=_as_of(args), mapping=load_mapping(args.mapping))
     print(report.summary())
+    df = _with_sources(args, df, _as_of(args))
     cfg = _config(args)
     present = [f.name for f in cfg.model_features if f.name in df.columns and df[f.name].notna().any()]
     missing = [f.name for f in cfg.features if f.name not in present]
@@ -138,6 +155,7 @@ def cmd_train(args: argparse.Namespace) -> int:
 
 def _score(args: argparse.Namespace, cfg: ScorecardConfig, model: RiskModel | None) -> ScoreResult:
     df, report = ingest(args.book, as_of=_as_of(args), mapping=load_mapping(args.mapping))
+    df = _with_sources(args, df, _as_of(args))
     return score(df, cfg, model, as_of=_as_of(args), horizon_days=args.horizon_days, quality=report)
 
 
@@ -184,9 +202,32 @@ def cmd_demo(args: argparse.Namespace) -> int:
     m = model.churn.metrics
     print(_metrics_table(m, model.blend.metrics if model.blend else None))
     book, report = ingest(generate_book(args.book, profile=args.profile, as_of=as_of), as_of=as_of)
+    book = _with_sources(args, book, as_of)
     result = score(book, cfg, model, as_of=as_of, horizon_days=args.horizon_days, quality=report)
     _write(result, args)
     return 0
+
+
+def cmd_sources(args: argparse.Namespace) -> int:
+    if args.action == "list":
+        sources, problems = discover()
+        for name, cls in sorted(sources.items()):
+            print(f"{name:12} {cls.label}: {cls.description}")
+            print(f"{'':12} settings: {', '.join(f.name for f in cls.fields)}")
+        for p in problems:
+            print(f"warning: {p}", file=sys.stderr)
+        return 0
+    if not args.sources:
+        print("error: pass --sources sources.yaml (see examples/sources.yaml)", file=sys.stderr)
+        return 2
+    failed = 0
+    for name, cfg in load_sources_config(args.sources).items():
+        try:
+            print(get_source(name).test_connection(cfg))
+        except SourceError as err:
+            failed += 1
+            print(f"{name}: {err}", file=sys.stderr)
+    return 1 if failed else 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -206,6 +247,7 @@ def build_parser() -> argparse.ArgumentParser:
         sp.add_argument("--config", help="custom scorecard YAML (overrides --profile)")
         sp.add_argument("--mapping", help="YAML file mapping your column names to canonical fields")
         sp.add_argument("--as-of", help="score as of this date (YYYY-MM-DD); default today")
+        sp.add_argument("--sources", help="YAML file of data add-ons to pull in (see examples/sources.yaml)")
 
     sp = sub.add_parser("profiles", help="list industry profiles")
     sp.set_defaults(func=cmd_profiles)
@@ -256,8 +298,14 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--history", type=int, default=4000)
     sp.add_argument("--book", type=int, default=600)
     sp.add_argument("--as-of")
+    sp.add_argument("--sources", help="YAML file of data add-ons (examples/sources.demo.yaml simulates Zendesk)")
     outputs(sp)
     sp.set_defaults(func=cmd_demo, out="demo_out")
+
+    sp = sub.add_parser("sources", help="list data add-ons or test their settings")
+    sp.add_argument("action", choices=["list", "test"])
+    sp.add_argument("--sources", help="YAML file of add-on settings (for test)")
+    sp.set_defaults(func=cmd_sources)
     return p
 
 
@@ -265,7 +313,7 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         return int(args.func(args))
-    except (IngestError, ConfigError, ValueError, FileNotFoundError) as exc:
+    except (IngestError, ConfigError, SourceError, ValueError, FileNotFoundError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 
