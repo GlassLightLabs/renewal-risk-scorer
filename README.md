@@ -46,18 +46,18 @@ The demo takes about 10 seconds. Sample output (AI profile, as of 2026-12-01):
 
 ```
                         ROC AUC   PR AUC    Brier  Lift@10%  ARR@20%
-Scorecard alone           0.912    0.713   0.1044      4.68      73%
-Model alone               0.928    0.774   0.0691      5.03      67%
-Model + scorecard         0.928    0.778   0.0685      5.06      71%
+Scorecard alone           0.911    0.712   0.1043      4.70      66%
+Model alone               0.923    0.762   0.0716      5.01      64%
+Model + scorecard         0.925    0.769   0.0705      5.04      64%
 
-AI products (credits, tokens, hybrid plans): 600 accounts, $139,469,100 ARR, expected ARR loss $14,912,102
-Tiers: critical 33, high 49, watch 239, low 279 | watermelons 7 | overdue 35
-GRR forecast (316 renewals): expected 88.6%, P10 86.0% to P90 90.9%
+AI products (credits, tokens, hybrid plans): 600 accounts, $139,469,100 ARR, expected ARR loss $15,996,151
+Tiers: critical 34, high 48, watch 241, low 277 | watermelons 13 | overdue 35
+GRR forecast (316 renewals): expected 87.6%, P10 84.7% to P90 90.4%
 
-  #  Account                       ARR  Days  Churn Downsell  Exp. loss  Tier     Why
-  1  Oakmont Supply          1,154,800   167    90%      42%  1,056,731  critical Pilot with under 40% of usage in production
-  2  Stonebridge Labs          391,000    44    72%      44%    294,083  critical Three or more P1 tickets in the last 90 days
-  3  Copperline Cloudworks   1,340,700     8    13%      33%    276,918  watch    Invoice 60+ days past due
+  #  Account                              ARR  Days  Churn Downsell   Exp. loss  Tier     Why
+  1  Oakmont Supply                 1,154,800   167    89%      42%   1,037,908  critical Pilot with under 40% of usage in production; it ends without a busines
+  2  Stonebridge Labs                 391,000    44    70%      46%     289,634  critical Three or more P1 tickets or escalations in the last 90 days
+  3  Copperline Cloudworks          1,340,700     8    12%      37%     280,279  watch    Invoice 60+ days past due
 ```
 
 ## How a rep uses it
@@ -115,15 +115,15 @@ Five-fold out-of-fold evaluation on 4,000 synthetic past renewals per profile.
 
 | Profile | ROC AUC: scorecard / model / stacked | Brier: scorecard / stacked |
 |---|---|---|
-| AI products | 0.912 / 0.928 / **0.928** | 0.104 / **0.069** |
-| Seat-based SaaS | 0.872 / 0.882 / **0.884** | 0.064 / **0.057** |
-| Consumption and compute | 0.890 / 0.899 / **0.899** | 0.066 / **0.061** |
-| Hardware and support | 0.896 / 0.936 / **0.935** | 0.064 / **0.048** |
-| Professional services | 0.866 / 0.873 / **0.875** | 0.074 / **0.065** |
+| AI products | 0.911 / 0.923 / **0.925** | 0.104 / **0.071** |
+| Seat-based SaaS | 0.878 / 0.896 / **0.896** | 0.066 / **0.058** |
+| Consumption and compute | 0.891 / 0.904 / **0.904** | 0.064 / **0.057** |
+| Hardware and support | 0.900 / 0.934 / **0.933** | 0.063 / **0.048** |
+| Professional services | 0.864 / 0.873 / **0.876** | 0.074 / **0.064** |
 
 The model adds the most where interactions matter (hardware fleets, AI burn) and the least where the scorecard already captures the story. The stack keeps the scorecard's transparency and the model's calibration: Brier score, which measures whether a 30% probability really means 30%, improves on every profile.
 
-**Backtest.** Cross-validation can flatter a model, so `renewal-risk evaluate` also trains on the earlier 75% of renewals and scores the later 25% it never saw, the way it would be used. It reports ranking against the scorecard alone, calibration, churn by health band, whether flagged watermelons really churned more than other green accounts, and whether actual GRR landed inside the forecast range. The full synthetic report, including where it falls short (one profile's GRR landed outside its range, and most profiles flag too few watermelons to judge), is in [docs/evaluation.md](docs/evaluation.md). Run it on your own history:
+**Backtest.** Cross-validation can flatter a model, so `renewal-risk evaluate` also trains on the earlier 75% of renewals and scores the later 25% it never saw, the way it would be used. It reports ranking against the scorecard alone, calibration, churn by health band, whether flagged watermelons really churned more than other green accounts, and whether actual GRR landed inside the forecast range. The full synthetic report, including where it falls short (one profile's GRR landed outside its range, and no profile flags enough watermelons to judge them on a 1,000-renewal test set), is in [docs/evaluation.md](docs/evaluation.md). Run it on your own history:
 
 ```bash
 renewal-risk evaluate past_renewals.csv --profile saas --out evaluation.md

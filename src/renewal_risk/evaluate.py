@@ -234,8 +234,9 @@ def _section(b: Backtest) -> list[str]:
     ]
     wm = b.watermelons
     if wm.get("flagged"):
+        verb = "was" if wm["flagged"] == 1 else "were"
         line = (
-            f"**Watermelons:** {wm['flagged']} of {wm['green']:,} green accounts were flagged. "
+            f"**Watermelons:** {wm['flagged']} of {wm['green']:,} green accounts {verb} flagged. "
             f"{_pct(wm.get('churn_rate'), 1)} of them churned, against {_pct(wm.get('other_green_churn_rate'), 1)} "
             "of the other green accounts."
         )
