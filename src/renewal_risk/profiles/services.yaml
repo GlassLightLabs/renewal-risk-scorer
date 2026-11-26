@@ -1,0 +1,87 @@
+# Professional and managed services: retainers, managed service providers (MSPs), outsourced operations
+# and subscription services with a delivery team.
+#
+# Value is delivered by people against commitments, so the leading signals are whether the customer is
+# using what they bought (hours pacing), whether delivery keeps its promises (SLA attainment, milestones
+# on time) and whether the delivery lead on the account is stable. Under-used retainers are the services
+# version of shelfware: they get cut at renewal.
+
+profile: services
+label: Professional and managed services
+description: Retainers, managed services and delivery-heavy subscriptions scored on hours pacing, SLA attainment, on-time delivery, team stability, sentiment and commercial terms.
+base: _common.yaml
+
+groups:
+  delivery:
+    label: Delivery & value
+    weight: 40
+    indicator: leading
+    measures:
+      sla_attainment_pct:       {weight: 35, points: [[85, 0], [92, 40], [96, 75], [99, 100]]}
+      milestones_on_time_pct:   {weight: 25, points: [[50, 0], [70, 40], [85, 75], [95, 100]]}
+      hours_pacing_pct:         {weight: 25, points: [[40, 0], [60, 35], [80, 75], [95, 100]]}
+      delivery_lead_change_90d: {weight: 15, if_true: 30, if_false: 100}
+
+  relationship:
+    label: Relationship & engagement
+    weight: 20
+    indicator: leading
+    measures:
+      champion_change_90d:     {weight: 30, if_true: 0, if_false: 100}
+      exec_sponsor:            {weight: 25, if_true: 100, if_false: 25}
+      competitor_eval:         {weight: 25, if_true: 0, if_false: 100}
+      qbr_last_180d:           {weight: 20, if_true: 100, if_false: 35}
+
+  experience:
+    label: Customer experience
+    weight: 25
+    indicator: lagging
+    measures:
+      csat:           {weight: 30, points: [[60, 0], [75, 45], [85, 80], [95, 100]]}
+      nps:            {weight: 30, points: [[0, 0], [4, 15], [6, 40], [7, 60], [8, 80], [9, 100]]}
+      csm_sentiment:  {weight: 25, points: [[1, 0], [2, 25], [3, 55], [4, 80], [5, 100]]}
+      p1_tickets_90d: {weight: 15, points: [[0, 100], [1, 65], [2, 40], [4, 10]]}
+
+  commercial:
+    label: Commercial
+    weight: 15
+    indicator: lagging
+    measures:
+      days_past_due:      {weight: 40, points: [[0, 100], [15, 85], [30, 60], [60, 25], [90, 0]]}
+      price_increase_pct: {weight: 30, points: [[0, 100], [5, 80], [10, 50], [15, 25], [25, 0]]}
+      tenure_months:      {weight: 30, points: [[6, 40], [12, 60], [24, 80], [36, 95], [60, 100]]}
+
+model_features:
+  - [sla_attainment_pct, -1, delivery, SLA attainment, pct1]
+  - [milestones_on_time_pct, -1, delivery, Milestones on time, pct]
+  - [hours_pacing_pct, -1, delivery, Hours pacing vs contract, pct]
+  - [delivery_lead_change_90d, 1, delivery, Delivery lead changed (90d), bool]
+  - [champion_change_90d, 1, relationship, Champion left (90d), bool]
+  - [exec_sponsor, -1, relationship, Executive sponsor, bool]
+  - [competitor_eval, 1, relationship, Competitor evaluation, bool]
+  - [qbr_last_180d, -1, relationship, QBR in last 180 days, bool]
+  - [csat, -1, experience, CSAT, pct]
+  - [nps, -1, experience, NPS, score10]
+  - [csm_sentiment, -1, experience, CSM sentiment, score5]
+  - [p1_tickets_90d, 1, experience, Escalations (90d), count]
+  - [days_past_due, 1, commercial, Days past due, days]
+  - [price_increase_pct, 1, commercial, Renewal uplift, pct]
+  - [tenure_months, -1, commercial, Tenure, months]
+
+alerts:
+  - id: sla_breach
+    severity: high
+    message: SLA attainment under 93%
+    when: [[sla_attainment_pct, "<", 93]]
+  - id: underused_retainer
+    severity: medium
+    message: Under 60% of contracted hours used for the time elapsed; expect a smaller renewal
+    when: [[hours_pacing_pct, "<", 60]]
+  - id: delivery_slipping
+    severity: medium
+    message: Fewer than 70% of milestones delivered on time
+    when: [[milestones_on_time_pct, "<", 70]]
+  - id: delivery_lead_change
+    severity: medium
+    message: Delivery lead changed in the last 90 days
+    when: [[delivery_lead_change_90d, "==", 1]]

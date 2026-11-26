@@ -1,0 +1,201 @@
+Account ID,Account Name,Account Owner,Customer_Segment__c,Industry,ARR__c,Renewal_Date__c,Customer_Since__c,Licensed_Users__c,Active_Users_30d__c,Active_Users_Prior_Quarter__c,Open Cases,Priority_1_Cases__c,Executive_Sponsor__c,Champion_Departed__c,Days_Past_Due__c,Renewal_Uplift__c,Auto_Renewal__c,Multi_Year__c
+A-90001,Halcyon Freight,J. Okafor,Enterprise,Logistics,"$1,240,000.00",02/14/2027,12/15/2023,2200.0,1540.0,2370.0,90.0,0.0,true,true,0.0,0.12,false,false
+A-90002,Brightwater Clinics,S. Patel,Mid-Market,Healthcare,"$243,000.00",01/10/2027,11/10/2024,400.0,124.0,150.0,71.0,4.0,true,false,45.0,0.07,false,false
+A-90003,Quarry Lane Software,M. Lindqvist,SMB,Technology,"$38,400.00",11/21/2026,11/21/2025,80.0,31.0,44.0,2.0,0.0,false,false,0.0,0.05,false,false
+A-90004,Ironleaf Manufacturing,A. Rivera,Enterprise,Manufacturing,"$910,000.00",09/27/2027,05/28/2022,1600.0,1440.0,1380.0,60.0,0.0,true,false,0.0,0.05,false,true
+A-90005,Copperline Media,K. Nakamura,Mid-Market,Media,"$186,000.00",04/30/2027,10/29/2024,310.0,248.0,240.0,14.0,0.0,true,false,78.0,0.05,false,false
+A-00001,Foxglove Logistics,J. Okafor,SMB,Logistics,"$12,100.00",01/20/2027,02/19/2026,31.0,6.0,7.0,2.0,0.0,false,false,0.0,0.07,true,false
+A-00002,Meridian Properties,A. Rivera,Mid-Market,Other,"$164,700.00",08/08/2027,04/07/2025,254.0,228.0,222.0,9.0,0.0,true,false,0.0,0.0,false,false
+A-00003,Maple Bay Health,R. Haddad,Mid-Market,Healthcare,"$44,400.00",12/05/2026,01/04/2026,91.0,26.0,31.0,19.0,0.0,false,false,0.0,0.0,false,false
+A-00004,Fairhaven Credit Union,R. Haddad,SMB,Financial Services,"$32,100.00",12/24/2026,10/23/2021,69.0,46.0,45.0,8.0,0.0,true,false,0.0,0.0,false,false
+A-00005,Hawthorn Clinics,S. Patel,SMB,Healthcare,"$10,300.00",07/26/2027,03/25/2022,23.0,18.0,17.0,2.0,0.0,false,false,0.0,0.05,true,false
+A-00006,Ironleaf Energy,D. Moreau,Enterprise,Other,"$185,800.00",07/04/2027,03/03/2026,347.0,170.0,261.0,37.0,2.0,true,false,0.0,0.05,false,false
+A-00007,Northgate Credit Union,K. Nakamura,SMB,Financial Services,"$16,700.00",07/01/2027,07/31/2026,36.0,23.0,28.0,6.0,0.0,false,false,0.0,0.05,true,true
+A-00008,Meridian Logistics,A. Rivera,SMB,Logistics,"$9,800.00",11/27/2026,08/27/2023,24.0,21.0,19.0,4.0,0.0,false,false,0.0,0.15,true,false
+A-00009,Ironleaf Transit,A. Rivera,Enterprise,Logistics,"$702,800.00",07/31/2027,06/29/2024,1180.0,982.0,962.0,130.0,0.0,true,false,21.0,0.1,false,false
+A-00010,Hawthorn Schools,D. Moreau,Mid-Market,Education,"$34,900.00",01/12/2027,10/12/2024,52.0,30.0,29.0,6.0,0.0,false,false,0.0,0.0,true,false
+A-00011,Bluefin Dental Group,M. Lindqvist,SMB,Healthcare,"$8,000.00",10/02/2027,05/02/2023,17.0,15.0,14.0,1.0,0.0,false,false,0.0,0.03,true,false
+A-00012,Millbrook Biotech,S. Patel,Mid-Market,Life Sciences,"$90,000.00",03/30/2027,04/29/2026,148.0,120.0,121.0,25.0,0.0,true,false,0.0,0.05,false,false
+A-00013,Windward Builders,A. Rivera,Mid-Market,Manufacturing,"$88,000.00",06/11/2027,03/11/2023,123.0,90.0,92.0,16.0,0.0,false,false,0.0,0.07,true,true
+A-00014,Pinecrest Labs,J. Okafor,SMB,Life Sciences,"$12,300.00",10/17/2027,02/15/2026,30.0,23.0,23.0,4.0,0.0,true,false,0.0,0.05,true,false
+A-00015,Sandstone Health,M. Lindqvist,SMB,Healthcare,"$23,200.00",04/03/2027,03/03/2025,43.0,33.0,30.0,1.0,0.0,true,false,0.0,0.0,true,false
+A-00016,Windward Retail,T. Brennan,Mid-Market,Retail,"$198,900.00",03/07/2027,04/06/2026,334.0,185.0,191.0,36.0,0.0,false,false,0.0,0.0,false,true
+A-00017,Birch Clinics,K. Nakamura,Mid-Market,Healthcare,"$218,600.00",02/16/2027,06/17/2025,284.0,235.0,222.0,31.0,0.0,true,false,0.0,0.03,false,false
+A-00018,Evergreen Energy,T. Brennan,Mid-Market,Other,"$78,400.00",04/22/2027,08/20/2024,123.0,53.0,62.0,15.0,1.0,true,false,0.0,0.05,true,true
+A-00019,Tidewater Robotics,M. Lindqvist,Enterprise,Manufacturing,"$1,452,200.00",05/31/2027,03/30/2026,2772.0,1171.0,1234.0,41.0,1.0,true,false,0.0,0.0,true,false
+A-00020,Sandstone Medical,D. Moreau,Mid-Market,Healthcare,"$79,300.00",04/01/2027,10/30/2025,157.0,108.0,120.0,4.0,0.0,true,false,0.0,0.05,false,false
+A-00021,Brightwater Manufacturing,K. Nakamura,Enterprise,Manufacturing,"$980,600.00",04/28/2027,04/27/2026,1656.0,1431.0,1370.0,144.0,0.0,true,false,0.0,0.03,false,true
+A-00022,Pinecrest Travel,D. Moreau,SMB,Other,"$7,700.00",09/17/2027,04/17/2025,17.0,12.0,11.0,1.0,0.0,false,false,0.0,0.15,true,false
+A-00023,Granite Cloudworks,A. Rivera,Mid-Market,Technology,"$36,200.00",04/29/2027,05/29/2026,59.0,26.0,27.0,5.0,0.0,true,false,0.0,0.05,true,false
+A-00024,Ember Dental Group,K. Nakamura,Mid-Market,Healthcare,"$23,000.00",08/09/2027,10/08/2025,35.0,23.0,20.0,2.0,0.0,true,false,0.0,0.15,false,false
+A-00025,Fairhaven Medical,S. Patel,SMB,Healthcare,"$9,600.00",02/22/2027,02/21/2026,22.0,14.0,,3.0,0.0,true,false,0.0,0.05,false,false
+A-00026,Oakmont Medical,K. Nakamura,Mid-Market,Healthcare,"$46,200.00",11/19/2026,05/20/2023,90.0,35.0,34.0,5.0,0.0,false,false,0.0,0.05,false,false
+A-00027,Amber Wealth,S. Patel,SMB,Financial Services,"$6,900.00",01/25/2027,02/24/2026,20.0,13.0,13.0,1.0,0.0,false,false,0.0,0.15,false,false
+A-00028,Ember Wealth,K. Nakamura,Enterprise,Financial Services,"$1,003,900.00",09/26/2027,09/25/2025,1695.0,238.0,285.0,170.0,0.0,true,false,0.0,0.03,false,false
+A-00029,Atlas Outfitters,D. Moreau,Enterprise,Retail,"$218,000.00",09/13/2027,11/12/2023,400.0,216.0,219.0,24.0,1.0,false,false,0.0,0.05,false,true
+A-00030,Prairie Software,A. Rivera,SMB,Technology,"$3,900.00",05/04/2027,10/03/2023,7.0,3.0,3.0,0.0,2.0,false,false,0.0,0.0,false,false
+A-00031,Stonebridge Robotics,J. Okafor,Mid-Market,Manufacturing,"$138,500.00",11/22/2027,07/22/2026,157.0,62.0,62.0,3.0,0.0,false,false,0.0,0.0,false,true
+A-00032,Copperline Consulting,D. Moreau,SMB,Professional Services,"$12,400.00",04/27/2027,12/26/2023,25.0,11.0,,12.0,1.0,false,false,0.0,0.03,true,false
+A-00033,Oakmont Outfitters,K. Nakamura,SMB,Retail,"$8,100.00",07/27/2027,04/26/2026,17.0,5.0,6.0,1.0,0.0,false,false,0.0,0.0,false,false
+A-00034,Keystone Foods,J. Okafor,Enterprise,Retail,"$425,600.00",06/26/2027,07/26/2022,727.0,337.0,,45.0,0.0,true,false,0.0,0.03,false,false
+A-00035,Boulder Health,T. Brennan,SMB,Healthcare,"$3,500.00",07/02/2027,08/31/2025,8.0,6.0,6.0,0.0,0.0,false,false,89.0,0.1,true,false
+A-00036,Falcon Consulting,M. Lindqvist,SMB,Professional Services,"$7,200.00",07/26/2027,09/24/2025,19.0,17.0,15.0,1.0,0.0,true,false,0.0,0.0,false,false
+A-00037,Atlas Analytics,R. Haddad,Mid-Market,Technology,"$32,200.00",01/15/2027,02/14/2026,86.0,62.0,61.0,6.0,0.0,true,false,0.0,0.0,false,false
+A-00038,Northgate Therapeutics,T. Brennan,SMB,Life Sciences,"$12,800.00",01/12/2027,06/12/2021,26.0,21.0,18.0,2.0,0.0,true,false,0.0,0.05,false,false
+A-00039,Oakmont Schools,A. Rivera,Enterprise,Education,"$1,028,200.00",05/02/2027,05/01/2021,1749.0,1008.0,1138.0,203.0,0.0,true,false,0.0,0.03,false,true
+A-00040,Evergreen Software,T. Brennan,SMB,Technology,"$6,000.00",02/08/2027,06/08/2024,14.0,6.0,7.0,1.0,0.0,false,false,0.0,0.0,false,false
+A-00041,Riverbend Engineering,S. Patel,SMB,Manufacturing,"$11,300.00",11/09/2027,09/08/2024,26.0,16.0,15.0,3.0,0.0,false,false,0.0,0.07,true,false
+A-00042,Amber Insurance Partners,S. Patel,SMB,Financial Services,"$11,200.00",11/28/2027,07/28/2026,22.0,19.0,17.0,3.0,0.0,true,false,0.0,0.1,true,false
+A-00043,Timberline Credit Union,M. Lindqvist,SMB,Financial Services,"$15,600.00",11/17/2027,08/17/2022,31.0,15.0,13.0,2.0,0.0,false,false,52.0,0.07,false,false
+A-00044,Driftwood Outfitters,T. Brennan,Mid-Market,Retail,"$211,900.00",12/04/2026,11/03/2025,336.0,215.0,208.0,23.0,1.0,false,false,0.0,0.07,false,false
+A-00045,Driftwood Telecom,D. Moreau,Enterprise,Technology,"$742,700.00",12/09/2026,01/08/2026,1474.0,849.0,836.0,35.0,0.0,false,true,0.0,0.07,false,true
+A-00046,Highland Staffing,S. Patel,Mid-Market,Professional Services,"$140,100.00",06/15/2027,03/15/2026,206.0,21.0,34.0,9.0,0.0,false,false,0.0,0.15,false,false
+A-00047,Cobalt Utilities,A. Rivera,SMB,Other,"$15,800.00",10/01/2027,05/01/2025,32.0,6.0,8.0,1.0,0.0,false,false,0.0,0.0,false,false
+A-00048,Falcon Energy,D. Moreau,SMB,Other,"$10,200.00",04/09/2027,05/09/2023,16.0,8.0,8.0,2.0,0.0,true,false,0.0,0.1,true,false
+A-00049,Highland Robotics,K. Nakamura,SMB,Manufacturing,"$7,200.00",02/02/2027,07/03/2024,20.0,13.0,15.0,1.0,0.0,false,false,0.0,0.07,true,false
+A-00050,Fairhaven Cloudworks,R. Haddad,Enterprise,Technology,"$706,600.00",07/17/2027,05/16/2026,1222.0,673.0,797.0,234.0,0.0,false,false,0.0,0.1,false,true
+A-00051,Sandstone Media,S. Patel,Mid-Market,Media,"$145,900.00",11/10/2027,04/10/2025,282.0,215.0,239.0,23.0,0.0,true,false,0.0,0.07,true,false
+A-00052,Westbrook Cloudworks,S. Patel,Mid-Market,Technology,"$162,800.00",08/20/2027,07/19/2024,291.0,244.0,259.0,34.0,0.0,true,false,0.0,0.05,false,true
+A-00053,Riverbend Media,T. Brennan,SMB,Media,"$51,300.00",02/06/2027,01/06/2024,78.0,36.0,34.0,8.0,1.0,true,false,0.0,0.05,false,false
+A-00054,Riverbend Media Group,J. Okafor,SMB,Media,"$3,900.00",11/12/2026,05/12/2021,10.0,6.0,5.0,1.0,0.0,false,false,0.0,0.0,false,false
+A-00055,Foxglove Legal,A. Rivera,Enterprise,Professional Services,"$499,900.00",09/04/2027,07/04/2026,970.0,674.0,625.0,36.0,0.0,true,false,0.0,0.03,false,false
+A-00056,Foxglove Freight,S. Patel,Mid-Market,Logistics,"$26,300.00",04/16/2027,01/14/2025,48.0,43.0,,10.0,0.0,true,false,0.0,0.0,false,false
+A-00057,Prairie Clinics,S. Patel,SMB,Healthcare,"$7,500.00",11/15/2027,12/15/2026,15.0,12.0,11.0,1.0,0.0,false,false,0.0,0.03,false,false
+A-00058,Keystone Ventures,A. Rivera,SMB,Other,"$3,200.00",03/08/2027,11/05/2024,8.0,4.0,4.0,0.0,0.0,false,false,0.0,0.07,false,false
+A-00059,Hawthorn Biotech,S. Patel,SMB,Life Sciences,"$12,500.00",11/29/2026,09/28/2021,40.0,33.0,35.0,2.0,0.0,true,false,0.0,0.03,false,false
+A-00060,Bluefin Ventures,S. Patel,SMB,Other,"$14,000.00",12/12/2026,02/11/2024,32.0,31.0,25.0,1.0,0.0,true,false,0.0,0.1,true,false
+A-00061,Ember Engineering,R. Haddad,SMB,Manufacturing,"$5,500.00",11/15/2026,12/15/2023,11.0,5.0,7.0,2.0,0.0,true,true,0.0,0.0,true,false
+A-00062,Summit Energy,A. Rivera,Enterprise,Other,"$637,000.00",07/29/2027,01/27/2023,1214.0,590.0,539.0,167.0,0.0,true,false,0.0,0.05,false,false
+A-00063,Windward Consulting,R. Haddad,Mid-Market,Professional Services,"$130,800.00",06/05/2027,11/03/2025,209.0,132.0,138.0,39.0,0.0,true,false,0.0,0.0,false,false
+A-00064,Granite Logistics,A. Rivera,SMB,Logistics,"$21,300.00",05/07/2027,08/06/2023,57.0,41.0,,16.0,0.0,false,false,51.0,0.05,false,false
+A-00065,Tidewater Outfitters,J. Okafor,Mid-Market,Retail,"$112,900.00",04/26/2027,09/24/2025,221.0,181.0,206.0,11.0,0.0,true,false,0.0,0.07,true,false
+A-00066,Tidewater Ventures,T. Brennan,SMB,Other,"$9,400.00",10/06/2027,10/05/2025,22.0,18.0,17.0,0.0,0.0,true,false,0.0,0.1,true,false
+A-00067,Copperline Software,M. Lindqvist,SMB,Technology,"$6,600.00",11/09/2027,10/09/2026,19.0,16.0,13.0,1.0,0.0,false,true,0.0,0.07,true,false
+A-00068,Ember Utilities,K. Nakamura,Mid-Market,Other,"$109,200.00",12/08/2026,07/08/2025,195.0,42.0,43.0,18.0,2.0,true,false,0.0,0.0,false,false
+A-00069,Prairie Manufacturing,K. Nakamura,Enterprise,Manufacturing,"$522,400.00",03/03/2027,12/01/2020,1192.0,999.0,965.0,16.0,0.0,true,false,0.0,0.05,false,true
+A-00070,Evergreen Properties,S. Patel,SMB,Other,"$6,100.00",12/26/2026,01/25/2024,15.0,11.0,11.0,1.0,0.0,false,false,0.0,0.03,true,false
+A-00071,Willow Cloudworks,S. Patel,Enterprise,Technology,"$292,400.00",11/18/2026,07/18/2024,480.0,203.0,231.0,58.0,2.0,true,false,0.0,0.05,false,false
+A-00072,Foxglove Telecom,S. Patel,SMB,Technology,"$16,000.00",08/06/2027,08/05/2025,38.0,35.0,29.0,2.0,0.0,true,false,0.0,0.0,false,false
+A-00073,Quarry Lane Medical,M. Lindqvist,SMB,Healthcare,"$6,800.00",10/12/2027,01/10/2026,13.0,9.0,9.0,1.0,1.0,false,false,0.0,0.03,true,false
+A-00074,Prairie Hospitality,S. Patel,SMB,Other,"$7,700.00",12/25/2026,11/24/2025,17.0,7.0,7.0,1.0,1.0,false,false,0.0,0.05,true,false
+A-00075,Copperline Freight,T. Brennan,SMB,Logistics,"$13,300.00",07/01/2027,07/31/2026,32.0,26.0,24.0,7.0,1.0,false,false,0.0,0.0,true,false
+A-00076,Tidewater Dental Group,J. Okafor,Mid-Market,Healthcare,"$66,600.00",04/05/2027,01/03/2026,130.0,66.0,,31.0,0.0,false,false,44.0,0.05,false,true
+A-00077,Falcon Builders,R. Haddad,Mid-Market,Manufacturing,"$163,700.00",05/28/2027,11/26/2025,265.0,74.0,104.0,10.0,0.0,false,false,74.0,0.1,true,false
+A-00078,Bluefin Outfitters,S. Patel,Enterprise,Retail,"$215,600.00",10/16/2027,07/16/2026,509.0,232.0,,22.0,2.0,true,false,0.0,0.05,true,true
+A-00079,Beacon Supply,M. Lindqvist,SMB,Logistics,"$15,600.00",07/12/2027,05/11/2026,32.0,15.0,29.0,3.0,0.0,false,true,0.0,0.03,false,false
+A-00080,Ironleaf Pharma,R. Haddad,SMB,Life Sciences,"$3,000.00",07/23/2027,03/22/2024,9.0,5.0,13.0,1.0,0.0,false,true,0.0,0.0,true,false
+A-00081,Northgate Wealth,D. Moreau,SMB,Financial Services,"$2,600.00",10/26/2027,10/25/2022,8.0,2.0,3.0,1.0,0.0,true,true,0.0,0.05,true,false
+A-00082,Ember Engineering Holdings,K. Nakamura,Enterprise,Manufacturing,"$239,200.00",07/27/2027,08/25/2024,534.0,349.0,309.0,59.0,0.0,true,false,0.0,0.03,false,true
+A-00083,Maple Bay Engineering,T. Brennan,Enterprise,Manufacturing,"$410,200.00",02/20/2027,09/20/2023,1066.0,620.0,567.0,145.0,0.0,true,false,0.0,0.05,false,true
+A-00084,Atlas Therapeutics,T. Brennan,SMB,Life Sciences,"$5,600.00",01/19/2027,02/18/2026,13.0,6.0,7.0,2.0,1.0,false,true,56.0,0.07,false,false
+A-00085,Clearpath Biotech,J. Okafor,SMB,Life Sciences,"$3,300.00",02/15/2027,02/14/2025,9.0,6.0,7.0,2.0,2.0,true,false,0.0,0.05,false,false
+A-00086,Willow Energy,D. Moreau,SMB,Other,"$15,900.00",01/01/2027,12/31/2024,41.0,30.0,27.0,3.0,0.0,true,false,0.0,0.07,false,false
+A-00087,Atlas Credit Union,T. Brennan,Mid-Market,Financial Services,"$51,500.00",11/27/2027,10/27/2026,76.0,50.0,,4.0,0.0,false,false,0.0,0.07,true,false
+A-00088,Granite Legal,A. Rivera,SMB,Professional Services,"$5,300.00",10/11/2027,05/11/2026,19.0,13.0,13.0,1.0,0.0,false,false,0.0,0.07,false,true
+A-00089,Keystone Health,T. Brennan,SMB,Healthcare,"$9,300.00",05/30/2027,06/29/2023,23.0,12.0,12.0,7.0,1.0,false,false,0.0,0.03,false,false
+A-00090,Oakmont Insurance Partners,M. Lindqvist,SMB,Financial Services,"$6,800.00",11/11/2026,11/10/2022,15.0,8.0,9.0,2.0,1.0,false,false,0.0,0.05,true,false
+A-00091,Harbor Therapeutics,K. Nakamura,SMB,Life Sciences,"$12,800.00",11/24/2026,07/25/2023,25.0,22.0,21.0,3.0,0.0,true,false,37.0,0.03,true,false
+A-00092,Lakeshore Outfitters,J. Okafor,Enterprise,Retail,"$772,200.00",09/06/2027,05/06/2025,1438.0,688.0,607.0,256.0,2.0,true,false,0.0,0.0,false,false
+A-00093,Evergreen Pharma,K. Nakamura,Mid-Market,Life Sciences,"$67,800.00",08/31/2027,09/30/2026,127.0,82.0,89.0,21.0,0.0,false,false,0.0,0.05,false,true
+A-00094,Orchard Hospitality,K. Nakamura,Mid-Market,Other,"$179,600.00",11/11/2027,12/11/2022,250.0,107.0,161.0,84.0,0.0,false,false,0.0,0.0,false,true
+A-00095,Juniper Supply,K. Nakamura,Mid-Market,Logistics,"$67,500.00",06/16/2027,06/15/2024,94.0,46.0,40.0,4.0,0.0,false,false,0.0,0.05,true,false
+A-00096,Evergreen Manufacturing,A. Rivera,Mid-Market,Manufacturing,"$65,600.00",03/12/2027,10/10/2024,72.0,54.0,54.0,6.0,0.0,true,false,0.0,0.05,false,false
+A-00097,Blue Heron Software,D. Moreau,Mid-Market,Technology,"$136,800.00",11/28/2026,10/28/2023,152.0,63.0,54.0,19.0,1.0,false,false,0.0,0.0,true,true
+A-00098,Cedar Ridge Travel,M. Lindqvist,Enterprise,Other,"$281,500.00",10/16/2027,10/15/2025,558.0,380.0,433.0,72.0,2.0,true,false,0.0,0.03,false,true
+A-00099,Foxglove Pharma,D. Moreau,SMB,Life Sciences,"$13,600.00",04/04/2027,01/02/2026,25.0,10.0,10.0,2.0,1.0,false,false,96.0,0.05,true,false
+A-00100,Quarry Lane Labs,T. Brennan,Mid-Market,Life Sciences,"$79,900.00",10/28/2027,11/27/2026,127.0,112.0,102.0,4.0,0.0,false,false,0.0,0.0,false,false
+A-00101,Cobalt Engineering,J. Okafor,SMB,Manufacturing,"$5,300.00",06/28/2027,05/28/2026,15.0,7.0,6.0,1.0,0.0,false,false,0.0,0.1,true,false
+A-00102,Orchard Travel,D. Moreau,SMB,Other,"$13,500.00",05/29/2027,12/27/2023,28.0,12.0,13.0,1.0,0.0,false,true,0.0,0.15,true,false
+A-00103,Tidewater Staffing,D. Moreau,Mid-Market,Professional Services,"$142,500.00",10/10/2027,07/10/2026,185.0,130.0,144.0,13.0,2.0,false,false,0.0,0.0,true,false
+A-00104,Silverline Supply,J. Okafor,Enterprise,Logistics,"$57,700.00",08/22/2027,10/21/2023,170.0,126.0,109.0,26.0,1.0,true,false,0.0,0.07,false,false
+A-00105,Foxglove Distribution,K. Nakamura,Mid-Market,Logistics,"$85,900.00",07/24/2027,11/22/2022,111.0,73.0,86.0,13.0,2.0,true,false,0.0,0.03,true,false
+A-00106,Timberline Labs,K. Nakamura,SMB,Life Sciences,"$8,000.00",12/26/2026,01/25/2026,22.0,9.0,9.0,1.0,0.0,false,false,0.0,0.07,true,false
+A-00107,Oakmont Transit,S. Patel,SMB,Logistics,"$15,400.00",07/14/2027,12/12/2024,27.0,22.0,23.0,1.0,0.0,false,false,19.0,0.1,false,false
+A-00108,Silverline Energy,R. Haddad,SMB,Other,"$6,600.00",01/28/2027,02/27/2026,15.0,15.0,11.0,1.0,0.0,false,false,0.0,0.05,true,false
+A-00109,Westbrook Supply,K. Nakamura,Enterprise,Logistics,"$269,500.00",08/25/2027,12/24/2025,500.0,59.0,108.0,78.0,3.0,true,true,0.0,0.05,false,false
+A-00110,Amber Media,J. Okafor,SMB,Media,"$12,100.00",01/31/2027,08/31/2025,22.0,15.0,13.0,2.0,0.0,true,false,0.0,0.03,false,false
+A-00111,Amber Distribution,S. Patel,SMB,Logistics,"$11,900.00",04/22/2027,05/22/2026,30.0,16.0,16.0,3.0,0.0,false,false,70.0,0.05,true,false
+A-00112,Oakmont Hospitality,J. Okafor,SMB,Other,"$3,700.00",11/10/2027,10/10/2026,6.0,4.0,4.0,0.0,1.0,true,false,0.0,0.15,true,false
+A-00113,Millbrook Builders,R. Haddad,SMB,Manufacturing,"$2,800.00",09/20/2027,05/20/2026,8.0,2.0,3.0,0.0,0.0,false,false,15.0,0.03,true,false
+A-00114,Boulder Retail,D. Moreau,Enterprise,Retail,"$327,800.00",07/02/2027,01/30/2025,699.0,297.0,266.0,32.0,0.0,false,false,0.0,0.0,false,false
+A-00115,Cobalt Schools,K. Nakamura,Mid-Market,Education,"$14,300.00",08/17/2027,08/16/2026,29.0,20.0,19.0,2.0,0.0,true,false,0.0,0.15,false,false
+A-00116,Copperline Biotech,D. Moreau,SMB,Life Sciences,"$6,500.00",03/13/2027,08/11/2025,14.0,7.0,8.0,1.0,1.0,true,false,0.0,0.0,false,false
+A-00117,Atlas Foods,A. Rivera,Mid-Market,Retail,"$130,600.00",12/17/2026,01/16/2026,219.0,194.0,179.0,9.0,1.0,true,false,0.0,0.05,false,false
+A-00118,Beacon Staffing,J. Okafor,SMB,Professional Services,"$5,400.00",12/18/2026,01/17/2026,11.0,7.0,7.0,0.0,0.0,false,false,0.0,0.05,false,true
+A-00119,Birch Dental Group,R. Haddad,Mid-Market,Healthcare,"$108,000.00",08/17/2027,02/14/2025,146.0,115.0,135.0,12.0,3.0,false,false,0.0,0.03,false,false
+A-00120,Oakmont Media,D. Moreau,SMB,Media,"$5,900.00",01/18/2027,12/18/2025,12.0,11.0,8.0,1.0,0.0,true,false,0.0,0.1,true,false
+A-00121,Meridian Supply,M. Lindqvist,SMB,Logistics,"$13,400.00",10/21/2027,08/20/2025,26.0,10.0,11.0,4.0,0.0,false,false,0.0,0.0,false,false
+A-00122,Oakmont Medical Co,D. Moreau,SMB,Healthcare,"$15,500.00",04/30/2027,05/29/2025,30.0,16.0,18.0,2.0,1.0,false,false,92.0,0.0,true,false
+A-00123,Boulder Ventures,A. Rivera,Mid-Market,Other,"$174,000.00",11/10/2027,01/09/2025,293.0,186.0,163.0,18.0,0.0,false,false,0.0,0.07,true,false
+A-00124,Union Grove Retail,S. Patel,Mid-Market,Retail,"$73,700.00",01/15/2027,07/16/2023,140.0,89.0,87.0,18.0,0.0,true,true,0.0,0.0,false,false
+A-00125,Redwood Logistics,A. Rivera,SMB,Logistics,"$13,400.00",04/30/2027,05/30/2026,38.0,30.0,32.0,1.0,0.0,false,false,0.0,0.03,true,false
+A-00126,Maple Bay Robotics,S. Patel,Mid-Market,Manufacturing,"$118,300.00",05/30/2027,11/28/2025,171.0,114.0,103.0,22.0,1.0,false,false,0.0,0.0,false,true
+A-00127,Falcon Legal,M. Lindqvist,SMB,Professional Services,"$5,700.00",12/27/2026,02/25/2022,15.0,5.0,5.0,1.0,0.0,false,false,0.0,0.03,true,false
+A-00128,Meridian Therapeutics,R. Haddad,SMB,Life Sciences,"$16,900.00",11/28/2027,12/28/2026,48.0,38.0,33.0,6.0,0.0,false,false,0.0,0.07,false,false
+A-00129,Harbor Biotech,D. Moreau,SMB,Life Sciences,"$5,100.00",06/18/2027,10/17/2021,14.0,13.0,12.0,1.0,1.0,true,false,0.0,0.15,true,false
+A-00130,Boulder Clinics,T. Brennan,SMB,Healthcare,"$8,900.00",09/04/2027,10/04/2026,22.0,18.0,19.0,1.0,0.0,false,false,0.0,0.0,true,false
+A-00131,Boulder Telecom,M. Lindqvist,Enterprise,Technology,"$2,330,800.00",12/19/2026,01/18/2026,4285.0,945.0,1080.0,98.0,1.0,true,false,0.0,0.0,false,true
+A-00132,Beacon Schools,R. Haddad,SMB,Education,"$13,700.00",10/22/2027,05/22/2025,34.0,24.0,25.0,3.0,0.0,false,false,0.0,0.07,true,false
+A-00133,Cedar Ridge Distribution,J. Okafor,SMB,Logistics,"$4,200.00",06/20/2027,04/19/2024,12.0,5.0,7.0,1.0,1.0,false,false,0.0,0.1,true,false
+A-00134,Crescent Manufacturing,K. Nakamura,Mid-Market,Manufacturing,"$106,200.00",12/01/2026,10/31/2025,160.0,120.0,122.0,5.0,0.0,false,false,0.0,0.0,false,false
+A-00135,Oakmont Outfitters Partners,R. Haddad,Enterprise,Retail,"$245,400.00",08/26/2027,04/25/2026,712.0,379.0,358.0,155.0,1.0,true,false,0.0,0.05,false,true
+A-00136,Boulder Outfitters,T. Brennan,Enterprise,Retail,"$445,200.00",04/13/2027,05/13/2026,909.0,807.0,764.0,65.0,0.0,true,false,0.0,0.05,true,false
+A-00137,Blue Heron Telecom,M. Lindqvist,Mid-Market,Technology,"$39,900.00",06/28/2027,10/27/2022,55.0,43.0,36.0,2.0,0.0,true,false,0.0,0.05,false,false
+A-00138,Birch Clinics Group,R. Haddad,SMB,Healthcare,"$10,100.00",09/29/2027,10/29/2026,23.0,20.0,20.0,6.0,0.0,true,false,0.0,0.05,false,false
+A-00139,Harbor Therapeutics Group,R. Haddad,Enterprise,Life Sciences,"$253,400.00",08/05/2027,07/05/2023,392.0,246.0,,22.0,1.0,true,false,81.0,0.03,false,true
+A-00140,Clearpath Insurance Partners,S. Patel,Mid-Market,Financial Services,"$101,900.00",11/08/2027,10/07/2021,167.0,114.0,139.0,30.0,1.0,false,false,0.0,0.1,true,false
+A-00141,Copperline Builders,J. Okafor,SMB,Manufacturing,"$11,700.00",08/27/2027,06/26/2024,25.0,19.0,20.0,0.0,0.0,false,false,0.0,0.0,true,true
+A-00142,Maple Bay Builders,D. Moreau,Mid-Market,Manufacturing,"$134,500.00",10/22/2027,11/21/2026,223.0,194.0,181.0,61.0,1.0,false,false,0.0,0.1,true,true
+A-00143,Quarry Lane Clinics,K. Nakamura,SMB,Healthcare,"$29,400.00",05/14/2027,09/11/2024,76.0,54.0,49.0,6.0,0.0,false,false,21.0,0.15,true,false
+A-00144,Highland Hospitality,J. Okafor,Enterprise,Other,"$204,400.00",01/01/2027,10/01/2024,368.0,235.0,236.0,26.0,0.0,false,false,0.0,0.07,false,true
+A-00145,Riverbend Software,M. Lindqvist,Mid-Market,Technology,"$47,200.00",02/18/2027,07/19/2025,66.0,56.0,46.0,6.0,0.0,false,false,0.0,0.03,false,false
+A-00146,Juniper Engineering,D. Moreau,Enterprise,Manufacturing,"$196,500.00",05/16/2027,06/14/2024,546.0,374.0,483.0,19.0,0.0,true,false,0.0,0.1,false,false
+A-00147,Summit Software,R. Haddad,Mid-Market,Technology,"$49,300.00",09/11/2027,02/09/2026,96.0,55.0,55.0,12.0,0.0,false,false,0.0,0.0,true,false
+A-00148,Driftwood Distribution,M. Lindqvist,SMB,Logistics,"$9,600.00",10/25/2027,03/25/2026,34.0,1.0,2.0,3.0,0.0,false,true,0.0,0.05,false,false
+A-00149,Tidewater Engineering,K. Nakamura,Mid-Market,Manufacturing,"$55,200.00",05/26/2027,11/24/2025,110.0,65.0,77.0,10.0,0.0,false,false,0.0,0.05,false,true
+A-00150,Brightwater Legal,K. Nakamura,SMB,Professional Services,"$4,600.00",03/03/2027,08/01/2022,14.0,8.0,8.0,1.0,0.0,false,false,0.0,0.0,false,false
+A-00151,Maple Bay Builders Holdings,K. Nakamura,SMB,Manufacturing,"$3,800.00",08/07/2027,04/06/2026,10.0,1.0,1.0,0.0,1.0,false,false,0.0,0.15,true,false
+A-00152,Ironleaf Properties,J. Okafor,SMB,Other,"$5,500.00",06/27/2027,01/25/2024,14.0,11.0,10.0,1.0,0.0,true,false,0.0,0.0,true,false
+A-00153,Meridian Travel,A. Rivera,Mid-Market,Other,"$73,000.00",04/09/2027,04/08/2025,103.0,79.0,79.0,12.0,0.0,false,false,0.0,0.05,false,false
+A-00154,Silverline Hospitality,J. Okafor,SMB,Other,"$9,900.00",11/05/2027,12/04/2025,19.0,9.0,9.0,1.0,0.0,true,false,0.0,0.0,true,false
+A-00155,Beacon Pharma,R. Haddad,Mid-Market,Life Sciences,"$29,200.00",10/26/2027,03/26/2018,57.0,49.0,50.0,4.0,0.0,true,false,0.0,0.03,true,false
+A-00156,Sandstone Therapeutics,D. Moreau,Mid-Market,Life Sciences,"$69,300.00",10/22/2027,01/21/2024,128.0,100.0,85.0,7.0,0.0,true,false,0.0,0.07,false,false
+A-00157,Maple Bay Media,M. Lindqvist,SMB,Media,"$13,000.00",04/12/2027,05/12/2026,28.0,22.0,,3.0,0.0,false,false,0.0,0.05,true,true
+A-00158,Meridian Consulting,A. Rivera,Mid-Market,Professional Services,"$86,900.00",11/30/2026,05/31/2023,165.0,37.0,36.0,29.0,3.0,true,false,0.0,0.03,false,false
+A-00159,Beacon Legal,K. Nakamura,SMB,Professional Services,"$3,900.00",06/30/2027,10/29/2025,10.0,4.0,4.0,1.0,2.0,false,true,0.0,0.05,true,false
+A-00160,Tidewater Foods,S. Patel,Mid-Market,Retail,"$92,300.00",02/20/2027,07/21/2025,219.0,171.0,174.0,9.0,0.0,true,false,20.0,0.0,false,false
+A-00161,Ember Wealth Partners,R. Haddad,SMB,Financial Services,"$15,200.00",07/13/2027,06/12/2026,32.0,28.0,25.0,11.0,0.0,false,false,97.0,0.05,true,false
+A-00162,Blue Heron Media,S. Patel,Mid-Market,Media,"$99,500.00",12/17/2026,10/16/2025,160.0,150.0,139.0,4.0,0.0,false,false,0.0,0.1,false,true
+A-00163,Atlas Travel,A. Rivera,SMB,Other,"$3,500.00",06/03/2027,05/02/2024,10.0,9.0,9.0,1.0,0.0,false,false,0.0,0.0,true,false
+A-00164,Sandstone Outfitters,R. Haddad,Mid-Market,Retail,"$26,000.00",01/30/2027,05/30/2020,56.0,12.0,24.0,4.0,0.0,true,true,16.0,0.03,false,false
+A-00165,Windward Wealth,A. Rivera,Mid-Market,Financial Services,"$66,700.00",09/13/2027,04/13/2025,137.0,4.0,10.0,22.0,1.0,false,false,0.0,0.03,false,true
+A-00166,Granite Distribution,S. Patel,Mid-Market,Logistics,"$46,200.00",11/01/2027,01/30/2026,72.0,66.0,68.0,5.0,1.0,false,false,0.0,0.0,false,false
+A-00167,Ember Retail,R. Haddad,SMB,Retail,"$3,400.00",02/22/2027,12/22/2024,9.0,6.0,6.0,0.0,0.0,false,false,0.0,0.1,true,false
+A-00168,Crescent Medical,S. Patel,Enterprise,Healthcare,"$693,100.00",01/01/2027,03/02/2024,1690.0,1223.0,1274.0,60.0,1.0,true,false,0.0,0.05,false,true
+A-00169,Keystone Manufacturing,T. Brennan,SMB,Manufacturing,"$13,700.00",12/05/2026,11/04/2023,35.0,25.0,25.0,3.0,0.0,true,false,0.0,0.05,false,false
+A-00170,Saltmarsh Pharma,D. Moreau,SMB,Life Sciences,"$14,100.00",10/03/2027,01/01/2026,29.0,15.0,17.0,2.0,0.0,false,false,0.0,0.05,false,false
+A-00171,Larkspur Media,T. Brennan,Mid-Market,Media,"$219,500.00",01/09/2027,09/09/2022,294.0,152.0,141.0,14.0,2.0,false,false,0.0,0.05,false,true
+A-00172,Harbor Freight,R. Haddad,SMB,Logistics,"$18,100.00",12/24/2026,07/24/2025,34.0,27.0,26.0,2.0,1.0,true,true,0.0,0.03,true,false
+A-00173,Stonebridge Properties,S. Patel,SMB,Other,"$4,300.00",04/24/2027,12/22/2024,10.0,7.0,7.0,0.0,0.0,false,false,0.0,0.0,false,false
+A-00174,Granite Clinics,R. Haddad,Mid-Market,Healthcare,"$166,500.00",07/01/2027,09/29/2024,267.0,212.0,,8.0,0.0,false,false,0.0,0.0,false,false
+A-00175,Silverline Logistics,R. Haddad,Mid-Market,Logistics,"$90,500.00",08/08/2027,11/06/2025,144.0,110.0,103.0,7.0,0.0,true,false,0.0,0.0,false,false
+A-00176,Saltmarsh Legal,M. Lindqvist,Mid-Market,Professional Services,"$117,800.00",06/05/2027,09/03/2025,175.0,38.0,76.0,8.0,1.0,false,false,0.0,0.0,true,false
+A-00177,Orchard Distribution,A. Rivera,Enterprise,Logistics,"$1,459,200.00",01/09/2027,08/09/2024,2535.0,1628.0,1440.0,165.0,1.0,true,false,0.0,0.07,false,false
+A-00178,Clearpath Medical,R. Haddad,Mid-Market,Healthcare,"$87,400.00",10/15/2027,01/13/2019,175.0,121.0,110.0,6.0,0.0,true,false,0.0,0.03,false,false
+A-00179,Redwood Retail,A. Rivera,SMB,Retail,"$19,000.00",04/22/2027,02/19/2025,52.0,40.0,46.0,10.0,0.0,true,false,0.0,0.03,true,false
+A-00180,Prairie Cloudworks,T. Brennan,Mid-Market,Technology,"$77,200.00",07/13/2027,07/12/2025,139.0,106.0,91.0,3.0,1.0,true,false,0.0,0.07,false,false
+A-00181,Riverbend Foods,D. Moreau,SMB,Retail,"$7,600.00",07/12/2027,08/11/2026,16.0,3.0,9.0,2.0,0.0,false,true,0.0,0.15,true,false
+A-00182,Maple Bay Builders Group,K. Nakamura,Mid-Market,Manufacturing,"$47,800.00",03/07/2027,08/06/2023,88.0,37.0,33.0,9.0,1.0,false,false,0.0,0.0,false,false
+A-00183,Millbrook Ventures,D. Moreau,SMB,Other,"$6,900.00",01/29/2027,05/30/2025,19.0,17.0,15.0,4.0,0.0,true,false,0.0,0.05,true,true
+A-00184,Blue Heron Dental Group,T. Brennan,SMB,Healthcare,"$3,500.00",06/02/2027,08/01/2025,7.0,3.0,7.0,1.0,1.0,false,true,0.0,0.03,true,false
+A-00185,Copperline Robotics,R. Haddad,Enterprise,Manufacturing,"$645,500.00",07/17/2027,08/15/2025,955.0,776.0,676.0,30.0,0.0,true,false,0.0,0.0,false,false
+A-00186,Ironleaf Supply,K. Nakamura,Mid-Market,Logistics,"$63,100.00",03/08/2027,04/07/2026,125.0,77.0,75.0,11.0,0.0,false,false,0.0,0.03,false,false
+A-00187,Ironleaf Travel,J. Okafor,Mid-Market,Other,"$56,400.00",07/20/2027,08/19/2026,97.0,33.0,39.0,11.0,0.0,false,false,0.0,0.07,true,false
+A-00188,Atlas Medical,D. Moreau,Mid-Market,Healthcare,"$25,800.00",04/29/2027,12/28/2023,35.0,24.0,28.0,5.0,1.0,true,false,0.0,0.03,true,true
+A-00189,Willow Software,S. Patel,Mid-Market,Technology,"$20,500.00",02/07/2027,02/06/2019,37.0,20.0,19.0,4.0,1.0,true,false,0.0,0.05,false,true
+A-00190,Copperline Credit Union,K. Nakamura,SMB,Financial Services,"$15,300.00",08/11/2027,02/09/2026,31.0,19.0,22.0,2.0,0.0,true,false,0.0,0.05,false,false
+A-00191,Millbrook Clinics,T. Brennan,Mid-Market,Healthcare,"$34,900.00",10/21/2027,06/20/2026,76.0,52.0,55.0,12.0,0.0,true,false,0.0,0.0,false,false
+A-00192,Copperline Media,J. Okafor,SMB,Media,"$18,400.00",08/25/2027,09/24/2026,46.0,21.0,19.0,3.0,3.0,false,false,0.0,0.1,true,false
+A-00193,Meridian Transit,M. Lindqvist,Mid-Market,Logistics,"$58,600.00",11/12/2027,01/10/2021,87.0,37.0,42.0,5.0,1.0,false,true,0.0,0.1,true,false
+A-00194,Foxglove Energy,T. Brennan,Enterprise,Other,"$842,500.00",10/12/2027,02/10/2024,1230.0,521.0,737.0,100.0,0.0,true,true,0.0,0.07,false,false
+A-00195,Fairhaven Outfitters,S. Patel,Mid-Market,Retail,"$39,800.00",11/05/2027,02/03/2026,56.0,50.0,43.0,3.0,0.0,true,false,0.0,0.03,false,false

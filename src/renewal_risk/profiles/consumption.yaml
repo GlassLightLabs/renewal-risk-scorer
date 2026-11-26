@@ -1,0 +1,98 @@
+# Consumption and usage-based services: cloud compute, data platforms, APIs, GPU and data-center capacity.
+#
+# In a commit-and-drawdown business the renewal question is less "will they leave" than "will they
+# re-commit at the same level". Public consumption companies (for example Snowflake, in its 10-K) treat
+# growth in existing-customer consumption, measured as dollar-based net revenue retention, as the key
+# health measure, and flag slower-than-expected consumption as a retention risk. So this profile leans on
+# commit pacing (consumption against the pro-rated commit), run-rate against commit, consumption trend
+# and workload breadth, with engagement, support and commercial signals around them.
+#
+# A customer pacing under ~80% of commit will likely right-size the commit at renewal (contraction);
+# one pacing over 100% is a candidate for a larger commit.
+
+profile: consumption
+label: Consumption and compute services
+description: Usage-based and commit-drawdown services (cloud, data platforms, APIs, GPU and data-center capacity) scored on commit pacing, run-rate, consumption trend and workload breadth.
+base: _common.yaml
+
+groups:
+  consumption:
+    label: Consumption & commit pacing
+    weight: 40
+    indicator: leading
+    measures:
+      commit_pacing_pct:      {weight: 35, points: [[50, 0], [70, 30], [85, 65], [100, 90], [115, 100]]}
+      run_rate_vs_commit_pct: {weight: 25, points: [[50, 0], [70, 30], [90, 70], [105, 95], [120, 100]]}
+      consumption_trend_pct:  {weight: 25, points: [[-35, 0], [-15, 35], [0, 70], [10, 90], [25, 100]]}
+      active_workloads:       {weight: 15, points: [[1, 20], [2, 45], [4, 75], [8, 100]]}
+
+  capacity:
+    label: Capacity efficiency
+    weight: 10
+    indicator: leading
+    measures:
+      reserved_capacity_utilization_pct: {weight: 100, points: [[40, 0], [60, 40], [75, 75], [90, 100]]}
+
+  relationship:
+    label: Relationship & engagement
+    weight: 20
+    indicator: leading
+    measures:
+      champion_change_90d:     {weight: 30, if_true: 0, if_false: 100}
+      exec_sponsor:            {weight: 25, if_true: 100, if_false: 25}
+      competitor_eval:         {weight: 25, if_true: 0, if_false: 100}
+      days_since_last_meeting: {weight: 20, points: [[14, 100], [30, 85], [60, 55], [90, 25], [150, 0]]}
+
+  support:
+    label: Reliability & support
+    weight: 15
+    indicator: concurrent
+    measures:
+      p1_tickets_90d: {weight: 60, points: [[0, 100], [1, 65], [2, 40], [4, 10], [6, 0]]}
+      csat:           {weight: 40, points: [[60, 0], [75, 45], [85, 80], [95, 100]]}
+
+  commercial:
+    label: Commercial & sentiment
+    weight: 15
+    indicator: lagging
+    measures:
+      days_past_due: {weight: 35, points: [[0, 100], [15, 85], [30, 60], [60, 25], [90, 0]]}
+      nps:           {weight: 25, points: [[0, 0], [4, 15], [6, 40], [7, 60], [8, 80], [9, 100]]}
+      csm_sentiment: {weight: 25, points: [[1, 0], [2, 25], [3, 55], [4, 80], [5, 100]]}
+      tenure_months: {weight: 15, points: [[6, 40], [12, 60], [24, 80], [36, 95], [60, 100]]}
+
+model_features:
+  - [commit_pacing_pct, -1, consumption, Commit pacing, pct]
+  - [run_rate_vs_commit_pct, -1, consumption, Run-rate vs commit, pct]
+  - [consumption_trend_pct, -1, consumption, Consumption trend (90d), trend]
+  - [active_workloads, -1, consumption, Active workloads, count]
+  - [reserved_capacity_utilization_pct, -1, capacity, Reserved capacity used, pct]
+  - [champion_change_90d, 1, relationship, Champion left (90d), bool]
+  - [exec_sponsor, -1, relationship, Executive sponsor, bool]
+  - [competitor_eval, 1, relationship, Competitor evaluation, bool]
+  - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
+  - [p1_tickets_90d, 1, support, P1 incidents (90d), count]
+  - [csat, -1, support, Support CSAT, pct]
+  - [days_past_due, 1, commercial, Days past due, days]
+  - [nps, -1, commercial, NPS, score10]
+  - [csm_sentiment, -1, commercial, CSM sentiment, score5]
+  - [tenure_months, -1, commercial, Tenure, months]
+  - [multi_year, -1, commercial, Multi-year commit, bool]
+
+alerts:
+  - id: under_consuming
+    severity: high
+    message: Consumption pacing under 70% of the pro-rated commit; expect a smaller re-commit
+    when: [[commit_pacing_pct, "<", 70]]
+  - id: consumption_decline
+    severity: high
+    message: 30-day consumption down 25% or more versus 90 days ago
+    when: [[consumption_trend_pct, "<=", -25]]
+  - id: single_workload
+    severity: medium
+    message: All consumption sits in one workload; losing it loses the account
+    when: [[active_workloads, "<=", 1]]
+  - id: idle_capacity
+    severity: medium
+    message: Under 50% of reserved capacity in use
+    when: [[reserved_capacity_utilization_pct, "<", 50]]

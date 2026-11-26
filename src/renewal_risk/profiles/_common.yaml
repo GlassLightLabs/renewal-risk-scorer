@@ -1,0 +1,64 @@
+# Settings shared by every industry profile. A profile file can override any key here; alerts are
+# combined (common alerts first, then the profile's own).
+
+bands:
+  green: 75   # score >= 75
+  yellow: 50  # 50 <= score < 75; below 50 is red
+
+confidence:
+  high: 0.80    # share of total measure weight with data
+  medium: 0.55  # below this is "low": treat the score with caution
+
+# Renewal-window urgency: how much of an account's expected ARR loss counts toward this quarter's
+# priority list. Mirrors the common 180/120/90-day renewal cadence: plan at 180, engage at 120,
+# negotiate at 90. Overdue renewals count fully.
+urgency:
+  points: [[0, 1.0], [30, 1.0], [90, 0.9], [120, 0.8], [180, 0.55], [270, 0.35], [365, 0.2], [540, 0.1]]
+
+# Priority tiers use the churn probability and the time left to act.
+tiers:
+  critical: {min_churn_probability: 0.45, max_days_to_renewal: 180}
+  high:     {min_churn_probability: 0.25, max_days_to_renewal: 270}
+  watch:    {min_churn_probability: 0.12}
+
+# A "watermelon" is green on the scorecard and red underneath. An account is flagged when its band is
+# green but the model's own churn probability is at least watermelon_lift times the churn rate that green
+# accounts showed in the training history, and never below the floor.
+watermelon_min_churn_probability: 0.08
+watermelon_lift: 4
+
+# Risk alerts fire on specific, explainable conditions regardless of the overall score, like CTAs in
+# a CS platform. Every condition in "when" must hold. Supported ops: <, <=, >, >=, ==, !=, in.
+alerts:
+  - id: champion_left
+    severity: high
+    message: Champion left in the last 90 days with the renewal inside 6 months
+    when: [[champion_change_90d, "==", 1], [days_to_renewal, "<=", 180]]
+  - id: competitor_eval
+    severity: high
+    message: Customer is evaluating a competitor
+    when: [[competitor_eval, "==", 1]]
+  - id: critical_support
+    severity: high
+    message: Three or more P1 tickets or escalations in the last 90 days
+    when: [[p1_tickets_90d, ">=", 3]]
+  - id: payment_risk
+    severity: high
+    message: Invoice 60+ days past due
+    when: [[days_past_due, ">=", 60]]
+  - id: detractor
+    severity: medium
+    message: Latest NPS response is a detractor (0-6)
+    when: [[nps, "<=", 6]]
+  - id: dark_account
+    severity: medium
+    message: No meeting with the customer in 90+ days
+    when: [[days_since_last_meeting, ">=", 90]]
+  - id: no_exec_sponsor_enterprise
+    severity: medium
+    message: Enterprise account with no executive sponsor
+    when: [[segment, "==", "Enterprise"], [exec_sponsor, "==", 0]]
+  - id: first_renewal
+    severity: low
+    message: First renewal (under 14 months as a customer)
+    when: [[tenure_months, "<", 14]]

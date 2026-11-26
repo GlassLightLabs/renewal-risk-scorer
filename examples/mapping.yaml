@@ -1,0 +1,9 @@
+# Optional column overrides for exports whose headers the built-in aliases don't recognize.
+# Left side: the column header exactly as it appears in your CSV (case and punctuation don't matter).
+# Right side: the canonical field it should feed. `renewal-risk inspect your.csv` lists every
+# canonical field and shows which of your columns were ignored.
+#
+# Example: the sample Salesforce report has a custom field for last quarter's active users.
+# Mapping it lets the scorer compute the usage trend, which it otherwise reweights away.
+columns:
+  Active_Users_Prior_Quarter__c: active_users_prior

@@ -1,0 +1,201 @@
+GS Company ID,Company Name,CSM,Tier,ARR,Next Renewal Date,Licensed Users,Active Users (30d),Active Users 90d Ago,Key Feature Adoption,Days Since Last Login,Support CSAT,Latest NPS,CSM Sentiment,Executive Sponsor,Days Since Last Meeting,EBR Completed
+A-90001,Halcyon Freight,J. Okafor,Enterprise,1240000.0,2027-02-14,2200.0,1540.0,2370.0,72%,1.0,4.7,9.0,Green,Yes,12.0,Yes
+A-90002,Brightwater Clinics,S. Patel,Mid-Market,243000.0,2027-01-10,400.0,124.0,150.0,28%,6.0,3.4,3.0,Red,Yes,40.0,No
+A-90003,Quarry Lane Software,M. Lindqvist,SMB,38400.0,2026-11-21,80.0,31.0,44.0,35%,45.0,,,Red,No,124.0,No
+A-90004,Ironleaf Manufacturing,A. Rivera,Enterprise,910000.0,2027-09-27,1600.0,1440.0,1380.0,81%,0.0,4.8,10.0,Green,Yes,9.0,Yes
+A-90005,Copperline Media,K. Nakamura,Mid-Market,186000.0,2027-04-30,310.0,248.0,240.0,70%,1.0,4.5,8.0,Yellow,Yes,28.0,Yes
+A-00001,Foxglove Logistics,J. Okafor,SMB,12100.0,2027-01-20,31.0,6.0,7.0,26%,20.0,3.8,2.0,Red,No,195.0,No
+A-00002,Meridian Properties,A. Rivera,Mid-Market,164700.0,2027-08-08,254.0,228.0,222.0,80%,1.0,,,Yellow,Yes,35.0,No
+A-00003,Maple Bay Health,R. Haddad,Mid-Market,44400.0,2026-12-05,91.0,26.0,31.0,32%,8.0,3.7,,Red,No,27.0,No
+A-00004,Fairhaven Credit Union,R. Haddad,SMB,32100.0,2026-12-24,69.0,46.0,45.0,71%,15.0,4.6,8.0,Green,Yes,86.0,No
+A-00005,Hawthorn Clinics,S. Patel,SMB,10300.0,2027-07-26,23.0,18.0,17.0,68%,4.0,4.8,,Green,No,54.0,No
+A-00006,Ironleaf Energy,D. Moreau,Enterprise,185800.0,2027-07-04,347.0,170.0,261.0,21%,5.0,4.6,,Red,Yes,34.0,No
+A-00007,Northgate Credit Union,K. Nakamura,SMB,16700.0,2027-07-01,36.0,23.0,28.0,37%,2.0,4.8,9.0,Red,No,29.0,Yes
+A-00008,Meridian Logistics,A. Rivera,SMB,9800.0,2026-11-27,24.0,21.0,19.0,62%,3.0,,9.0,Green,No,18.0,No
+A-00009,Ironleaf Transit,A. Rivera,Enterprise,702800.0,2027-07-31,1180.0,982.0,962.0,59%,5.0,4.6,7.0,Red,Yes,11.0,Yes
+A-00010,Hawthorn Schools,D. Moreau,Mid-Market,34900.0,2027-01-12,52.0,30.0,29.0,43%,3.0,,,Green,No,32.0,Yes
+A-00011,Bluefin Dental Group,M. Lindqvist,SMB,8000.0,2027-10-02,17.0,15.0,14.0,76%,5.0,4.8,,Green,No,22.0,Yes
+A-00012,Millbrook Biotech,S. Patel,Mid-Market,90000.0,2027-03-30,148.0,120.0,121.0,37%,5.0,4.5,,Red,Yes,22.0,Yes
+A-00013,Windward Builders,A. Rivera,Mid-Market,88000.0,2027-06-11,123.0,90.0,92.0,57%,2.0,,,Green,No,23.0,Yes
+A-00014,Pinecrest Labs,J. Okafor,SMB,12300.0,2027-10-17,30.0,23.0,23.0,58%,13.0,,,Yellow,Yes,80.0,No
+A-00015,Sandstone Health,M. Lindqvist,SMB,23200.0,2027-04-03,43.0,33.0,30.0,77%,3.0,4.4,,Green,Yes,38.0,No
+A-00016,Windward Retail,T. Brennan,Mid-Market,198900.0,2027-03-07,334.0,185.0,191.0,,25.0,,4.0,Yellow,No,45.0,
+A-00017,Birch Clinics,K. Nakamura,Mid-Market,218600.0,2027-02-16,284.0,235.0,222.0,83%,2.0,5.0,,Green,Yes,51.0,Yes
+A-00018,Evergreen Energy,T. Brennan,Mid-Market,78400.0,2027-04-22,123.0,53.0,62.0,37%,5.0,5.0,6.0,Yellow,Yes,36.0,Yes
+A-00019,Tidewater Robotics,M. Lindqvist,Enterprise,1452200.0,2027-05-31,2772.0,1171.0,1234.0,24%,6.0,4.4,,Yellow,Yes,43.0,Yes
+A-00020,Sandstone Medical,D. Moreau,Mid-Market,79300.0,2027-04-01,157.0,108.0,120.0,76%,3.0,,,Green,Yes,18.0,Yes
+A-00021,Brightwater Manufacturing,K. Nakamura,Enterprise,980600.0,2027-04-28,1656.0,1431.0,1370.0,74%,2.0,4.8,,Green,Yes,14.0,Yes
+A-00022,Pinecrest Travel,D. Moreau,SMB,7700.0,2027-09-17,17.0,12.0,11.0,71%,3.0,4.5,,Yellow,No,42.0,No
+A-00023,Granite Cloudworks,A. Rivera,Mid-Market,36200.0,2027-04-29,59.0,26.0,27.0,22%,12.0,4.9,9.0,,Yes,46.0,No
+A-00024,Ember Dental Group,K. Nakamura,Mid-Market,23000.0,2027-08-09,35.0,23.0,20.0,81%,3.0,4.4,10.0,Green,Yes,22.0,
+A-00025,Fairhaven Medical,S. Patel,SMB,9600.0,2027-02-22,22.0,14.0,,57%,22.0,4.4,,Green,Yes,39.0,No
+A-00026,Oakmont Medical,K. Nakamura,Mid-Market,46200.0,2026-11-19,90.0,35.0,34.0,42%,5.0,4.3,,Yellow,No,31.0,No
+A-00027,Amber Wealth,S. Patel,SMB,6900.0,2027-01-25,20.0,13.0,13.0,32%,13.0,4.6,7.0,Yellow,No,42.0,
+A-00028,Ember Wealth,K. Nakamura,Enterprise,1003900.0,2027-09-26,1695.0,238.0,285.0,,44.0,3.8,,Red,Yes,83.0,Yes
+A-00029,Atlas Outfitters,D. Moreau,Enterprise,218000.0,2027-09-13,400.0,216.0,219.0,,3.0,4.6,8.0,Green,No,32.0,Yes
+A-00030,Prairie Software,A. Rivera,SMB,3900.0,2027-05-04,7.0,3.0,3.0,52%,60.0,3.8,6.0,Red,No,43.0,No
+A-00031,Stonebridge Robotics,J. Okafor,Mid-Market,138500.0,2027-11-22,157.0,62.0,62.0,69%,17.0,4.2,,Red,No,61.0,Yes
+A-00032,Copperline Consulting,D. Moreau,SMB,12400.0,2027-04-27,25.0,11.0,,31%,24.0,4.4,2.0,Yellow,No,72.0,No
+A-00033,Oakmont Outfitters,K. Nakamura,SMB,8100.0,2027-07-27,17.0,5.0,6.0,24%,16.0,3.6,9.0,Yellow,No,118.0,No
+A-00034,Keystone Foods,J. Okafor,Enterprise,425600.0,2027-06-26,727.0,337.0,,34%,8.0,4.0,4.0,Red,Yes,24.0,Yes
+A-00035,Boulder Health,T. Brennan,SMB,3500.0,2027-07-02,8.0,6.0,6.0,67%,3.0,5.0,,Yellow,No,20.0,No
+A-00036,Falcon Consulting,M. Lindqvist,SMB,7200.0,2027-07-26,19.0,17.0,15.0,67%,2.0,,10.0,Green,Yes,51.0,Yes
+A-00037,Atlas Analytics,R. Haddad,Mid-Market,32200.0,2027-01-15,86.0,62.0,61.0,41%,2.0,4.7,5.0,Yellow,Yes,44.0,Yes
+A-00038,Northgate Therapeutics,T. Brennan,SMB,12800.0,2027-01-12,26.0,21.0,18.0,74%,3.0,4.0,,Green,Yes,20.0,No
+A-00039,Oakmont Schools,A. Rivera,Enterprise,1028200.0,2027-05-02,1749.0,1008.0,1138.0,,4.0,4.4,,Yellow,Yes,9.0,Yes
+A-00040,Evergreen Software,T. Brennan,SMB,6000.0,2027-02-08,14.0,6.0,7.0,,66.0,3.5,,Red,No,82.0,No
+A-00041,Riverbend Engineering,S. Patel,SMB,11300.0,2027-11-09,26.0,16.0,15.0,74%,9.0,,5.0,Yellow,No,29.0,No
+A-00042,Amber Insurance Partners,S. Patel,SMB,11200.0,2027-11-28,22.0,19.0,17.0,54%,13.0,,8.0,Green,Yes,39.0,No
+A-00043,Timberline Credit Union,M. Lindqvist,SMB,15600.0,2027-11-17,31.0,15.0,13.0,59%,36.0,4.6,7.0,Green,No,87.0,No
+A-00044,Driftwood Outfitters,T. Brennan,Mid-Market,211900.0,2026-12-04,336.0,215.0,208.0,,5.0,,,,No,66.0,No
+A-00045,Driftwood Telecom,D. Moreau,Enterprise,742700.0,2026-12-09,1474.0,849.0,836.0,66%,10.0,4.2,,Green,No,15.0,Yes
+A-00046,Highland Staffing,S. Patel,Mid-Market,140100.0,2027-06-15,206.0,21.0,34.0,51%,10.0,,,Green,No,94.0,Yes
+A-00047,Cobalt Utilities,A. Rivera,SMB,15800.0,2027-10-01,32.0,6.0,8.0,25%,26.0,,,Yellow,No,165.0,No
+A-00048,Falcon Energy,D. Moreau,SMB,10200.0,2027-04-09,16.0,8.0,8.0,38%,4.0,3.9,,Yellow,Yes,48.0,No
+A-00049,Highland Robotics,K. Nakamura,SMB,7200.0,2027-02-02,20.0,13.0,15.0,49%,8.0,5.0,,Yellow,No,26.0,No
+A-00050,Fairhaven Cloudworks,R. Haddad,Enterprise,706600.0,2027-07-17,1222.0,673.0,797.0,49%,13.0,4.4,,Yellow,No,38.0,No
+A-00051,Sandstone Media,S. Patel,Mid-Market,145900.0,2027-11-10,282.0,215.0,239.0,75%,3.0,4.5,10.0,Green,Yes,34.0,No
+A-00052,Westbrook Cloudworks,S. Patel,Mid-Market,162800.0,2027-08-20,291.0,244.0,259.0,,1.0,4.6,10.0,Green,Yes,62.0,No
+A-00053,Riverbend Media,T. Brennan,SMB,51300.0,2027-02-06,78.0,36.0,34.0,41%,9.0,5.0,,Yellow,Yes,130.0,No
+A-00054,Riverbend Media Group,J. Okafor,SMB,3900.0,2026-11-12,10.0,6.0,5.0,,2.0,,8.0,Yellow,No,64.0,No
+A-00055,Foxglove Legal,A. Rivera,Enterprise,499900.0,2027-09-04,970.0,674.0,625.0,70%,1.0,4.4,,Green,Yes,37.0,Yes
+A-00056,Foxglove Freight,S. Patel,Mid-Market,26300.0,2027-04-16,48.0,43.0,,63%,1.0,4.6,,Green,Yes,16.0,Yes
+A-00057,Prairie Clinics,S. Patel,SMB,7500.0,2027-11-15,15.0,12.0,11.0,83%,6.0,5.0,9.0,Green,No,42.0,Yes
+A-00058,Keystone Ventures,A. Rivera,SMB,3200.0,2027-03-08,8.0,4.0,4.0,33%,16.0,3.9,7.0,Yellow,No,55.0,Yes
+A-00059,Hawthorn Biotech,S. Patel,SMB,12500.0,2026-11-29,40.0,33.0,35.0,69%,4.0,4.4,10.0,Green,Yes,102.0,Yes
+A-00060,Bluefin Ventures,S. Patel,SMB,14000.0,2026-12-12,32.0,31.0,25.0,94%,1.0,5.0,10.0,Green,Yes,36.0,No
+A-00061,Ember Engineering,R. Haddad,SMB,5500.0,2026-11-15,11.0,5.0,7.0,,3.0,4.4,6.0,,Yes,9.0,Yes
+A-00062,Summit Energy,A. Rivera,Enterprise,637000.0,2027-07-29,1214.0,590.0,539.0,64%,22.0,4.0,6.0,Red,Yes,54.0,
+A-00063,Windward Consulting,R. Haddad,Mid-Market,130800.0,2027-06-05,209.0,132.0,138.0,,1.0,4.1,9.0,Green,Yes,18.0,No
+A-00064,Granite Logistics,A. Rivera,SMB,21300.0,2027-05-07,57.0,41.0,,72%,2.0,4.4,8.0,Green,No,52.0,Yes
+A-00065,Tidewater Outfitters,J. Okafor,Mid-Market,112900.0,2027-04-26,221.0,181.0,206.0,60%,2.0,4.6,,Green,Yes,24.0,Yes
+A-00066,Tidewater Ventures,T. Brennan,SMB,9400.0,2027-10-06,22.0,18.0,17.0,36%,15.0,4.0,7.0,Yellow,Yes,76.0,No
+A-00067,Copperline Software,M. Lindqvist,SMB,6600.0,2027-11-09,19.0,16.0,13.0,78%,1.0,4.4,,Green,No,44.0,Yes
+A-00068,Ember Utilities,K. Nakamura,Mid-Market,109200.0,2026-12-08,195.0,42.0,43.0,26%,12.0,3.8,,Yellow,Yes,60.0,No
+A-00069,Prairie Manufacturing,K. Nakamura,Enterprise,522400.0,2027-03-03,1192.0,999.0,965.0,75%,2.0,5.0,,Yellow,Yes,12.0,Yes
+A-00070,Evergreen Properties,S. Patel,SMB,6100.0,2026-12-26,15.0,11.0,11.0,61%,5.0,4.4,,Green,No,112.0,No
+A-00071,Willow Cloudworks,S. Patel,Enterprise,292400.0,2026-11-18,480.0,203.0,231.0,30%,5.0,,3.0,,Yes,41.0,Yes
+A-00072,Foxglove Telecom,S. Patel,SMB,16000.0,2027-08-06,38.0,35.0,29.0,68%,4.0,4.7,,,Yes,36.0,Yes
+A-00073,Quarry Lane Medical,M. Lindqvist,SMB,6800.0,2027-10-12,13.0,9.0,9.0,92%,4.0,,,Green,No,70.0,No
+A-00074,Prairie Hospitality,S. Patel,SMB,7700.0,2026-12-25,17.0,7.0,7.0,30%,10.0,4.1,8.0,,No,64.0,No
+A-00075,Copperline Freight,T. Brennan,SMB,13300.0,2027-07-01,32.0,26.0,24.0,83%,8.0,4.0,,Yellow,No,115.0,No
+A-00076,Tidewater Dental Group,J. Okafor,Mid-Market,66600.0,2027-04-05,130.0,66.0,,30%,7.0,4.4,7.0,Yellow,No,46.0,No
+A-00077,Falcon Builders,R. Haddad,Mid-Market,163700.0,2027-05-28,265.0,74.0,104.0,15%,67.0,,5.0,Red,No,82.0,No
+A-00078,Bluefin Outfitters,S. Patel,Enterprise,215600.0,2027-10-16,509.0,232.0,,60%,9.0,4.4,6.0,Yellow,Yes,34.0,Yes
+A-00079,Beacon Supply,M. Lindqvist,SMB,15600.0,2027-07-12,32.0,15.0,29.0,44%,6.0,4.0,7.0,Green,No,32.0,No
+A-00080,Ironleaf Pharma,R. Haddad,SMB,3000.0,2027-07-23,9.0,5.0,13.0,52%,4.0,4.8,9.0,Green,No,25.0,No
+A-00081,Northgate Wealth,D. Moreau,SMB,2600.0,2027-10-26,8.0,2.0,3.0,58%,30.0,4.2,,Green,Yes,58.0,No
+A-00082,Ember Engineering Holdings,K. Nakamura,Enterprise,239200.0,2027-07-27,534.0,349.0,309.0,46%,9.0,3.8,10.0,Yellow,Yes,26.0,Yes
+A-00083,Maple Bay Engineering,T. Brennan,Enterprise,410200.0,2027-02-20,1066.0,620.0,567.0,60%,3.0,4.8,,,Yes,37.0,Yes
+A-00084,Atlas Therapeutics,T. Brennan,SMB,5600.0,2027-01-19,13.0,6.0,7.0,54%,9.0,4.2,7.0,Red,No,75.0,Yes
+A-00085,Clearpath Biotech,J. Okafor,SMB,3300.0,2027-02-15,9.0,6.0,7.0,84%,2.0,4.8,9.0,Green,Yes,21.0,No
+A-00086,Willow Energy,D. Moreau,SMB,15900.0,2027-01-01,41.0,30.0,27.0,61%,9.0,4.4,7.0,Green,Yes,69.0,No
+A-00087,Atlas Credit Union,T. Brennan,Mid-Market,51500.0,2027-11-27,76.0,50.0,,,3.0,4.8,8.0,,No,48.0,No
+A-00088,Granite Legal,A. Rivera,SMB,5300.0,2027-10-11,19.0,13.0,13.0,81%,3.0,4.8,,Yellow,No,76.0,No
+A-00089,Keystone Health,T. Brennan,SMB,9300.0,2027-05-30,23.0,12.0,12.0,56%,17.0,4.4,,Yellow,No,95.0,No
+A-00090,Oakmont Insurance Partners,M. Lindqvist,SMB,6800.0,2026-11-11,15.0,8.0,9.0,36%,24.0,4.4,5.0,Yellow,No,39.0,No
+A-00091,Harbor Therapeutics,K. Nakamura,SMB,12800.0,2026-11-24,25.0,22.0,21.0,58%,4.0,4.2,10.0,Green,Yes,58.0,No
+A-00092,Lakeshore Outfitters,J. Okafor,Enterprise,772200.0,2027-09-06,1438.0,688.0,607.0,47%,5.0,4.0,9.0,Green,Yes,14.0,Yes
+A-00093,Evergreen Pharma,K. Nakamura,Mid-Market,67800.0,2027-08-31,127.0,82.0,89.0,66%,5.0,,6.0,Yellow,No,52.0,No
+A-00094,Orchard Hospitality,K. Nakamura,Mid-Market,179600.0,2027-11-11,250.0,107.0,161.0,55%,1.0,4.2,,Green,No,14.0,Yes
+A-00095,Juniper Supply,K. Nakamura,Mid-Market,67500.0,2027-06-16,94.0,46.0,40.0,36%,5.0,4.4,6.0,Yellow,No,61.0,Yes
+A-00096,Evergreen Manufacturing,A. Rivera,Mid-Market,65600.0,2027-03-12,72.0,54.0,54.0,,3.0,4.4,,Green,Yes,22.0,No
+A-00097,Blue Heron Software,D. Moreau,Mid-Market,136800.0,2026-11-28,152.0,63.0,54.0,66%,9.0,,7.0,Yellow,No,77.0,Yes
+A-00098,Cedar Ridge Travel,M. Lindqvist,Enterprise,281500.0,2027-10-16,558.0,380.0,433.0,62%,10.0,4.1,,Green,Yes,49.0,Yes
+A-00099,Foxglove Pharma,D. Moreau,SMB,13600.0,2027-04-04,25.0,10.0,10.0,22%,30.0,3.6,5.0,Red,No,173.0,No
+A-00100,Quarry Lane Labs,T. Brennan,Mid-Market,79900.0,2027-10-28,127.0,112.0,102.0,70%,1.0,4.4,,Green,No,12.0,Yes
+A-00101,Cobalt Engineering,J. Okafor,SMB,5300.0,2027-06-28,15.0,7.0,6.0,30%,9.0,4.2,,Green,No,41.0,No
+A-00102,Orchard Travel,D. Moreau,SMB,13500.0,2027-05-29,28.0,12.0,13.0,66%,17.0,4.2,9.0,Red,No,62.0,No
+A-00103,Tidewater Staffing,D. Moreau,Mid-Market,142500.0,2027-10-10,185.0,130.0,144.0,51%,8.0,,7.0,Yellow,No,53.0,Yes
+A-00104,Silverline Supply,J. Okafor,Enterprise,57700.0,2027-08-22,170.0,126.0,109.0,51%,5.0,4.0,,Yellow,Yes,30.0,Yes
+A-00105,Foxglove Distribution,K. Nakamura,Mid-Market,85900.0,2027-07-24,111.0,73.0,86.0,54%,1.0,4.2,7.0,Green,Yes,36.0,Yes
+A-00106,Timberline Labs,K. Nakamura,SMB,8000.0,2026-12-26,22.0,9.0,9.0,49%,8.0,4.6,6.0,Yellow,No,97.0,No
+A-00107,Oakmont Transit,S. Patel,SMB,15400.0,2027-07-14,27.0,22.0,23.0,48%,4.0,4.7,7.0,Green,No,64.0,No
+A-00108,Silverline Energy,R. Haddad,SMB,6600.0,2027-01-28,15.0,15.0,11.0,88%,0.0,5.0,10.0,Green,No,22.0,
+A-00109,Westbrook Supply,K. Nakamura,Enterprise,269500.0,2027-08-25,500.0,59.0,108.0,24%,10.0,3.3,4.0,Yellow,Yes,81.0,No
+A-00110,Amber Media,J. Okafor,SMB,12100.0,2027-01-31,22.0,15.0,13.0,67%,4.0,4.2,7.0,Yellow,Yes,48.0,No
+A-00111,Amber Distribution,S. Patel,SMB,11900.0,2027-04-22,30.0,16.0,16.0,79%,15.0,,8.0,,No,68.0,No
+A-00112,Oakmont Hospitality,J. Okafor,SMB,3700.0,2027-11-10,6.0,4.0,4.0,58%,5.0,4.2,9.0,,Yes,20.0,No
+A-00113,Millbrook Builders,R. Haddad,SMB,2800.0,2027-09-20,8.0,2.0,3.0,15%,15.0,4.5,5.0,Red,No,54.0,No
+A-00114,Boulder Retail,D. Moreau,Enterprise,327800.0,2027-07-02,699.0,297.0,266.0,30%,9.0,4.1,5.0,Yellow,No,23.0,No
+A-00115,Cobalt Schools,K. Nakamura,Mid-Market,14300.0,2027-08-17,29.0,20.0,19.0,53%,3.0,4.6,8.0,Yellow,Yes,17.0,Yes
+A-00116,Copperline Biotech,D. Moreau,SMB,6500.0,2027-03-13,14.0,7.0,8.0,43%,12.0,4.0,,Green,Yes,63.0,No
+A-00117,Atlas Foods,A. Rivera,Mid-Market,130600.0,2026-12-17,219.0,194.0,179.0,83%,1.0,4.4,10.0,Green,Yes,33.0,No
+A-00118,Beacon Staffing,J. Okafor,SMB,5400.0,2026-12-18,11.0,7.0,7.0,46%,3.0,,,Yellow,No,57.0,No
+A-00119,Birch Dental Group,R. Haddad,Mid-Market,108000.0,2027-08-17,146.0,115.0,135.0,49%,20.0,,8.0,Green,No,26.0,No
+A-00120,Oakmont Media,D. Moreau,SMB,5900.0,2027-01-18,12.0,11.0,8.0,96%,1.0,,10.0,Green,Yes,15.0,Yes
+A-00121,Meridian Supply,M. Lindqvist,SMB,13400.0,2027-10-21,26.0,10.0,11.0,39%,11.0,4.2,6.0,Yellow,No,77.0,No
+A-00122,Oakmont Medical Co,D. Moreau,SMB,15500.0,2027-04-30,30.0,16.0,18.0,40%,51.0,4.2,,Yellow,No,58.0,No
+A-00123,Boulder Ventures,A. Rivera,Mid-Market,174000.0,2027-11-10,293.0,186.0,163.0,47%,2.0,4.6,7.0,Green,No,44.0,Yes
+A-00124,Union Grove Retail,S. Patel,Mid-Market,73700.0,2027-01-15,140.0,89.0,87.0,60%,3.0,4.0,8.0,Yellow,Yes,41.0,Yes
+A-00125,Redwood Logistics,A. Rivera,SMB,13400.0,2027-04-30,38.0,30.0,32.0,76%,3.0,4.6,8.0,Green,No,49.0,Yes
+A-00126,Maple Bay Robotics,S. Patel,Mid-Market,118300.0,2027-05-30,171.0,114.0,103.0,68%,5.0,4.4,,,No,49.0,
+A-00127,Falcon Legal,M. Lindqvist,SMB,5700.0,2026-12-27,15.0,5.0,5.0,30%,8.0,4.6,8.0,Yellow,No,73.0,Yes
+A-00128,Meridian Therapeutics,R. Haddad,SMB,16900.0,2027-11-28,48.0,38.0,33.0,69%,9.0,4.4,7.0,Red,No,55.0,No
+A-00129,Harbor Biotech,D. Moreau,SMB,5100.0,2027-06-18,14.0,13.0,12.0,,1.0,5.0,10.0,Green,Yes,53.0,Yes
+A-00130,Boulder Clinics,T. Brennan,SMB,8900.0,2027-09-04,22.0,18.0,19.0,79%,6.0,4.4,9.0,Green,No,34.0,No
+A-00131,Boulder Telecom,M. Lindqvist,Enterprise,2330800.0,2026-12-19,4285.0,945.0,1080.0,,39.0,3.8,,Red,Yes,87.0,Yes
+A-00132,Beacon Schools,R. Haddad,SMB,13700.0,2027-10-22,34.0,24.0,25.0,74%,3.0,4.4,10.0,Yellow,No,59.0,No
+A-00133,Cedar Ridge Distribution,J. Okafor,SMB,4200.0,2027-06-20,12.0,5.0,7.0,32%,11.0,4.0,,Yellow,No,59.0,No
+A-00134,Crescent Manufacturing,K. Nakamura,Mid-Market,106200.0,2026-12-01,160.0,120.0,122.0,51%,1.0,4.4,5.0,Yellow,No,22.0,No
+A-00135,Oakmont Outfitters Partners,R. Haddad,Enterprise,245400.0,2027-08-26,712.0,379.0,358.0,54%,4.0,4.3,,Yellow,Yes,16.0,Yes
+A-00136,Boulder Outfitters,T. Brennan,Enterprise,445200.0,2027-04-13,909.0,807.0,764.0,93%,1.0,5.0,8.0,Green,Yes,11.0,Yes
+A-00137,Blue Heron Telecom,M. Lindqvist,Mid-Market,39900.0,2027-06-28,55.0,43.0,36.0,69%,8.0,4.2,8.0,Green,Yes,19.0,Yes
+A-00138,Birch Clinics Group,R. Haddad,SMB,10100.0,2027-09-29,23.0,20.0,20.0,92%,3.0,,9.0,Green,Yes,33.0,No
+A-00139,Harbor Therapeutics Group,R. Haddad,Enterprise,253400.0,2027-08-05,392.0,246.0,,32%,1.0,4.3,,Red,Yes,38.0,Yes
+A-00140,Clearpath Insurance Partners,S. Patel,Mid-Market,101900.0,2027-11-08,167.0,114.0,139.0,75%,5.0,4.9,6.0,Green,No,33.0,Yes
+A-00141,Copperline Builders,J. Okafor,SMB,11700.0,2027-08-27,25.0,19.0,20.0,77%,2.0,4.9,5.0,Green,No,86.0,No
+A-00142,Maple Bay Builders,D. Moreau,Mid-Market,134500.0,2027-10-22,223.0,194.0,181.0,87%,5.0,4.6,,Green,No,25.0,Yes
+A-00143,Quarry Lane Clinics,K. Nakamura,SMB,29400.0,2027-05-14,76.0,54.0,49.0,54%,7.0,4.3,7.0,Green,No,70.0,
+A-00144,Highland Hospitality,J. Okafor,Enterprise,204400.0,2027-01-01,368.0,235.0,236.0,,14.0,5.0,,Red,No,18.0,No
+A-00145,Riverbend Software,M. Lindqvist,Mid-Market,47200.0,2027-02-18,66.0,56.0,46.0,88%,1.0,4.8,10.0,,No,24.0,No
+A-00146,Juniper Engineering,D. Moreau,Enterprise,196500.0,2027-05-16,546.0,374.0,483.0,76%,2.0,4.6,,Red,Yes,77.0,Yes
+A-00147,Summit Software,R. Haddad,Mid-Market,49300.0,2027-09-11,96.0,55.0,55.0,51%,5.0,4.2,,Green,No,54.0,Yes
+A-00148,Driftwood Distribution,M. Lindqvist,SMB,9600.0,2027-10-25,34.0,1.0,2.0,37%,5.0,4.1,,Red,No,120.0,No
+A-00149,Tidewater Engineering,K. Nakamura,Mid-Market,55200.0,2027-05-26,110.0,65.0,77.0,64%,3.0,4.4,,Red,No,48.0,
+A-00150,Brightwater Legal,K. Nakamura,SMB,4600.0,2027-03-03,14.0,8.0,8.0,48%,6.0,4.4,4.0,,No,105.0,Yes
+A-00151,Maple Bay Builders Holdings,K. Nakamura,SMB,3800.0,2027-08-07,10.0,1.0,1.0,10%,40.0,3.4,3.0,Red,No,82.0,No
+A-00152,Ironleaf Properties,J. Okafor,SMB,5500.0,2027-06-27,14.0,11.0,10.0,63%,1.0,5.0,10.0,Green,Yes,25.0,No
+A-00153,Meridian Travel,A. Rivera,Mid-Market,73000.0,2027-04-09,103.0,79.0,79.0,70%,1.0,4.6,,Green,No,35.0,Yes
+A-00154,Silverline Hospitality,J. Okafor,SMB,9900.0,2027-11-05,19.0,9.0,9.0,32%,17.0,4.0,7.0,Yellow,Yes,89.0,No
+A-00155,Beacon Pharma,R. Haddad,Mid-Market,29200.0,2027-10-26,57.0,49.0,50.0,81%,1.0,4.9,9.0,Yellow,Yes,20.0,Yes
+A-00156,Sandstone Therapeutics,D. Moreau,Mid-Market,69300.0,2027-10-22,128.0,100.0,85.0,66%,3.0,4.4,6.0,Yellow,Yes,27.0,No
+A-00157,Maple Bay Media,M. Lindqvist,SMB,13000.0,2027-04-12,28.0,22.0,,40%,7.0,4.7,,Green,No,40.0,No
+A-00158,Meridian Consulting,A. Rivera,Mid-Market,86900.0,2026-11-30,165.0,37.0,36.0,19%,31.0,3.6,4.0,Red,Yes,75.0,No
+A-00159,Beacon Legal,K. Nakamura,SMB,3900.0,2027-06-30,10.0,4.0,4.0,68%,5.0,4.4,,Green,No,33.0,No
+A-00160,Tidewater Foods,S. Patel,Mid-Market,92300.0,2027-02-20,219.0,171.0,174.0,69%,2.0,4.0,9.0,,Yes,14.0,Yes
+A-00161,Ember Wealth Partners,R. Haddad,SMB,15200.0,2027-07-13,32.0,28.0,25.0,67%,5.0,4.8,,Yellow,No,30.0,Yes
+A-00162,Blue Heron Media,S. Patel,Mid-Market,99500.0,2026-12-17,160.0,150.0,139.0,79%,2.0,4.4,,Green,No,8.0,
+A-00163,Atlas Travel,A. Rivera,SMB,3500.0,2027-06-03,10.0,9.0,9.0,87%,4.0,4.8,10.0,Yellow,No,20.0,No
+A-00164,Sandstone Outfitters,R. Haddad,Mid-Market,26000.0,2027-01-30,56.0,12.0,24.0,19%,26.0,3.3,,Red,Yes,38.0,No
+A-00165,Windward Wealth,A. Rivera,Mid-Market,66700.0,2027-09-13,137.0,4.0,10.0,15%,6.0,3.8,5.0,Red,No,44.0,No
+A-00166,Granite Distribution,S. Patel,Mid-Market,46200.0,2027-11-01,72.0,66.0,68.0,80%,3.0,4.7,,Yellow,No,32.0,Yes
+A-00167,Ember Retail,R. Haddad,SMB,3400.0,2027-02-22,9.0,6.0,6.0,52%,5.0,4.5,,Red,No,43.0,No
+A-00168,Crescent Medical,S. Patel,Enterprise,693100.0,2027-01-01,1690.0,1223.0,1274.0,66%,1.0,5.0,,Yellow,Yes,15.0,Yes
+A-00169,Keystone Manufacturing,T. Brennan,SMB,13700.0,2026-12-05,35.0,25.0,25.0,65%,8.0,4.0,7.0,Red,Yes,34.0,No
+A-00170,Saltmarsh Pharma,D. Moreau,SMB,14100.0,2027-10-03,29.0,15.0,17.0,80%,8.0,,,,No,35.0,No
+A-00171,Larkspur Media,T. Brennan,Mid-Market,219500.0,2027-01-09,294.0,152.0,141.0,33%,14.0,4.4,5.0,Red,No,76.0,No
+A-00172,Harbor Freight,R. Haddad,SMB,18100.0,2026-12-24,34.0,27.0,26.0,45%,2.0,,,Yellow,Yes,56.0,No
+A-00173,Stonebridge Properties,S. Patel,SMB,4300.0,2027-04-24,10.0,7.0,7.0,25%,7.0,4.0,,Yellow,No,50.0,No
+A-00174,Granite Clinics,R. Haddad,Mid-Market,166500.0,2027-07-01,267.0,212.0,,59%,4.0,4.2,4.0,Green,No,37.0,No
+A-00175,Silverline Logistics,R. Haddad,Mid-Market,90500.0,2027-08-08,144.0,110.0,103.0,38%,3.0,4.4,7.0,Yellow,Yes,32.0,No
+A-00176,Saltmarsh Legal,M. Lindqvist,Mid-Market,117800.0,2027-06-05,175.0,38.0,76.0,52%,5.0,4.4,,Yellow,No,39.0,No
+A-00177,Orchard Distribution,A. Rivera,Enterprise,1459200.0,2027-01-09,2535.0,1628.0,1440.0,74%,5.0,3.7,,,Yes,43.0,Yes
+A-00178,Clearpath Medical,R. Haddad,Mid-Market,87400.0,2027-10-15,175.0,121.0,110.0,20%,10.0,4.6,,,Yes,28.0,Yes
+A-00179,Redwood Retail,A. Rivera,SMB,19000.0,2027-04-22,52.0,40.0,46.0,67%,4.0,4.4,,Green,Yes,51.0,Yes
+A-00180,Prairie Cloudworks,T. Brennan,Mid-Market,77200.0,2027-07-13,139.0,106.0,91.0,70%,15.0,4.2,,Yellow,Yes,36.0,Yes
+A-00181,Riverbend Foods,D. Moreau,SMB,7600.0,2027-07-12,16.0,3.0,9.0,37%,11.0,4.5,7.0,Yellow,No,58.0,No
+A-00182,Maple Bay Builders Group,K. Nakamura,Mid-Market,47800.0,2027-03-07,88.0,37.0,33.0,50%,8.0,4.1,7.0,Red,No,24.0,No
+A-00183,Millbrook Ventures,D. Moreau,SMB,6900.0,2027-01-29,19.0,17.0,15.0,87%,3.0,5.0,,Green,Yes,42.0,Yes
+A-00184,Blue Heron Dental Group,T. Brennan,SMB,3500.0,2027-06-02,7.0,3.0,7.0,,6.0,4.5,6.0,,No,64.0,No
+A-00185,Copperline Robotics,R. Haddad,Enterprise,645500.0,2027-07-17,955.0,776.0,676.0,93%,2.0,4.5,10.0,Green,Yes,16.0,Yes
+A-00186,Ironleaf Supply,K. Nakamura,Mid-Market,63100.0,2027-03-08,125.0,77.0,75.0,68%,7.0,4.8,,Green,No,30.0,Yes
+A-00187,Ironleaf Travel,J. Okafor,Mid-Market,56400.0,2027-07-20,97.0,33.0,39.0,32%,2.0,4.4,6.0,Red,No,42.0,No
+A-00188,Atlas Medical,D. Moreau,Mid-Market,25800.0,2027-04-29,35.0,24.0,28.0,27%,2.0,4.0,,,Yes,29.0,Yes
+A-00189,Willow Software,S. Patel,Mid-Market,20500.0,2027-02-07,37.0,20.0,19.0,40%,14.0,3.9,,Green,Yes,38.0,No
+A-00190,Copperline Credit Union,K. Nakamura,SMB,15300.0,2027-08-11,31.0,19.0,22.0,,8.0,4.2,6.0,Yellow,Yes,20.0,No
+A-00191,Millbrook Clinics,T. Brennan,Mid-Market,34900.0,2027-10-21,76.0,52.0,55.0,72%,4.0,4.7,,,Yes,27.0,No
+A-00192,Copperline Media,J. Okafor,SMB,18400.0,2027-08-25,46.0,21.0,19.0,38%,18.0,,6.0,Green,No,40.0,No
+A-00193,Meridian Transit,M. Lindqvist,Mid-Market,58600.0,2027-11-12,87.0,37.0,42.0,47%,8.0,4.8,9.0,Green,No,35.0,No
+A-00194,Foxglove Energy,T. Brennan,Enterprise,842500.0,2027-10-12,1230.0,521.0,737.0,75%,3.0,4.4,,Yellow,Yes,32.0,Yes
+A-00195,Fairhaven Outfitters,S. Patel,Mid-Market,39800.0,2027-11-05,56.0,50.0,43.0,90%,1.0,4.8,,Green,Yes,17.0,Yes

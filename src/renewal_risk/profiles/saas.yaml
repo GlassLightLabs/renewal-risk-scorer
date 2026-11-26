@@ -1,0 +1,104 @@
+# Seat-based SaaS: per-user subscriptions where value shows up as active, broad, recent use.
+#
+# Structure follows how CS platforms such as Gainsight build scorecards (weighted measures rolled into
+# weighted groups, missing measures reweighted rather than scored as zero) and covers the four parts of
+# Gainsight's DEAR framework: Deployment (seat activation), Engagement (stakeholders), Adoption (depth,
+# breadth, trend) and ROI (here proxied by sentiment and commercial signals; add a value-plan measure if
+# you track verified outcomes).
+#
+# Each numeric measure maps a raw value to 0-100 through piecewise-linear breakpoints [value, score].
+# Values beyond the first or last breakpoint take that end's score. Boolean measures give a score for
+# true and for false. Copy this file to tune it:  renewal-risk score book.csv --config my_profile.yaml
+
+profile: saas
+label: Seat-based SaaS
+description: Per-user subscription software scored on seat activation, usage depth and trend, stakeholder engagement, support, sentiment and commercial terms.
+base: _common.yaml
+
+groups:
+  product_adoption:
+    label: Product adoption
+    weight: 30
+    indicator: leading
+    measures:
+      seat_utilization:      {weight: 40, points: [[0.20, 0], [0.40, 35], [0.60, 70], [0.80, 95], [0.90, 100]]}
+      usage_trend_pct:       {weight: 30, points: [[-40, 0], [-20, 30], [-5, 65], [0, 75], [10, 100]]}
+      feature_adoption_pct:  {weight: 20, points: [[10, 0], [30, 40], [50, 75], [70, 100]]}
+      days_since_last_login: {weight: 10, points: [[3, 100], [7, 85], [14, 60], [30, 25], [60, 0]]}
+
+  relationship:
+    label: Relationship & engagement
+    weight: 20
+    indicator: leading
+    measures:
+      champion_change_90d:     {weight: 35, if_true: 0, if_false: 100}
+      exec_sponsor:            {weight: 30, if_true: 100, if_false: 20}
+      days_since_last_meeting: {weight: 20, points: [[14, 100], [30, 85], [60, 55], [90, 25], [150, 0]]}
+      qbr_last_180d:           {weight: 15, if_true: 100, if_false: 40}
+      competitor_eval:         {weight: 20, if_true: 0, if_false: 100}
+
+  support:
+    label: Support experience
+    weight: 15
+    indicator: concurrent
+    measures:
+      p1_tickets_90d:        {weight: 40, points: [[0, 100], [1, 70], [2, 45], [4, 15], [6, 0]]}
+      csat:                  {weight: 35, points: [[60, 0], [75, 45], [85, 80], [95, 100]]}
+      tickets_per_100_seats: {weight: 25, points: [[2, 100], [8, 80], [15, 50], [30, 15], [50, 0]]}
+
+  sentiment:
+    label: Customer sentiment
+    weight: 15
+    indicator: lagging
+    measures:
+      nps:           {weight: 50, points: [[0, 0], [4, 15], [6, 40], [7, 60], [8, 80], [9, 100]]}
+      csm_sentiment: {weight: 50, points: [[1, 0], [2, 25], [3, 55], [4, 80], [5, 100]]}
+
+  commercial:
+    label: Commercial & financial
+    weight: 20
+    indicator: lagging
+    measures:
+      days_past_due:      {weight: 35, points: [[0, 100], [15, 85], [30, 60], [60, 25], [90, 0]]}
+      price_increase_pct: {weight: 25, points: [[0, 100], [5, 85], [10, 60], [15, 35], [25, 0]]}
+      tenure_months:      {weight: 20, points: [[6, 40], [12, 60], [24, 80], [36, 95], [60, 100]]}
+      multi_year:         {weight: 10, if_true: 100, if_false: 60}
+      auto_renew:         {weight: 10, if_true: 100, if_false: 60}
+
+# Signals the predictive model may use, with the direction each is allowed to push churn risk
+# (-1 lowers risk as the value rises, 1 raises it, 0 unconstrained). Contract size and segment are
+# always added. Format: [field, direction, group, label, unit]
+model_features:
+  - [seat_utilization, -1, product_adoption, Seat utilization, ratio]
+  - [usage_trend_pct, -1, product_adoption, Active-user trend (90d), trend]
+  - [feature_adoption_pct, -1, product_adoption, Feature adoption, pct]
+  - [days_since_last_login, 1, product_adoption, Days since last login, days]
+  - [champion_change_90d, 1, relationship, Champion left (90d), bool]
+  - [exec_sponsor, -1, relationship, Executive sponsor, bool]
+  - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
+  - [qbr_last_180d, -1, relationship, QBR in last 180 days, bool]
+  - [competitor_eval, 1, relationship, Competitor evaluation, bool]
+  - [p1_tickets_90d, 1, support, P1 tickets (90d), count]
+  - [tickets_per_100_seats, 0, support, Tickets per 100 seats, number]
+  - [csat, -1, support, Support CSAT, pct]
+  - [nps, -1, sentiment, NPS, score10]
+  - [csm_sentiment, -1, sentiment, CSM sentiment, score5]
+  - [days_past_due, 1, commercial, Days past due, days]
+  - [price_increase_pct, 1, commercial, Renewal uplift, pct]
+  - [tenure_months, -1, commercial, Tenure, months]
+  - [multi_year, -1, commercial, Multi-year contract, bool]
+  - [auto_renew, -1, commercial, Auto-renew, bool]
+
+alerts:
+  - id: usage_collapse
+    severity: high
+    message: Active users down 30% or more versus 90 days ago
+    when: [[usage_trend_pct, "<=", -30]]
+  - id: shelfware
+    severity: medium
+    message: Under 35% of licensed seats active, a downsell signal
+    when: [[seat_utilization, "<", 0.35]]
+  - id: uplift_without_value
+    severity: medium
+    message: Renewal uplift of 10%+ on an account using under 60% of its seats
+    when: [[price_increase_pct, ">=", 10], [seat_utilization, "<", 0.6]]

@@ -1,0 +1,123 @@
+# AI products: model APIs, copilots, agents and AI-native apps sold on prepaid credits or token commits,
+# often as a hybrid of a seat or platform fee plus usage.
+#
+# Why this needs its own profile. AI renewals fail in ways a seat-SaaS scorecard misreads:
+#
+# * Tourists. Much AI spend starts as a pilot from an experimental budget. ChartMogul's 2025 AI cohort data
+#   (with Kyle Poyar, "The AI churn wave", Dec 2025) shows far weaker gross retention for AI-native products
+#   than classic SaaS, concentrated in low-commitment plans. A pilot that has not reached production
+#   workflows by its end date is the biggest single risk here.
+# * Two-sided burn. Under-burning a prepaid commit means a smaller re-commit at true-up. Over-burning is not
+#   only upside: overage, rate limits and spend caps cause bill shock, and public pricing changes in 2025
+#   (Cursor's June 2025 switch to compute-based limits and refunds; weekly limits on Claude Code from
+#   August 2025) showed how fast that turns into churn. So projected commit use scores best near 100%.
+# * Seat compression. When AI absorbs work, a customer cuts seats while usage grows. That is a repricing
+#   (contraction) conversation, not a lost customer, and a seat scorecard would score it as churn.
+# * Model dependency. Usage concentrated on models the vendor will retire before the renewal forces a
+#   migration in the renewal window; shallow integrations make switching providers cheap.
+# * Breadth and depth of embedding. Production share of usage, integrations and live use cases are the AI
+#   equivalent of seat activation: they are what make the product hard to rip out.
+
+profile: ai_usage
+label: AI products (credits, tokens, hybrid plans)
+description: AI APIs, copilots, agents and AI-native apps on prepaid credits or token commits, scored on burn pacing in both directions, pilot-to-production progress, embedding depth, seat compression and model-retirement exposure.
+base: _common.yaml
+
+groups:
+  burn:
+    label: Credit burn & usage momentum
+    weight: 30
+    indicator: leading
+    measures:
+      # Two-sided: where the commit lands at term end on the current run rate. Best near 100%.
+      projected_commit_use_pct: {weight: 40, points: [[40, 0], [65, 35], [85, 80], [100, 100], [120, 90], [150, 55], [200, 25]]}
+      consumption_trend_pct:    {weight: 35, points: [[-40, 0], [-20, 30], [0, 70], [15, 90], [30, 100]]}
+      throttle_events_90d:      {weight: 25, points: [[0, 100], [2, 80], [5, 50], [10, 15], [20, 0]]}
+
+  production:
+    label: Production adoption
+    weight: 30
+    indicator: leading
+    measures:
+      production_usage_pct:   {weight: 30, points: [[10, 0], [30, 35], [60, 75], [85, 100]]}
+      is_pilot:               {weight: 15, if_true: 30, if_false: 100}
+      active_integrations:    {weight: 20, points: [[0, 0], [1, 40], [3, 75], [6, 100]]}
+      active_workloads:       {weight: 15, points: [[1, 20], [2, 50], [4, 80], [7, 100]]}
+      seat_utilization:       {weight: 10, points: [[0.20, 0], [0.40, 40], [0.60, 75], [0.80, 100]]}
+      deprecated_model_usage_pct: {weight: 10, points: [[0, 100], [20, 75], [50, 35], [80, 0]]}
+
+  relationship:
+    label: Relationship & engagement
+    weight: 20
+    indicator: leading
+    measures:
+      champion_change_90d:     {weight: 30, if_true: 0, if_false: 100}
+      exec_sponsor:            {weight: 25, if_true: 100, if_false: 25}
+      competitor_eval:         {weight: 25, if_true: 0, if_false: 100}
+      days_since_last_meeting: {weight: 20, points: [[14, 100], [30, 85], [60, 55], [90, 25], [150, 0]]}
+
+  commercial:
+    label: Commercial & sentiment
+    weight: 20
+    indicator: lagging
+    measures:
+      innovation_budget: {weight: 25, if_true: 30, if_false: 100}
+      days_past_due:     {weight: 25, points: [[0, 100], [15, 85], [30, 60], [60, 25], [90, 0]]}
+      nps:               {weight: 15, points: [[0, 0], [4, 15], [6, 40], [7, 60], [8, 80], [9, 100]]}
+      csm_sentiment:     {weight: 20, points: [[1, 0], [2, 25], [3, 55], [4, 80], [5, 100]]}
+      p1_tickets_90d:    {weight: 15, points: [[0, 100], [1, 65], [2, 40], [4, 10], [6, 0]]}
+
+model_features:
+  - [projected_commit_use_pct, 0, burn, Projected commit use at term end, pct]
+  - [commit_pacing_pct, 0, burn, Credit burn pacing, pct]
+  - [consumption_trend_pct, -1, burn, Usage trend (90d), trend]
+  - [throttle_events_90d, 1, burn, Rate-limit or spend-cap hits (90d), count]
+  - [production_usage_pct, -1, production, Production share of usage, pct]
+  - [is_pilot, 1, production, Pilot or proof of concept, bool]
+  - [active_integrations, -1, production, Active integrations, count]
+  - [active_workloads, -1, production, Live use cases, count]
+  - [seat_utilization, -1, production, Seat utilization, ratio]
+  - [seat_change_pct, 0, production, Seat change vs a year ago, trend]
+  - [seat_compression, 0, production, Seat compression (seats down while usage grows), bool]
+  - [deprecated_model_usage_pct, 1, production, Usage on models retiring before renewal, pct]
+  - [champion_change_90d, 1, relationship, Champion left (90d), bool]
+  - [exec_sponsor, -1, relationship, Executive sponsor, bool]
+  - [competitor_eval, 1, relationship, Competitor evaluation, bool]
+  - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
+  - [innovation_budget, 1, commercial, Experimental or innovation budget, bool]
+  - [days_past_due, 1, commercial, Days past due, days]
+  - [nps, -1, commercial, NPS, score10]
+  - [csm_sentiment, -1, commercial, CSM sentiment, score5]
+  - [p1_tickets_90d, 1, commercial, P1 incidents (90d), count]
+  - [tenure_months, -1, commercial, Tenure, months]
+  - [multi_year, -1, commercial, Multi-year commit, bool]
+
+alerts:
+  - id: stalled_pilot
+    severity: high
+    message: Pilot with under 40% of usage in production; it ends without a business case unless it moves
+    when: [[is_pilot, "==", 1], [production_usage_pct, "<", 40]]
+  - id: under_burn
+    severity: high
+    message: On today's run rate the credit commit lands under 70%; expect a smaller re-commit at true-up
+    when: [[projected_commit_use_pct, "<", 70]]
+  - id: bill_shock
+    severity: high
+    message: Burning well past the commit with repeated rate-limit or spend-cap hits; overage and throttling are churn triggers
+    when: [[projected_commit_use_pct, ">", 130], [throttle_events_90d, ">=", 5]]
+  - id: seat_compression
+    severity: medium
+    message: Seats down 10%+ while usage grows; AI is absorbing seat work, so reprice before the customer does
+    when: [[seat_compression, "==", 1]]
+  - id: model_retirement
+    severity: medium
+    message: 30%+ of usage runs on models retiring before the renewal; plan the migration now
+    when: [[deprecated_model_usage_pct, ">=", 30]]
+  - id: experimental_budget
+    severity: medium
+    message: Funded from an experimental or innovation budget; secure a core budget line before renewal
+    when: [[innovation_budget, "==", 1]]
+  - id: usage_decline
+    severity: high
+    message: 30-day usage down 25% or more versus 90 days ago
+    when: [[consumption_trend_pct, "<=", -25]]

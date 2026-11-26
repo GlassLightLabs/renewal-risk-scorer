@@ -1,0 +1,96 @@
+# Hardware, devices and infrastructure sold with support and maintenance contracts.
+#
+# Uses TSIA's support-revenue levers: attach (share of the installed base under a paid contract) and
+# renewal (contracts renewed at term end, by count and by dollars). The risks that matter differ from
+# software: coverage eroding across the installed base, an ageing fleet past end of service life (which
+# pushes customers toward a refresh, a competitor, or third-party maintenance), reliability (RMA and
+# failure rates) and whether devices phone home so the vendor can see health at all.
+
+profile: hardware
+label: Hardware and support contracts
+description: Installed-base businesses (devices, servers, storage, network, medical and industrial equipment) scored on contract coverage, end-of-service-life exposure, reliability, telemetry and the relationship.
+base: _common.yaml
+
+groups:
+  installed_base:
+    label: Installed base & coverage
+    weight: 35
+    indicator: leading
+    measures:
+      contract_coverage_pct:  {weight: 40, points: [[40, 0], [60, 35], [75, 65], [90, 95], [95, 100]]}
+      eosl_exposure_pct:      {weight: 35, points: [[0, 100], [10, 80], [25, 50], [40, 20], [60, 0]]}
+      avg_asset_age_years:    {weight: 25, points: [[2, 100], [4, 80], [5, 60], [7, 25], [9, 0]]}
+
+  product_health:
+    label: Product health & telemetry
+    weight: 25
+    indicator: leading
+    measures:
+      rma_rate_pct:           {weight: 45, points: [[0.5, 100], [1.5, 80], [3, 50], [5, 15], [8, 0]]}
+      supported_firmware_pct: {weight: 30, points: [[40, 0], [60, 40], [80, 80], [95, 100]]}
+      connected_units_pct:    {weight: 25, points: [[20, 0], [50, 50], [75, 85], [90, 100]]}
+
+  relationship:
+    label: Relationship & engagement
+    weight: 15
+    indicator: leading
+    measures:
+      champion_change_90d:     {weight: 30, if_true: 0, if_false: 100}
+      exec_sponsor:            {weight: 25, if_true: 100, if_false: 30}
+      competitor_eval:         {weight: 25, if_true: 0, if_false: 100}
+      days_since_last_meeting: {weight: 20, points: [[30, 100], [60, 80], [120, 45], [180, 15], [270, 0]]}
+
+  service:
+    label: Service experience
+    weight: 15
+    indicator: concurrent
+    measures:
+      p1_tickets_90d: {weight: 50, points: [[0, 100], [1, 70], [2, 45], [4, 15], [6, 0]]}
+      csat:           {weight: 50, points: [[60, 0], [75, 45], [85, 80], [95, 100]]}
+
+  commercial:
+    label: Commercial
+    weight: 10
+    indicator: lagging
+    measures:
+      days_past_due:      {weight: 40, points: [[0, 100], [15, 85], [30, 60], [60, 25], [90, 0]]}
+      price_increase_pct: {weight: 30, points: [[0, 100], [5, 85], [10, 55], [15, 30], [25, 0]]}
+      auto_renew:         {weight: 15, if_true: 100, if_false: 60}
+      multi_year:         {weight: 15, if_true: 100, if_false: 60}
+
+model_features:
+  - [contract_coverage_pct, -1, installed_base, Contract coverage of installed base, pct]
+  - [eosl_exposure_pct, 1, installed_base, Units past end of service life, pct]
+  - [avg_asset_age_years, 1, installed_base, Average asset age, years]
+  - [rma_rate_pct, 1, product_health, RMA / failure rate, pct1]
+  - [supported_firmware_pct, -1, product_health, On supported firmware, pct]
+  - [connected_units_pct, -1, product_health, Telemetry-connected units, pct]
+  - [champion_change_90d, 1, relationship, Champion left (90d), bool]
+  - [exec_sponsor, -1, relationship, Executive sponsor, bool]
+  - [competitor_eval, 1, relationship, Competitor or third-party maintainer evaluation, bool]
+  - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
+  - [p1_tickets_90d, 1, service, P1 cases (90d), count]
+  - [csat, -1, service, Service CSAT, pct]
+  - [days_past_due, 1, commercial, Days past due, days]
+  - [price_increase_pct, 1, commercial, Renewal uplift, pct]
+  - [tenure_months, -1, commercial, Tenure, months]
+  - [auto_renew, -1, commercial, Auto-renew, bool]
+  - [multi_year, -1, commercial, Multi-year contract, bool]
+
+alerts:
+  - id: coverage_erosion
+    severity: high
+    message: Under 60% of the installed base is under contract
+    when: [[contract_coverage_pct, "<", 60]]
+  - id: eosl_cliff
+    severity: high
+    message: 30% or more of units are past end of service life; refresh or lose the contract
+    when: [[eosl_exposure_pct, ">=", 30]]
+  - id: reliability
+    severity: medium
+    message: RMA / failure rate at or above 4%
+    when: [[rma_rate_pct, ">=", 4]]
+  - id: blind_fleet
+    severity: low
+    message: Under 40% of units send telemetry, so health is mostly unseen
+    when: [[connected_units_pct, "<", 40]]
