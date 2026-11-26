@@ -18,6 +18,7 @@ def test_demo_app_renders_without_errors() -> None:
     assert not at.exception, at.exception
     assert len(at.tabs) >= 4
     assert at.metric, "expected KPI metrics on the first screen"
+    assert any(s.value == "Retention by plan size" for s in at.subheader), "expected the plan-size breakdown"
 
 
 def test_demo_app_pulls_in_simulated_zendesk() -> None:

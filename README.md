@@ -7,7 +7,7 @@ Feed it a Salesforce or Gainsight export of open renewals. It returns every acco
 - a **health scorecard** CS teams can read and tune (Gainsight-style weighted measures and groups),
 - a **calibrated churn and downsell model** trained on your renewal history, with plain-English reason codes for every account,
 - a **save play** with an owner, timing and steps,
-- a **GRR forecast** with a P10 to P90 range for the quarter,
+- a **GRR forecast** with a P10 to P90 range for the quarter, plus **retention by plan size** (monthly spend bands, with the AI-native benchmark for the `ai_usage` profile) so small self-serve plans don't hide inside a blended number,
 - **watermelon** flags (green on the scorecard, red underneath),
 - optional **Claude-written account briefs** for call prep, with a rules-based fallback when no API key is set,
 - **data add-ons** that pull signals from other tools, starting with **Zendesk** (ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution), configured in the app or a YAML file.
@@ -26,7 +26,7 @@ Most open-source churn projects predict whether a subscriber cancels, from event
 | **Burn in both directions.** Under-burn means a smaller re-commit. Over-burn means overage, rate limits and bill shock, which turned into refunds and backlash in 2025 pricing changes. | Projects commit use at term end and scores it best near 100%, worse either side. `under_burn` and `bill_shock` alerts. |
 | **Seat compression.** AI absorbs work, so customers cut seats while usage grows. That's a repricing conversation, not churn. | Detects seats down while usage grows, routes it to the downsell model and a seat-to-usage repricing play. |
 | **Model retirement.** Usage on models retiring before renewal forces a migration inside the renewal window. | Deprecated-model exposure and active integrations as stickiness. |
-| **Weak, commitment-driven retention.** Median GRR for AI-native companies was 40%, but 70% on plans over $250 a month ([ChartMogul and Kyle Poyar, Dec 2025](https://chartmogul.com/reports/saas-retention-the-ai-churn-wave/)). | Weights commitment and depth of embedding, and forecasts GRR as a range, not a point. |
+| **Weak, commitment-driven retention.** Median GRR for AI-native companies was 40%, but 70% on plans over $250 a month ([ChartMogul and Kyle Poyar, Dec 2025](https://chartmogul.com/reports/saas-retention-the-ai-churn-wave/)). | Weights commitment and depth of embedding, forecasts GRR as a range, not a point, and splits it by monthly spend against the same benchmark. |
 
 Beyond AI, three things are uncommon in public tools: the scorecard and the model are **reconciled** rather than competing (a logistic stack of both, plus watermelons where they disagree), risk is **dollarized and time-weighted** (expected ARR loss × renewal urgency), and every score comes with its **reasons and a play**.
 
@@ -65,7 +65,7 @@ GRR forecast (316 renewals): expected 88.6%, P10 86.0% to P90 90.9%
 2. **Read the top line.** ARR, expected ARR loss, GRR forecast range, critical and high counts, watermelons.
 3. **Work the priority list.** Ranked by expected loss × renewal urgency. Filter by tier and by CSM.
 4. **Open an account.** Top risk drivers in plain English, alerts, group scores, the recommended play, and a one-click brief for call prep.
-5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
+5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons, retention by plan size), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
 
 Data stays on the machine running the app. The outbound calls are the ones you turn on: a data add-on reads from its tool (Zendesk, read-only), and the optional account brief sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
 
