@@ -112,6 +112,16 @@ def assign_tier(p: pd.Series, days: pd.Series, config: ScorecardConfig, alerts: 
     return tier
 
 
+def watermelon_bar(config: ScorecardConfig, model: RiskModel | None) -> float:
+    """Churn probability above which a green account counts as a watermelon: the profile's floor, or a multiple
+    of how often green accounts churned in the training history, whichever is higher."""
+    bar = config.watermelon_min_churn_probability
+    green_rate = model.meta.get("green_band_churn_rate") if model is not None else None
+    if green_rate:
+        bar = max(bar, config.watermelon_lift * float(green_rate))
+    return float(bar)
+
+
 def forecast_grr(
     arr: np.ndarray,
     p_churn: np.ndarray,
@@ -244,10 +254,7 @@ def score(
     # The bar is the higher of the profile's floor and a multiple of how often green accounts churned in the
     # training history, so "watermelon" means several times the risk the green band normally carries.
     p_view = out["model_churn_probability"].astype(float) if "model_churn_probability" in out.columns else p
-    bar = config.watermelon_min_churn_probability
-    green_rate = model.meta.get("green_band_churn_rate") if model is not None else None
-    if green_rate:
-        bar = max(bar, config.watermelon_lift * float(green_rate))
+    bar = watermelon_bar(config, model)
     out["watermelon"] = (out["health_band"] == "green") & (p_view >= bar)
     out["risk_drivers"] = drivers
     out["protective_factors"] = protective

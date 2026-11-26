@@ -87,3 +87,14 @@ def test_demo_with_simulated_zendesk(tmp_path, capsys):
     args = ["demo", "--profile", "saas", "--history", "1200", "--book", "120", "--as-of", "2026-12-01"]
     assert main([*args, "--sources", str(demo), "--out", str(tmp_path / "o")]) == 0
     assert "Zendesk: matched" in capsys.readouterr().out
+
+
+def test_evaluate_on_a_history_file(tmp_path, capsys):
+    from renewal_risk.synth import generate_history
+
+    f = tmp_path / "hist.csv"
+    generate_history(1600, profile="saas", as_of=__import__("datetime").date(2026, 12, 1)).to_csv(f, index=False)
+    out = tmp_path / "evaluation.md"
+    assert main(["evaluate", str(f), "--profile", "saas", "--as-of", "2026-12-01", "--out", str(out)]) == 0
+    assert "How accurate is it?" in out.read_text()
+    assert "ROC AUC" in capsys.readouterr().out

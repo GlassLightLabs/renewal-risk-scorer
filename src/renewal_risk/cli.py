@@ -6,6 +6,7 @@ renewal-risk generate --profile ai_usage --out data/     write synthetic history
 renewal-risk train history.csv --profile ai_usage        train and evaluate; writes model.json
 renewal-risk score book.csv --model model.json           rank, explain and dollarize renewal risk
 renewal-risk demo --profile ai_usage                     all of the above on synthetic data
+renewal-risk evaluate history.csv --profile saas         backtest on your history; writes evaluation.md
 renewal-risk sources list                                show installed data add-ons (Zendesk...)
 renewal-risk sources test --sources sources.yaml         check add-on settings and credentials
 
@@ -208,6 +209,51 @@ def cmd_demo(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_evaluate(args: argparse.Namespace) -> int:
+    from .evaluate import backtest
+    from .evaluate import to_markdown as backtest_markdown
+
+    results = []
+    if args.demo:
+        from .synth import generate_history
+
+        as_of = _as_of(args) or date.today()
+        for profile in list_profiles():
+            print(f"Backtesting {profile} on synthetic history...")
+            hist, _ = ingest(
+                generate_history(args.history, profile=profile, as_of=as_of, seed=args.seed),
+                as_of=as_of,
+                require_outcome=True,
+            )
+            results.append(backtest(hist, load_config(profile), source="synthetic data", seed=args.seed))
+        intro = (
+            "These numbers come from the bundled synthetic data, so they show the method works end to end; they are "
+            "not a benchmark. Run the same backtest on your own history with "
+            "`renewal-risk evaluate past_renewals.csv --profile saas`."
+        )
+    else:
+        if not args.history_file:
+            print("error: pass a history CSV, or --demo for synthetic data", file=sys.stderr)
+            return 2
+        cfg = _config(args)
+        hist, report = ingest(
+            args.history_file, as_of=_as_of(args), mapping=load_mapping(args.mapping), require_outcome=True
+        )
+        print(report.summary())
+        results.append(backtest(hist, cfg, test_share=args.test_share, source=Path(args.history_file).name))
+        intro = ""
+    md = backtest_markdown(results, intro=intro)
+    Path(args.out).write_text(md)
+    for r in results:
+        m = r.methods["blend"]
+        print(
+            f"{r.profile_label}: ROC AUC {m.get('roc_auc')} (scorecard alone {r.methods['scorecard'].get('roc_auc')}), "
+            f"actual GRR {r.grr['actual']:.1%} vs forecast {r.grr['p10']:.1%} to {r.grr['p90']:.1%}"
+        )
+    print(f"Wrote {args.out}")
+    return 0
+
+
 def cmd_sources(args: argparse.Namespace) -> int:
     if args.action == "list":
         sources, problems = discover()
@@ -301,6 +347,16 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--sources", help="YAML file of data add-ons (examples/sources.demo.yaml simulates Zendesk)")
     outputs(sp)
     sp.set_defaults(func=cmd_demo, out="demo_out")
+
+    sp = sub.add_parser("evaluate", help="backtest: train on earlier renewals, test on later ones")
+    sp.add_argument("history_file", nargs="?", help="renewal history CSV with outcomes")
+    common(sp)
+    sp.add_argument("--demo", action="store_true", help="backtest every profile on synthetic history")
+    sp.add_argument("--history", type=int, default=4000, help="synthetic renewals per profile (with --demo)")
+    sp.add_argument("--test-share", type=float, default=0.25, help="latest share of renewals held out (0.25)")
+    sp.add_argument("--seed", type=int, default=42)
+    sp.add_argument("--out", default="evaluation.md")
+    sp.set_defaults(func=cmd_evaluate)
 
     sp = sub.add_parser("sources", help="list data add-ons or test their settings")
     sp.add_argument("action", choices=["list", "test"])

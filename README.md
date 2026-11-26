@@ -122,6 +122,12 @@ Five-fold out-of-fold evaluation on 4,000 synthetic past renewals per profile.
 
 The model adds the most where interactions matter (hardware fleets, AI burn) and the least where the scorecard already captures the story. The stack keeps the scorecard's transparency and the model's calibration: Brier score, which measures whether a 30% probability really means 30%, improves on every profile.
 
+**Backtest.** Cross-validation can flatter a model, so `renewal-risk evaluate` also trains on the earlier 75% of renewals and scores the later 25% it never saw, the way it would be used. It reports ranking against the scorecard alone, calibration, churn by health band, whether flagged watermelons really churned more than other green accounts, and whether actual GRR landed inside the forecast range. The full synthetic report, including where it falls short (one profile's GRR landed outside its range, and most profiles flag too few watermelons to judge), is in [docs/evaluation.md](docs/evaluation.md). Run it on your own history:
+
+```bash
+renewal-risk evaluate past_renewals.csv --profile saas --out evaluation.md
+```
+
 Every synthetic book also carries five planted accounts that tests check are surfaced for the right reason. In the AI profile: a stalled pilot (critical, pilot-to-production play), an over-burner with 14 rate-limit hits (bill-shock alert), seat compression from 230 to 155 seats (repricing alert), a green account whose champion left as usage fell 35% on soon-retired models (alerts floor it to watch even though the model rates churn low), and a healthy control.
 
 ## How it works
@@ -149,6 +155,7 @@ src/renewal_risk/
   scorecard.py   measures, groups, reweighting, bands, alerts
   model.py       LightGBM churn and downsell models, calibration, SHAP reasons, stacking
   pipeline.py    expected loss, urgency, tiers, watermelons, GRR forecast
+  evaluate.py    time-ordered backtest and the accuracy report
   playbook.py    save plays
   narrate.py     Claude account briefs with rules fallback
   report.py      CSV, JSON and Markdown outputs
