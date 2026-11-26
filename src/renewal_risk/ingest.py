@@ -206,7 +206,7 @@ def ingest(
         elif f.type == "bool":
             out[name] = col.map(parse_bool).astype(float)
         elif f.type == "date":
-            out[name] = pd.to_datetime(col.replace({"": None}), errors="coerce", format="mixed")
+            out[name] = pd.to_datetime(col.mask(col.astype(str).str.strip() == ""), errors="coerce", format="mixed")
         elif name == "csm_sentiment":
             out[name] = col.map(parse_sentiment).astype(float)
         else:

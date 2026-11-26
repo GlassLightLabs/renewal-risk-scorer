@@ -141,4 +141,5 @@ def scorecard_prior_probability(health_score: pd.Series) -> pd.Series:
     the ranking and ARR math usable on day one; train on your own renewal history to replace it.
     """
     h = health_score.fillna(60.0).astype(float)
-    return (1.0 / (1.0 + np.exp((h - 42.0) / 11.0))).round(4)
+    prob = 1.0 / (1.0 + np.exp((h.to_numpy() - 42.0) / 11.0))
+    return pd.Series(prob, index=health_score.index).round(4)
