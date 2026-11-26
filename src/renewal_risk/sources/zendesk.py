@@ -329,14 +329,15 @@ def compute_signals(
     p1 = cur[cur["priority"].isin(urgent)].groupby("account_id").size()
     out["p1_tickets_90d"] = p1.reindex(accounts).fillna(0).astype(float)
 
-    rated = cur[cur["rating"].isin(["good", "bad"])]
-    g = rated.groupby("account_id")["rating"].agg(n="size", good=lambda s: (s == "good").sum())
+    rated = cur[cur["rating"].isin(["good", "bad"])].assign(good=lambda d: (d["rating"] == "good").astype(float))
+    g = rated.groupby("account_id")["good"].agg(n="size", good="sum")
     g = g[g["n"] >= MIN_FOR_RATE]
     out["csat"] = (g["good"] / g["n"] * 100).round(1).reindex(accounts)
 
     solved = cur[cur["status"].isin(SOLVED) & cur["has_metrics"]]
-    reo = solved[solved["reopens"].notna()]
-    r = reo.groupby("account_id")["reopens"].agg(n="size", reopened=lambda s: (pd.to_numeric(s) > 0).sum())
+    reo = solved[solved["reopens"].notna()].copy()
+    reo["reopened"] = (pd.to_numeric(reo["reopens"], errors="coerce") > 0).astype(float)
+    r = reo.groupby("account_id")["reopened"].agg(n="size", reopened="sum")
     r = r[r["n"] >= MIN_FOR_RATE]
     out["ticket_reopen_rate_pct"] = (r["reopened"] / r["n"] * 100).round(1).reindex(accounts)
 
