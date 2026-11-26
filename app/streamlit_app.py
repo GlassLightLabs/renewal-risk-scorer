@@ -337,6 +337,33 @@ def portfolio_tab(r: ScoreResult) -> None:
         )
     else:
         st.caption("None in this book.")
+    plan_size_panel(r.summary.get("by_plan_size") or [])
+
+
+def plan_size_panel(bands: list[dict]) -> None:
+    has_bench = any("benchmark_grr" in b for b in bands)
+    if len(bands) < 2 and not has_bench:
+        return
+    st.subheader("Retention by plan size")
+    table = pd.DataFrame(
+        [
+            {
+                "Monthly spend": b["band"],
+                "Accounts": b["accounts"],
+                "ARR": money(b["arr"]),
+                "Expected loss": money(b["expected_arr_loss"]),
+                "Expected GRR": f"{b['expected_grr']:.0%}" if b["expected_grr"] is not None else "n/a",
+                **({"AI-native median GRR": f"{b['benchmark_grr']:.0%}"} if has_bench else {}),
+            }
+            for b in bands
+        ]
+    )
+    st.dataframe(table, hide_index=True, width="stretch")
+    if has_bench:
+        st.caption(
+            "Benchmark: median GRR for AI-native products by monthly spend (ChartMogul, December 2025). "
+            "Small self-serve plans churn far faster than committed spend, so read each band on its own."
+        )
 
 
 def model_tab(r: ScoreResult) -> None:

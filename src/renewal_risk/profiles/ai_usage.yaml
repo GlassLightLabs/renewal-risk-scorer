@@ -86,6 +86,7 @@ model_features:
   - [exec_sponsor, -1, relationship, Executive sponsor, bool]
   - [competitor_eval, 1, relationship, Competitor evaluation, bool]
   - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
+  - [signer_departed, 1, relationship, Contract signer left, bool]
   - [innovation_budget, 1, commercial, Experimental or innovation budget, bool]
   - [days_past_due, 1, commercial, Days past due, days]
   - [nps, -1, commercial, NPS, score10]
@@ -93,6 +94,7 @@ model_features:
   - [p1_tickets_90d, 1, commercial, P1 incidents (90d), count]
   - [tenure_months, -1, commercial, Tenure, months]
   - [multi_year, -1, commercial, Multi-year commit, bool]
+  - [discount_pct, 1, commercial, Discount at signing, pct]
 
 alerts:
   - id: stalled_pilot

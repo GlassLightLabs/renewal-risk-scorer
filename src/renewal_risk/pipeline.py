@@ -112,6 +112,59 @@ def assign_tier(p: pd.Series, days: pd.Series, config: ScorecardConfig, alerts: 
     return tier
 
 
+# Monthly spend bands. ChartMogul's 2025 AI retention study found the split between "tourists" and
+# committed buyers sits on monthly spend, so the book is broken out the same way.
+PLAN_SIZE_BANDS: tuple[tuple[str, float, float], ...] = (
+    ("Under $50/mo", 0.0, 50.0),
+    ("$50-249/mo", 50.0, 250.0),
+    ("$250-999/mo", 250.0, 1_000.0),
+    ("$1k-9.9k/mo", 1_000.0, 10_000.0),
+    ("$10k+/mo", 10_000.0, float("inf")),
+)
+# Median gross revenue retention for AI-native products by monthly spend (ChartMogul, December 2025).
+# Only published for spend under $250/mo as separate bands; $250+ is one band, so the last three share it.
+AI_NATIVE_GRR_BENCHMARK: dict[str, float] = {
+    "Under $50/mo": 0.23,
+    "$50-249/mo": 0.45,
+    "$250-999/mo": 0.70,
+    "$1k-9.9k/mo": 0.70,
+    "$10k+/mo": 0.70,
+}
+
+
+def by_plan_size(accounts: pd.DataFrame, profile: str) -> list[dict[str, Any]]:
+    """Accounts, ARR, expected loss and expected GRR for each monthly-spend band that has accounts."""
+    monthly = accounts["arr"].astype(float) / 12.0
+    rows: list[dict[str, Any]] = []
+    for label, lo, hi in PLAN_SIZE_BANDS:
+        part = accounts[(monthly >= lo) & (monthly < hi)]
+        if part.empty:
+            continue
+        arr = float(part["arr"].sum())
+        loss = float(part["expected_arr_loss"].sum())
+        row: dict[str, Any] = {
+            "band": label,
+            "accounts": int(len(part)),
+            "arr": round(arr, 2),
+            "expected_arr_loss": round(loss, 2),
+            "expected_grr": round(1 - loss / arr, 4) if arr > 0 else None,
+        }
+        if profile == "ai_usage":
+            row["benchmark_grr"] = AI_NATIVE_GRR_BENCHMARK[label]
+        rows.append(row)
+    return rows
+
+
+def watermelon_bar(config: ScorecardConfig, model: RiskModel | None) -> float:
+    """Churn probability above which a green account counts as a watermelon: the profile's floor, or a multiple
+    of how often green accounts churned in the training history, whichever is higher."""
+    bar = config.watermelon_min_churn_probability
+    green_rate = model.meta.get("green_band_churn_rate") if model is not None else None
+    if green_rate:
+        bar = max(bar, config.watermelon_lift * float(green_rate))
+    return float(bar)
+
+
 def forecast_grr(
     arr: np.ndarray,
     p_churn: np.ndarray,
@@ -244,10 +297,7 @@ def score(
     # The bar is the higher of the profile's floor and a multiple of how often green accounts churned in the
     # training history, so "watermelon" means several times the risk the green band normally carries.
     p_view = out["model_churn_probability"].astype(float) if "model_churn_probability" in out.columns else p
-    bar = config.watermelon_min_churn_probability
-    green_rate = model.meta.get("green_band_churn_rate") if model is not None else None
-    if green_rate:
-        bar = max(bar, config.watermelon_lift * float(green_rate))
+    bar = watermelon_bar(config, model)
     out["watermelon"] = (out["health_band"] == "green") & (p_view >= bar)
     out["risk_drivers"] = drivers
     out["protective_factors"] = protective
@@ -300,6 +350,7 @@ def score(
         "low_confidence_scores": int((out["confidence"] == "low").sum()),
         "health_bands": {k: int(v) for k, v in out["health_band"].value_counts().items()},
         "forecast": fc,
+        "by_plan_size": by_plan_size(out, config.profile),
     }
     return ScoreResult(
         accounts=out,

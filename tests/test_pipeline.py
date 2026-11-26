@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import numpy as np
+import pandas as pd
 import pytest
 
 from renewal_risk.config import load_config
-from renewal_risk.pipeline import forecast_grr, score
+from renewal_risk.pipeline import AI_NATIVE_GRR_BENCHMARK, by_plan_size, forecast_grr, score
 from renewal_risk.playbook import recommend, timing
+from renewal_risk.report import markdown_report
 
 
 @pytest.mark.parametrize("profile", ["saas", "consumption", "hardware", "services", "ai_usage"])
@@ -76,3 +78,42 @@ def test_playbook_prefers_high_alerts_then_drivers():
     assert recommend("saas", [], [], 40, watermelon=True)["play"] == "Watermelon check"
     assert recommend("saas", [], [], 400)["play"] == "Standard renewal motion"
     assert timing(-5).startswith("Overdue") and timing(60).startswith("Negotiation")
+
+
+def test_plan_size_bands_split_the_book_by_monthly_spend():
+    accounts = pd.DataFrame(
+        {
+            "arr": [12 * 30, 12 * 40, 12 * 100, 12 * 5_000, 12 * 20_000],
+            "expected_arr_loss": [12 * 30 * 0.8, 12 * 40 * 0.5, 12 * 100 * 0.5, 12 * 5_000 * 0.1, 0.0],
+        }
+    )
+    rows = by_plan_size(accounts, "ai_usage")
+    assert [r["band"] for r in rows] == ["Under $50/mo", "$50-249/mo", "$1k-9.9k/mo", "$10k+/mo"]
+    small = rows[0]
+    assert small["accounts"] == 2 and small["arr"] == 12 * 70
+    assert small["expected_grr"] == pytest.approx(1 - (12 * 30 * 0.8 + 12 * 40 * 0.5) / (12 * 70), abs=1e-4)
+    assert rows[-1]["expected_grr"] == 1.0
+    assert all(r["benchmark_grr"] == AI_NATIVE_GRR_BENCHMARK[r["band"]] for r in rows)
+    # Other profiles get the split without the AI-native benchmark.
+    assert all("benchmark_grr" not in r for r in by_plan_size(accounts, "saas"))
+
+
+def test_report_shows_retention_by_plan_size(trained, books, as_of):
+    _, model = trained["ai_usage"]
+    r = score(books["ai_usage"], load_config("ai_usage"), model, as_of=as_of, simulations=200)
+    bands = r.summary["by_plan_size"]
+    assert sum(b["accounts"] for b in bands) == len(r.accounts)
+    md = markdown_report(r)
+    assert "## Retention by plan size" in md and "AI-native median GRR" in md
+
+
+def test_deal_signals_from_the_crm_raise_alerts_and_plays(books, as_of):
+    a = score(books["saas"], load_config("saas"), None, as_of=as_of).accounts.set_index("account_id")
+    quarry = {x["id"] for x in a.loc["A-90003", "alerts"]}  # first renewal, signed at 40% off, signer gone
+    assert {"signer_gone", "discount_cliff"} <= quarry
+    ironleaf = {x["id"] for x in a.loc["A-90004", "alerts"]}
+    assert not {"signer_gone", "discount_cliff"} & ironleaf
+    play = recommend("saas", [], [{"id": "signer_gone", "severity": "medium", "message": ""}], 120)
+    assert play["play"] == "Find the new economic buyer"
+    play = recommend("saas", [], [{"id": "discount_cliff", "severity": "medium", "message": ""}], 120)
+    assert play["play"] == "Plan the discount step-down"

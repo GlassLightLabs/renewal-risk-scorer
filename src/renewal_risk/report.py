@@ -120,6 +120,30 @@ def markdown_report(result: ScoreResult, *, top: int = 15, briefs_md: str | None
             "_Monte Carlo over account-level churn and contraction probabilities, treated as independent, so the "
             "P10 understates correlated shocks._",
         ]
+    bands = s.get("by_plan_size") or []
+    if len(bands) > 1 or any("benchmark_grr" in b for b in bands):
+        has_bench = any("benchmark_grr" in b for b in bands)
+        table = pd.DataFrame(
+            [
+                {
+                    "Monthly spend": b["band"],
+                    "Accounts": b["accounts"],
+                    "ARR": _money(b["arr"]),
+                    "Exp. loss": _money(b["expected_arr_loss"]),
+                    "Exp. GRR": f"{b['expected_grr']:.0%}" if b["expected_grr"] is not None else "n/a",
+                    **({"AI-native median GRR": f"{b['benchmark_grr']:.0%}"} if has_bench else {}),
+                }
+                for b in bands
+            ]
+        )
+        lines += ["", "## Retention by plan size", "", _md_table(table)]
+        if has_bench:
+            lines += [
+                "",
+                "_Benchmark: median GRR for AI-native products by monthly spend (ChartMogul, December 2025). "
+                "Small self-serve plans churn far faster than committed spend, so read the bands separately "
+                "rather than as one blended number._",
+            ]
     view = a.head(top).copy()
     view["ARR"] = view["arr"].map(_money)
     view["Exp. loss"] = view["expected_arr_loss"].map(_money)

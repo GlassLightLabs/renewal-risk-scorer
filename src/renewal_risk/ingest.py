@@ -263,6 +263,7 @@ def _normalize_scales(df: pd.DataFrame, report: DataQualityReport) -> None:
     for pct in (
         "feature_adoption_pct",
         "price_increase_pct",
+        "discount_pct",
         "reserved_capacity_utilization_pct",
         "connected_units_pct",
         "supported_firmware_pct",

@@ -62,6 +62,7 @@ model_features:
   - [exec_sponsor, -1, relationship, Executive sponsor, bool]
   - [competitor_eval, 1, relationship, Competitor evaluation, bool]
   - [qbr_last_180d, -1, relationship, QBR in last 180 days, bool]
+  - [signer_departed, 1, relationship, Contract signer left, bool]
   - [csat, -1, experience, CSAT, pct]
   - [nps, -1, experience, NPS, score10]
   - [csm_sentiment, -1, experience, CSM sentiment, score5]
@@ -69,6 +70,7 @@ model_features:
   - [days_past_due, 1, commercial, Days past due, days]
   - [price_increase_pct, 1, commercial, Renewal uplift, pct]
   - [tenure_months, -1, commercial, Tenure, months]
+  - [discount_pct, 1, commercial, Discount at signing, pct]
 
 alerts:
   - id: sla_breach

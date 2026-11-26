@@ -7,8 +7,9 @@ Feed it a Salesforce or Gainsight export of open renewals. It returns every acco
 - a **health scorecard** CS teams can read and tune (Gainsight-style weighted measures and groups),
 - a **calibrated churn and downsell model** trained on your renewal history, with plain-English reason codes for every account,
 - a **save play** with an owner, timing and steps,
-- a **GRR forecast** with a P10 to P90 range for the quarter,
+- a **GRR forecast** with a P10 to P90 range for the quarter, plus **retention by plan size** (monthly spend bands, with the AI-native benchmark for the `ai_usage` profile) so small self-serve plans don't hide inside a blended number,
 - **watermelon** flags (green on the scorecard, red underneath),
+- **deal signals from the CRM**: a deep discount at signing and a contract signer who has left, each with its own alert and save play,
 - optional **Claude-written account briefs** for call prep, with a rules-based fallback when no API key is set,
 - **data add-ons** that pull signals from other tools, starting with **Zendesk** (ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution), configured in the app or a YAML file.
 
@@ -26,7 +27,7 @@ Most open-source churn projects predict whether a subscriber cancels, from event
 | **Burn in both directions.** Under-burn means a smaller re-commit. Over-burn means overage, rate limits and bill shock, which turned into refunds and backlash in 2025 pricing changes. | Projects commit use at term end and scores it best near 100%, worse either side. `under_burn` and `bill_shock` alerts. |
 | **Seat compression.** AI absorbs work, so customers cut seats while usage grows. That's a repricing conversation, not churn. | Detects seats down while usage grows, routes it to the downsell model and a seat-to-usage repricing play. |
 | **Model retirement.** Usage on models retiring before renewal forces a migration inside the renewal window. | Deprecated-model exposure and active integrations as stickiness. |
-| **Weak, commitment-driven retention.** Median GRR for AI-native companies was 40%, but 70% on plans over $250 a month ([ChartMogul and Kyle Poyar, Dec 2025](https://chartmogul.com/reports/saas-retention-the-ai-churn-wave/)). | Weights commitment and depth of embedding, and forecasts GRR as a range, not a point. |
+| **Weak, commitment-driven retention.** Median GRR for AI-native companies was 40%, but 70% on plans over $250 a month ([ChartMogul and Kyle Poyar, Dec 2025](https://chartmogul.com/reports/saas-retention-the-ai-churn-wave/)). | Weights commitment and depth of embedding, forecasts GRR as a range, not a point, and splits it by monthly spend against the same benchmark. |
 
 Beyond AI, three things are uncommon in public tools: the scorecard and the model are **reconciled** rather than competing (a logistic stack of both, plus watermelons where they disagree), risk is **dollarized and time-weighted** (expected ARR loss × renewal urgency), and every score comes with its **reasons and a play**.
 
@@ -45,18 +46,18 @@ The demo takes about 10 seconds. Sample output (AI profile, as of 2026-12-01):
 
 ```
                         ROC AUC   PR AUC    Brier  Lift@10%  ARR@20%
-Scorecard alone           0.912    0.713   0.1044      4.68      73%
-Model alone               0.928    0.774   0.0691      5.03      67%
-Model + scorecard         0.928    0.778   0.0685      5.06      71%
+Scorecard alone           0.911    0.712   0.1043      4.70      66%
+Model alone               0.923    0.762   0.0716      5.01      64%
+Model + scorecard         0.925    0.769   0.0705      5.04      64%
 
-AI products (credits, tokens, hybrid plans): 600 accounts, $139,469,100 ARR, expected ARR loss $14,912,102
-Tiers: critical 33, high 49, watch 239, low 279 | watermelons 7 | overdue 35
-GRR forecast (316 renewals): expected 88.6%, P10 86.0% to P90 90.9%
+AI products (credits, tokens, hybrid plans): 600 accounts, $139,469,100 ARR, expected ARR loss $15,996,151
+Tiers: critical 34, high 48, watch 241, low 277 | watermelons 13 | overdue 35
+GRR forecast (316 renewals): expected 87.6%, P10 84.7% to P90 90.4%
 
-  #  Account                       ARR  Days  Churn Downsell  Exp. loss  Tier     Why
-  1  Oakmont Supply          1,154,800   167    90%      42%  1,056,731  critical Pilot with under 40% of usage in production
-  2  Stonebridge Labs          391,000    44    72%      44%    294,083  critical Three or more P1 tickets in the last 90 days
-  3  Copperline Cloudworks   1,340,700     8    13%      33%    276,918  watch    Invoice 60+ days past due
+  #  Account                              ARR  Days  Churn Downsell   Exp. loss  Tier     Why
+  1  Oakmont Supply                 1,154,800   167    89%      42%   1,037,908  critical Pilot with under 40% of usage in production; it ends without a busines
+  2  Stonebridge Labs                 391,000    44    70%      46%     289,634  critical Three or more P1 tickets or escalations in the last 90 days
+  3  Copperline Cloudworks          1,340,700     8    12%      37%     280,279  watch    Invoice 60+ days past due
 ```
 
 ## How a rep uses it
@@ -65,7 +66,7 @@ GRR forecast (316 renewals): expected 88.6%, P10 86.0% to P90 90.9%
 2. **Read the top line.** ARR, expected ARR loss, GRR forecast range, critical and high counts, watermelons.
 3. **Work the priority list.** Ranked by expected loss × renewal urgency. Filter by tier and by CSM.
 4. **Open an account.** Top risk drivers in plain English, alerts, group scores, the recommended play, and a one-click brief for call prep.
-5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
+5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons, retention by plan size), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
 
 Data stays on the machine running the app. The outbound calls are the ones you turn on: a data add-on reads from its tool (Zendesk, read-only), and the optional account brief sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
 
@@ -114,13 +115,19 @@ Five-fold out-of-fold evaluation on 4,000 synthetic past renewals per profile.
 
 | Profile | ROC AUC: scorecard / model / stacked | Brier: scorecard / stacked |
 |---|---|---|
-| AI products | 0.912 / 0.928 / **0.928** | 0.104 / **0.069** |
-| Seat-based SaaS | 0.872 / 0.882 / **0.884** | 0.064 / **0.057** |
-| Consumption and compute | 0.890 / 0.899 / **0.899** | 0.066 / **0.061** |
-| Hardware and support | 0.896 / 0.936 / **0.935** | 0.064 / **0.048** |
-| Professional services | 0.866 / 0.873 / **0.875** | 0.074 / **0.065** |
+| AI products | 0.911 / 0.923 / **0.925** | 0.104 / **0.071** |
+| Seat-based SaaS | 0.878 / 0.896 / **0.896** | 0.066 / **0.058** |
+| Consumption and compute | 0.891 / 0.904 / **0.904** | 0.064 / **0.057** |
+| Hardware and support | 0.900 / 0.934 / **0.933** | 0.063 / **0.048** |
+| Professional services | 0.864 / 0.873 / **0.876** | 0.074 / **0.064** |
 
 The model adds the most where interactions matter (hardware fleets, AI burn) and the least where the scorecard already captures the story. The stack keeps the scorecard's transparency and the model's calibration: Brier score, which measures whether a 30% probability really means 30%, improves on every profile.
+
+**Backtest.** Cross-validation can flatter a model, so `renewal-risk evaluate` also trains on the earlier 75% of renewals and scores the later 25% it never saw, the way it would be used. It reports ranking against the scorecard alone, calibration, churn by health band, whether flagged watermelons really churned more than other green accounts, and whether actual GRR landed inside the forecast range. The full synthetic report, including where it falls short (one profile's GRR landed outside its range, and no profile flags enough watermelons to judge them on a 1,000-renewal test set), is in [docs/evaluation.md](docs/evaluation.md). Run it on your own history:
+
+```bash
+renewal-risk evaluate past_renewals.csv --profile saas --out evaluation.md
+```
 
 Every synthetic book also carries five planted accounts that tests check are surfaced for the right reason. In the AI profile: a stalled pilot (critical, pilot-to-production play), an over-burner with 14 rate-limit hits (bill-shock alert), seat compression from 230 to 155 seats (repricing alert), a green account whose champion left as usage fell 35% on soon-retired models (alerts floor it to watch even though the model rates churn low), and a healthy control.
 
@@ -149,6 +156,7 @@ src/renewal_risk/
   scorecard.py   measures, groups, reweighting, bands, alerts
   model.py       LightGBM churn and downsell models, calibration, SHAP reasons, stacking
   pipeline.py    expected loss, urgency, tiers, watermelons, GRR forecast
+  evaluate.py    time-ordered backtest and the accuracy report
   playbook.py    save plays
   narrate.py     Claude account briefs with rules fallback
   report.py      CSV, JSON and Markdown outputs

@@ -33,6 +33,24 @@ ALERT_PLAYS: dict[str, Play] = {
             "Prepare a retention offer with a clear walk-away point before negotiation",
         ],
     },
+    "signer_gone": {
+        "play": "Find the new economic buyer",
+        "owner": "Account Executive + CSM",
+        "actions": [
+            "Ask your champion who now approves the renewal and get a meeting with them",
+            "Rebuild the business case for that person: outcomes delivered, cost of switching, what's next",
+            "Confirm the procurement path and paperwork early, before the old signer's absence stalls it",
+        ],
+    },
+    "discount_cliff": {
+        "play": "Plan the discount step-down",
+        "owner": "Account Executive + RevOps",
+        "actions": [
+            "Decide the renewal price before the conversation: hold, step down part of the discount, or go to list",
+            "Tie any price move to value delivered and to added scope or term",
+            "Give the customer notice early so the change is budgeted, not a surprise at signature",
+        ],
+    },
     "payment_risk": {
         "play": "Collections and commercial review",
         "owner": "Finance + Account Executive",
