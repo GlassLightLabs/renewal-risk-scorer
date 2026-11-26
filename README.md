@@ -32,7 +32,7 @@ Beyond AI, three things are uncommon in public tools: the scorecard and the mode
 ## Quick start
 
 ```bash
-git clone <this repo> && cd renewal-risk-scorer
+git clone https://github.com/GlassLightLabs/renewal-risk-scorer && cd renewal-risk-scorer
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[app,dev]"
 
