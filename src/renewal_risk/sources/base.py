@@ -75,14 +75,16 @@ class SourceResult:
     records_read: int = 0  # e.g. tickets read
     warnings: list[str] = field(default_factory=list)
     simulated: bool = False
+    records_label: str = "records"  # what records_read counts, e.g. "tickets"
+    unmatched_label: str = "source records"  # what unmatched_records counts, e.g. "organizations"
 
     def summary(self) -> str:
         total = self.matched_accounts + len(self.unmatched_accounts)
         parts = [f"{self.source}: matched {self.matched_accounts} of {total} accounts"]
         if self.records_read:
-            parts.append(f"{self.records_read:,} records read")
+            parts.append(f"{self.records_read:,} {self.records_label} read")
         if self.unmatched_records:
-            parts.append(f"{self.unmatched_records} source records matched no account")
+            parts.append(f"{self.unmatched_records} {self.unmatched_label} matched no account")
         line = ", ".join(parts)
         if self.simulated:
             line += " (simulated demo data)"

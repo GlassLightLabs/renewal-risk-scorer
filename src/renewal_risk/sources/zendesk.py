@@ -178,6 +178,8 @@ class ZendeskSource(DataSource):
             records_read=len(tickets),
             warnings=warnings,
             simulated=bool(cfg["simulate"]),
+            records_label="tickets",
+            unmatched_label="organizations",
         )
 
     def _organizations(self, client: JsonClient, warnings: list[str]) -> list[dict[str, Any]]:

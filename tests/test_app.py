@@ -28,3 +28,20 @@ def test_demo_app_pulls_in_simulated_zendesk() -> None:
     at.checkbox(key="zendesk_on").uncheck().run()
     assert not at.exception, at.exception
     assert not any("Zendesk: matched" in s.value for s in at.success)
+
+
+def test_account_detail_shows_support_signals() -> None:
+    at = AppTest.from_file(str(APP), default_timeout=180)
+    at.run()
+    assert not at.exception, at.exception
+    assert any(s.value == "Support" for s in at.subheader), "expected a Support panel on the account tab"
+    assert any("Data add-ons: Zendesk (simulated)" in c.value for c in at.caption)
+
+
+def test_real_zendesk_waits_for_settings() -> None:
+    at = AppTest.from_file(str(APP), default_timeout=180)
+    at.run()
+    at.toggle(key="zendesk_sim").set_value(False).run()
+    assert not at.exception, at.exception
+    assert any("to use Zendesk" in c.value for c in at.caption), "expected a prompt for missing settings"
+    assert not at.sidebar.error, "an incomplete form should not show errors"

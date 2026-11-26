@@ -124,6 +124,10 @@ def addon_settings(src: DataSource, demo: bool) -> dict[str, object] | None:
             cfg[f.name] = st.text_input(
                 f.label, value=default, key=key, help=f.help, type="password" if f.secret else "default"
             )
+    missing = [f.label for f in src.fields if f.required and not str(cfg.get(f.name) or "").strip()]
+    if missing:
+        st.caption(f"Add {', '.join(missing)} to use {src.label}.")
+        return None
     if st.button("Test connection", key=f"{name}_test"):
         try:
             st.success(src.test_connection(cfg))
@@ -154,7 +158,7 @@ def run_addons(
     return apply_sources(book, sources, as_of=as_of)
 
 
-def addons_report(run: SourceRun) -> None:
+def addons_report(run: SourceRun, book: pd.DataFrame) -> None:
     if not run.results and not run.errors:
         st.caption("No data add-ons in use. Turn one on under Data add-ons in the sidebar.")
         return
@@ -164,7 +168,18 @@ def addons_report(run: SourceRun) -> None:
             st.caption(w)
         if res.unmatched_accounts:
             with st.expander(f"{len(res.unmatched_accounts)} accounts not found in {res.source}"):
-                st.write(", ".join(res.unmatched_accounts[:500]))
+                st.caption(
+                    "These keep the values from your export. To match them, set the organization's external ID "
+                    "to the account ID, or try another 'Match organizations by' setting."
+                )
+                cols = [c for c in ("account_id", "account_name", "arr", "renewal_date") if c in book.columns]
+                missing = book[book["account_id"].astype(str).isin(res.unmatched_accounts)][cols]
+                st.dataframe(
+                    missing.sort_values("arr", ascending=False) if "arr" in cols else missing,
+                    hide_index=True,
+                    width="stretch",
+                    column_config={"arr": st.column_config.NumberColumn("ARR", format="$%d")},
+                )
     for name, err in run.errors.items():
         st.error(f"{name}: not used. {err}")
 
@@ -224,7 +239,38 @@ def priority_tab(r: ScoreResult) -> None:
     st.download_button("Download report (Markdown)", markdown_report(r), "report.md")
 
 
-def account_tab(r: ScoreResult) -> None:
+SUPPORT_FIELDS = {
+    "tickets_90d": ("Tickets (90d)", "{:.0f}"),
+    "tickets_90d_prior": ("Previous 90d", "{:.0f}"),
+    "tickets_per_100_seats": ("Per 100 seats", "{:.1f}"),
+    "p1_tickets_90d": ("Urgent", "{:.0f}"),
+    "csat": ("CSAT", "{:.0f}%"),
+    "ticket_reopen_rate_pct": ("Reopened", "{:.0f}%"),
+    "ticket_resolution_hours": ("Median fix", "{:.0f} h"),
+}
+
+
+def support_panel(book: pd.DataFrame, account_id: object, run: SourceRun) -> None:
+    """The account's support signals, with where they came from."""
+    rows = book[book["account_id"].astype(str) == str(account_id)]
+    if rows.empty:
+        return
+    rec = rows.iloc[0]
+    shown = [(label, fmt.format(rec[k])) for k, (label, fmt) in SUPPORT_FIELDS.items() if k in rec and pd.notna(rec[k])]
+    if not shown:
+        return
+    origin = "your export"
+    for res in run.results:
+        if str(account_id) not in res.unmatched_accounts and res.matched_accounts:
+            origin = res.source + (" (simulated)" if res.simulated else "")
+    st.subheader("Support")
+    st.caption(f"From {origin}")
+    cols = st.columns(min(4, len(shown)))
+    for i, (label, value) in enumerate(shown):
+        cols[i % len(cols)].metric(label, value)
+
+
+def account_tab(r: ScoreResult, book: pd.DataFrame, run: SourceRun) -> None:
     a = r.accounts
     labels = (a["rank"].astype(str) + ". " + a["account_name"].fillna(a["account_id"])).tolist()
     pick = st.selectbox("Account", range(len(a)), format_func=lambda i: labels[i])
@@ -264,6 +310,7 @@ def account_tab(r: ScoreResult) -> None:
         st.caption(f"{row['play_owner']} · {row['play_timing']}")
         for step in row["play_actions"]:
             st.markdown(f"1. {step}")
+        support_panel(book, row["account_id"], run)
         if st.button("Write account brief"):
             brief = narrate_one(row)
             st.markdown(f"**{brief['headline']}**")
@@ -326,20 +373,23 @@ def main() -> None:
             st.sidebar.error(f"{name}: {err}")
     result = score(book, load_config(profile), model, as_of=as_of, horizon_days=horizon, quality=report)  # type: ignore[arg-type]
     st.title(f"Renewal risk: {result.config.label}")
-    st.caption(f"Risk source: {result.summary['risk_source']}")
+    used = [r.source + (" (simulated)" if r.simulated else "") for r in run.results]
+    st.caption(
+        f"Risk source: {result.summary['risk_source']}" + (f" · Data add-ons: {', '.join(used)}" if used else "")
+    )
     kpis(result)
     tabs = st.tabs(["Priority list", "Account detail", "Portfolio", "Model quality", "Data quality"])
     with tabs[0]:
         priority_tab(result)
     with tabs[1]:
-        account_tab(result)
+        account_tab(result, book, run)
     with tabs[2]:
         portfolio_tab(result)
     with tabs[3]:
         model_tab(result)
     with tabs[4]:
         st.subheader("Data add-ons")
-        addons_report(run)
+        addons_report(run, book)
         st.subheader("Columns and coverage")
         st.text(report.summary())  # type: ignore[attr-defined]
 
