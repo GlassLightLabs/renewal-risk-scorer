@@ -171,6 +171,7 @@ SPARSE = {
     "csm_sentiment": 0.10,
     "qbr_last_180d": 0.05,
     "competitor_eval": 0.30,
+    "discount_pct": 0.15,
     "feature_adoption_pct": 0.08,
     "active_users_prior": 0.04,
     "reserved_capacity_utilization_pct": 0.40,
@@ -240,6 +241,13 @@ def _base(rng: np.random.Generator, n: int, profile: str) -> pd.DataFrame:
             "tenure_months": np.round(np.clip(rng.gamma(2.0, 14.0, n), 11, 120)),
         }
     )
+    # Deal terms from the CRM, drawn on their own stream so the fields above stay identical across versions.
+    deal = np.random.default_rng(int(np.abs(h).sum() * 1e6) % (2**32))
+    seg_disc = np.array([{"SMB": 6.0, "Mid-Market": 12.0, "Enterprise": 18.0}[s] for s in segs])
+    # Weaker fits were often closed with a deeper discount, so discount depth carries some of the same risk.
+    disc = seg_disc * np.exp(-0.25 * h + deal.normal(0, 0.45, n))
+    d["discount_pct"] = np.where(deal.random(n) < 0.25, 0.0, np.clip(np.round(disc), 0, 60))
+    d["signer_departed"] = (deal.random(n) < 0.07 + 0.30 * shock + 0.04 * (h < -0.5)).astype(float)
     d["_h"] = h
     d["_shock"] = shock
     d["_size"] = np.array([SEG_SIZE[s] for s in segs]) + rng.normal(0, 0.6, n)
@@ -391,6 +399,8 @@ def true_churn_logit(d: pd.DataFrame, profile: str = "saas") -> np.ndarray:
         - 0.20 * (a["csm_sentiment"] - 3)
         + 0.018 * a["days_past_due"]
         + 0.05 * a["price_increase_pct"] * (1 + 1.5 * _low_value(d, profile))
+        + 0.04 * np.maximum(0, a["discount_pct"] - 20)  # the discount cliff at renewal
+        + a["signer_departed"] * (0.35 + 0.45 * no_sponsor)
         - 0.35 * a["auto_renew"]
         + 0.70 * (a["tenure_months"] < 14)
         + 0.45 * (d["segment"].to_numpy() == "SMB")
@@ -607,6 +617,8 @@ STORY_BASE: list[dict[str, Any]] = [
         competitor_eval=None,
         days_past_due=0,
         price_increase_pct=12,
+        discount_pct=15,
+        signer_departed=0,
         auto_renew=0,
         multi_year=0,
         renew_in=75,
@@ -630,6 +642,8 @@ STORY_BASE: list[dict[str, Any]] = [
         competitor_eval=1,
         days_past_due=45,
         price_increase_pct=7,
+        discount_pct=20,
+        signer_departed=0,
         auto_renew=0,
         multi_year=0,
         renew_in=40,
@@ -653,6 +667,8 @@ STORY_BASE: list[dict[str, Any]] = [
         competitor_eval=None,
         days_past_due=0,
         price_increase_pct=5,
+        discount_pct=40,
+        signer_departed=1,
         auto_renew=0,
         multi_year=0,
         renew_in=-10,
@@ -676,6 +692,8 @@ STORY_BASE: list[dict[str, Any]] = [
         competitor_eval=0,
         days_past_due=0,
         price_increase_pct=5,
+        discount_pct=10,
+        signer_departed=0,
         auto_renew=0,
         multi_year=1,
         renew_in=300,
@@ -699,6 +717,8 @@ STORY_BASE: list[dict[str, Any]] = [
         competitor_eval=0,
         days_past_due=78,
         price_increase_pct=5,
+        discount_pct=5,
+        signer_departed=0,
         auto_renew=0,
         multi_year=0,
         renew_in=150,
@@ -1027,6 +1047,8 @@ def to_salesforce_report(book: pd.DataFrame) -> pd.DataFrame:
             "Champion_Departed__c": book["champion_change_90d"].map(yn),
             "Days_Past_Due__c": book["days_past_due"],
             "Renewal_Uplift__c": (book["price_increase_pct"] / 100).round(3),
+            "Discount__c": (book["discount_pct"] / 100).round(3),
+            "Contract_Signer_Left__c": book["signer_departed"].map(yn),
             "Auto_Renewal__c": book["auto_renew"].map(yn),
             "Multi_Year__c": book["multi_year"].map(yn),
         }

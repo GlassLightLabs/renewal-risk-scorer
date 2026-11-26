@@ -71,6 +71,7 @@ model_features:
   - [exec_sponsor, -1, relationship, Executive sponsor, bool]
   - [competitor_eval, 1, relationship, Competitor or third-party maintainer evaluation, bool]
   - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
+  - [signer_departed, 1, relationship, Contract signer left, bool]
   - [p1_tickets_90d, 1, service, P1 cases (90d), count]
   - [csat, -1, service, Service CSAT, pct]
   - [days_past_due, 1, commercial, Days past due, days]
@@ -78,6 +79,7 @@ model_features:
   - [tenure_months, -1, commercial, Tenure, months]
   - [auto_renew, -1, commercial, Auto-renew, bool]
   - [multi_year, -1, commercial, Multi-year contract, bool]
+  - [discount_pct, 1, commercial, Discount at signing, pct]
 
 alerts:
   - id: coverage_erosion

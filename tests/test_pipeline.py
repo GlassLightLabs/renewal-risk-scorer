@@ -105,3 +105,15 @@ def test_report_shows_retention_by_plan_size(trained, books, as_of):
     assert sum(b["accounts"] for b in bands) == len(r.accounts)
     md = markdown_report(r)
     assert "## Retention by plan size" in md and "AI-native median GRR" in md
+
+
+def test_deal_signals_from_the_crm_raise_alerts_and_plays(books, as_of):
+    a = score(books["saas"], load_config("saas"), None, as_of=as_of).accounts.set_index("account_id")
+    quarry = {x["id"] for x in a.loc["A-90003", "alerts"]}  # first renewal, signed at 40% off, signer gone
+    assert {"signer_gone", "discount_cliff"} <= quarry
+    ironleaf = {x["id"] for x in a.loc["A-90004", "alerts"]}
+    assert not {"signer_gone", "discount_cliff"} & ironleaf
+    play = recommend("saas", [], [{"id": "signer_gone", "severity": "medium", "message": ""}], 120)
+    assert play["play"] == "Find the new economic buyer"
+    play = recommend("saas", [], [{"id": "discount_cliff", "severity": "medium", "message": ""}], 120)
+    assert play["play"] == "Plan the discount step-down"

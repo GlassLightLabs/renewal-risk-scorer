@@ -50,6 +50,14 @@ alerts:
     severity: medium
     message: Support tickets nearly stopped while product usage fell (often disengagement, not a fixed product)
     when: [[support_silence_flag, "==", 1], [usage_trend_pct, "<=", -10]]
+  - id: signer_gone
+    severity: medium
+    message: The person who signed the current contract has left, so nobody owns the renewal decision yet
+    when: [[signer_departed, "==", 1], [days_to_renewal, "<=", 270]]
+  - id: discount_cliff
+    severity: medium
+    message: Signed at a discount of 30% or more and renews within 6 months, so moving toward list price will meet pushback
+    when: [[discount_pct, ">=", 30], [days_to_renewal, "<=", 180]]
   - id: payment_risk
     severity: high
     message: Invoice 60+ days past due

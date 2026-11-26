@@ -80,6 +80,7 @@ model_features:
   - [days_since_last_meeting, 1, relationship, Days since last meeting, days]
   - [qbr_last_180d, -1, relationship, QBR in last 180 days, bool]
   - [competitor_eval, 1, relationship, Competitor evaluation, bool]
+  - [signer_departed, 1, relationship, Contract signer left, bool]
   - [p1_tickets_90d, 1, support, P1 tickets (90d), count]
   - [tickets_per_100_seats, 0, support, Tickets per 100 seats, number]
   - [csat, -1, support, Support CSAT, pct]
@@ -90,6 +91,7 @@ model_features:
   - [tenure_months, -1, commercial, Tenure, months]
   - [multi_year, -1, commercial, Multi-year contract, bool]
   - [auto_renew, -1, commercial, Auto-renew, bool]
+  - [discount_pct, 1, commercial, Discount at signing, pct]
 
 alerts:
   - id: usage_collapse

@@ -9,6 +9,7 @@ Feed it a Salesforce or Gainsight export of open renewals. It returns every acco
 - a **save play** with an owner, timing and steps,
 - a **GRR forecast** with a P10 to P90 range for the quarter, plus **retention by plan size** (monthly spend bands, with the AI-native benchmark for the `ai_usage` profile) so small self-serve plans don't hide inside a blended number,
 - **watermelon** flags (green on the scorecard, red underneath),
+- **deal signals from the CRM**: a deep discount at signing and a contract signer who has left, each with its own alert and save play,
 - optional **Claude-written account briefs** for call prep, with a rules-based fallback when no API key is set,
 - **data add-ons** that pull signals from other tools, starting with **Zendesk** (ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution), configured in the app or a YAML file.
 

@@ -65,6 +65,13 @@ def test_salesforce_style_headers_map_without_a_template():
     assert unmapped == ["Favorite Color"]
 
 
+def test_crm_deal_terms_map_from_common_headers():
+    mapped, _ = map_columns(["Discount__c", "Contract_Signer_Left__c"])
+    assert mapped == {"Discount__c": "discount_pct", "Contract_Signer_Left__c": "signer_departed"}
+    mapped, _ = map_columns(["Deal Discount", "Economic Buyer Left"])
+    assert mapped == {"Deal Discount": "discount_pct", "Economic Buyer Left": "signer_departed"}
+
+
 def _messy() -> pd.DataFrame:
     return pd.DataFrame(
         {

@@ -68,6 +68,10 @@ CS teams trust their scorecard; models catch interactions it misses. Rather than
 
 Support data enters through the Zendesk add-on ([docs/add-ons.md](add-ons.md)) or the CRM export. Raw ticket counts mostly measure customer size, so volume is scored per 100 seats, and each account is compared with its own previous quarter. Reopen rate and median time to resolution are scored measures in every profile's support or service group. Two alerts combine signals instead of reading one number: support strain (reopens of 25% or more, or a median fix over 120 hours, on at least three tickets) and support gone quiet (six or more tickets last quarter, at most 30% of that now, with active users down 10% or more). The second follows help-desk practitioners who read a sudden silence from an active account as disengagement ([Giva](https://www.givainc.com/blog/customer-health-score-help-desk-data/)). Thresholds are informed defaults; tune them in the profile YAML.
 
+### Deal signals from the CRM
+
+Two facts about how the current contract was won often sit in the CRM and nowhere in a health score. **Discount at signing** (`discount_pct`): a deep first-term discount means the renewal either holds that price or asks the customer to pay more for the same thing. **Contract signer left** (`signer_departed`): the person who approved the last purchase is gone, which is a different problem from a departed day-to-day champion, because nobody now owns the yes. Both are model features in every profile, constrained to raise risk. Two alerts turn them into actions: a departed signer with the renewal inside nine months ("Find the new economic buyer"), and a discount of 30% or more with the renewal inside six months ("Plan the discount step-down"). Both are medium severity, so they shape the play without flooring the tier. The thresholds are practitioner defaults, not fitted values; the synthetic data plants a modest effect for each, so treat the demo as a test of the plumbing, not evidence of their size.
+
 ## 5. From probability to priority
 
 - **Expected ARR loss** = ARR × (P(churn) + (1 − P(churn)) × P(contraction) × expected contraction depth).
@@ -79,6 +83,9 @@ Support data enters through the Zendesk add-on ([docs/add-ons.md](add-ons.md)) o
 ## 6. GRR forecast
 
 For renewals inside the forecast window, a Monte Carlo simulation draws churn and contraction for each account from its probabilities and reports expected GRR with P10, P50 and P90. Accounts are treated as independent, which understates correlated shocks (a recession, a competitor launch, a pricing change); the report says so.
+
+
+**Retention by plan size.** The report and the Portfolio tab also split expected GRR by monthly spend (under $50, $50 to $249, $250 to $999, $1k to $9.9k, $10k and up). For AI products a blended GRR hides two different businesses: ChartMogul's December 2025 study found median GRR of 23% on plans under $50 a month, 45% from $50 to $249, and 70% at $250 and above. The `ai_usage` profile shows those medians beside each band. The split matters most for self-serve and product-led books; a book of contracted enterprise renewals will mostly sit in the top two bands.
 
 ## 7. Claude account briefs
 
