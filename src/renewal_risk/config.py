@@ -216,7 +216,7 @@ def list_profiles() -> dict[str, str]:
 
 
 def _read_builtin(name: str) -> dict[str, Any]:
-    entry = resources.files("renewal_risk").joinpath(PROFILE_DIR, name)
+    entry = resources.files("renewal_risk").joinpath(PROFILE_DIR).joinpath(name)
     if not entry.is_file():
         raise ConfigError(f"Unknown profile file {name}. Built-in profiles: {', '.join(list_profiles())}")
     return yaml.safe_load(entry.read_text()) or {}

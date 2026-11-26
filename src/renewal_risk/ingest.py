@@ -93,7 +93,9 @@ def load_mapping(path: str | Path | None) -> dict[str, str]:
     if path is None:
         return {}
     data = yaml.safe_load(Path(path).read_text()) or {}
-    mapping = data.get("columns", data)
+    mapping = data.get("columns", data) if isinstance(data, dict) else None
+    if not isinstance(mapping, dict):
+        raise IngestError("Mapping file must be a YAML mapping of {source column: canonical field}")
     unknown = sorted(v for v in mapping.values() if v not in FIELD_BY_NAME)
     if unknown:
         raise IngestError(f"Mapping file targets unknown fields: {', '.join(unknown)}")

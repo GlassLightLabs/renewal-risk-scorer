@@ -248,7 +248,7 @@ def write_outputs(
     out.mkdir(parents=True, exist_ok=True)
     paths = {"accounts": out / "scored_accounts.csv", "summary": out / "summary.json", "report": out / "report.md"}
     accounts_table(result).to_csv(paths["accounts"], index=False)
-    payload = {
+    payload: dict[str, Any] = {
         "summary": result.summary,
         "drivers": result.drivers.to_dict(orient="records"),
         "model_metrics": result.model_metrics,
