@@ -49,7 +49,8 @@ PARAMS: dict[str, Any] = {
     "bagging_fraction": 0.85,
     "bagging_freq": 1,
     "lambda_l2": 2.0,
-    "monotone_constraints_method": "advanced",
+    # "intermediate", not "advanced": advanced let a prediction move the wrong way on one test account.
+    "monotone_constraints_method": "intermediate",
     "verbosity": -1,
     "deterministic": True,
     "force_col_wise": True,
