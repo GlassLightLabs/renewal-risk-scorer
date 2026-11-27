@@ -236,7 +236,8 @@ def match_records(
 
     unmatched_mask = result.isna()
     if id_col in records.columns:
-        key = records[id_col].where(records[id_col].notna(), records.get(name_col))
+        fallback = records[name_col] if name_col in records.columns else pd.Series(np.nan, index=records.index)
+        key = records[id_col].where(records[id_col].notna(), fallback)
     elif name_col in records.columns:
         key = records[name_col]
     else:
