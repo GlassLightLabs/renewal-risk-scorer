@@ -1,0 +1,283 @@
+Record ID,Deal Name,Amount,Close Date,Deal Stage,Pipeline,Deal Type,Associated Company IDs (Primary),Discount
+95000000,Halcyon Freight - New business,1240000.00,2026-02-14,Closed won,Sales Pipeline,New Business,5000000,0
+85000000,Halcyon Freight - Renewal,1388800.00,2027-02-15,Renewal scoping,Renewals,Existing Business,5000000,
+95000001,Brightwater Clinics - New business,243000.00,2026-01-10,Closed won,Sales Pipeline,New Business,5000001,15
+85000001,Brightwater Clinics - Renewal,260010.00,2027-01-11,Renewal scoping,Renewals,Existing Business,5000001,
+95000002,Quarry Lane Software - New business,38400.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000002,20
+95000003,Ironleaf Manufacturing - New business,910000.00,2026-09-27,Closed won,Sales Pipeline,New Business,5000003,10
+95000004,Copperline Media - New business,186000.00,2026-04-30,Closed won,Sales Pipeline,New Business,5000004,15
+85000004,Copperline Media - Renewal,195300.00,2027-05-01,Renewal scoping,Renewals,Existing Business,5000004,
+95000005,Foxglove Logistics - New business,12100.00,2026-01-20,Closed won,Sales Pipeline,New Business,5000005,10
+85000005,Foxglove Logistics - Renewal,12947.00,2027-01-21,Renewal scoping,Renewals,Existing Business,5000005,
+95000007,Maple Bay Health - New business,44400.00,2025-12-05,Closed won,Sales Pipeline,New Business,5000007,20
+85000007,Maple Bay Health - Renewal,44400.00,2026-12-06,Renewal scoping,Renewals,Existing Business,5000007,
+95000008,Fairhaven Credit Union - New business,32100.00,2025-12-24,Closed won,Sales Pipeline,New Business,5000008,10
+95000009,Hawthorn Clinics - New business,10300.00,2026-07-26,Closed won,Sales Pipeline,New Business,5000009,5
+85000009,Hawthorn Clinics - Renewal,10815.00,2027-07-27,Renewal scoping,Renewals,Existing Business,5000009,
+95000010,Ironleaf Energy - New business,185800.00,2026-07-04,Closed won,Sales Pipeline,New Business,5000010,20
+85000010,Ironleaf Energy - Renewal,195090.00,2027-07-05,Renewal scoping,Renewals,Existing Business,5000010,
+95000012,Meridian Logistics - New business,9800.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000012,15
+95000013,Ironleaf Transit - New business,702800.00,2026-07-31,Closed won,Sales Pipeline,New Business,5000013,15
+95000014,Hawthorn Schools - New business,34900.00,2026-01-12,Closed won,Sales Pipeline,New Business,5000014,5
+85000014,Hawthorn Schools - Renewal,34900.00,2027-01-13,Proposal sent,Renewals,Existing Business,5000014,
+95000015,Bluefin Dental Group - New business,8000.00,2026-10-02,Closed won,Sales Pipeline,New Business,5000015,5
+95000017,Windward Builders - New business,88000.00,2026-06-11,Closed won,Sales Pipeline,New Business,5000017,0
+95000018,Pinecrest Labs - New business,12300.00,2026-10-17,Closed won,Sales Pipeline,New Business,5000018,0
+95000019,Sandstone Health - New business,23200.00,2026-04-03,Closed won,Sales Pipeline,New Business,5000019,0
+85000019,Sandstone Health - Renewal,23200.00,2027-04-04,Renewal scoping,Renewals,Existing Business,5000019,
+95000020,Windward Retail - New business,198900.00,2026-03-07,Closed won,Sales Pipeline,New Business,5000020,10
+85000020,Windward Retail - Renewal,198900.00,2027-03-08,Negotiation,Renewals,Existing Business,5000020,
+95000021,Birch Clinics - New business,218600.00,2026-02-16,Closed won,Sales Pipeline,New Business,5000021,5
+85000021,Birch Clinics - Renewal,225158.00,2027-02-17,Negotiation,Renewals,Existing Business,5000021,
+95000022,Evergreen Energy - New business,78400.00,2026-04-22,Closed won,Sales Pipeline,New Business,5000022,15
+85000022,Evergreen Energy - Renewal,82320.00,2027-04-23,Negotiation,Renewals,Existing Business,5000022,
+95000023,Tidewater Robotics - New business,1452200.00,2026-05-31,Closed won,Sales Pipeline,New Business,5000023,5
+85000023,Tidewater Robotics - Renewal,1452200.00,2027-06-01,Renewal scoping,Renewals,Existing Business,5000023,
+95000024,Sandstone Medical - New business,79300.00,2026-04-01,Closed won,Sales Pipeline,New Business,5000024,10
+85000024,Sandstone Medical - Renewal,83265.00,2027-04-02,Proposal sent,Renewals,Existing Business,5000024,
+95000025,Brightwater Manufacturing - New business,980600.00,2026-04-28,Closed won,Sales Pipeline,New Business,5000025,0
+85000025,Brightwater Manufacturing - Renewal,1010018.00,2027-04-29,Proposal sent,Renewals,Existing Business,5000025,
+95000026,Pinecrest Travel - New business,7700.00,2026-09-17,Closed won,Sales Pipeline,New Business,5000026,5
+95000027,Granite Cloudworks - New business,36200.00,2026-04-29,Closed won,Sales Pipeline,New Business,5000027,0
+85000027,Granite Cloudworks - Renewal,38010.00,2027-04-30,Negotiation,Renewals,Existing Business,5000027,
+95000028,Ember Dental Group - New business,23000.00,2026-08-09,Closed won,Sales Pipeline,New Business,5000028,0
+95000029,Fairhaven Medical - New business,9600.00,2026-02-22,Closed won,Sales Pipeline,New Business,5000029,20
+85000029,Fairhaven Medical - Renewal,10080.00,2027-02-23,Proposal sent,Renewals,Existing Business,5000029,
+95000030,Oakmont Medical - New business,46200.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000030,10
+95000031,Amber Wealth - New business,6900.00,2026-01-25,Closed won,Sales Pipeline,New Business,5000031,15
+95000032,Ember Wealth - New business,1003900.00,2026-09-26,Closed won,Sales Pipeline,New Business,5000032,0
+95000033,Atlas Outfitters - New business,218000.00,2026-09-13,Closed won,Sales Pipeline,New Business,5000033,5
+95000034,Prairie Software - New business,3900.00,2026-05-04,Closed won,Sales Pipeline,New Business,5000034,10
+85000034,Prairie Software - Renewal,3900.00,2027-05-05,Negotiation,Renewals,Existing Business,5000034,
+95000035,Stonebridge Robotics - New business,138500.00,2026-11-22,Closed won,Sales Pipeline,New Business,5000035,0
+95000036,Copperline Consulting - New business,12400.00,2026-04-27,Closed won,Sales Pipeline,New Business,5000036,5
+85000036,Copperline Consulting - Renewal,12772.00,2027-04-28,Proposal sent,Renewals,Existing Business,5000036,
+95000037,Oakmont Outfitters - New business,8100.00,2026-07-27,Closed won,Sales Pipeline,New Business,5000037,5
+95000038,Keystone Foods - New business,425600.00,2026-06-26,Closed won,Sales Pipeline,New Business,5000038,20
+85000038,Keystone Foods - Renewal,438368.00,2027-06-27,Renewal scoping,Renewals,Existing Business,5000038,
+95000039,Boulder Health - New business,3500.00,2026-07-02,Closed won,Sales Pipeline,New Business,5000039,5
+85000039,Boulder Health - Renewal,3850.00,2027-07-03,Renewal scoping,Renewals,Existing Business,5000039,
+95000040,Falcon Consulting - New business,7200.00,2026-07-26,Closed won,Sales Pipeline,New Business,5000040,15
+85000040,Falcon Consulting - Renewal,7200.00,2027-07-27,Renewal scoping,Renewals,Existing Business,5000040,
+95000041,Atlas Analytics - New business,32200.00,2026-01-15,Closed won,Sales Pipeline,New Business,5000041,20
+85000041,Atlas Analytics - Renewal,32200.00,2027-01-16,Proposal sent,Renewals,Existing Business,5000041,
+95000042,Northgate Therapeutics - New business,12800.00,2026-01-12,Closed won,Sales Pipeline,New Business,5000042,10
+85000042,Northgate Therapeutics - Renewal,13440.00,2027-01-13,Renewal scoping,Renewals,Existing Business,5000042,
+95000043,Oakmont Schools - New business,1028200.00,2026-05-02,Closed won,Sales Pipeline,New Business,5000043,5
+85000043,Oakmont Schools - Renewal,1059046.00,2027-05-03,Negotiation,Renewals,Existing Business,5000043,
+95000044,Evergreen Software - New business,6000.00,2026-02-08,Closed won,Sales Pipeline,New Business,5000044,10
+95000045,Riverbend Engineering - New business,11300.00,2026-11-09,Closed won,Sales Pipeline,New Business,5000045,10
+95000046,Amber Insurance Partners - New business,11200.00,2026-11-28,Closed won,Sales Pipeline,New Business,5000046,10
+95000047,Timberline Credit Union - New business,15600.00,2026-11-17,Closed won,Sales Pipeline,New Business,5000047,10
+95000048,Driftwood Outfitters - New business,211900.00,2025-12-04,Closed won,Sales Pipeline,New Business,5000048,0
+85000048,Driftwood Outfitters - Renewal,226733.00,2026-12-05,Proposal sent,Renewals,Existing Business,5000048,
+95000050,Highland Staffing - New business,140100.00,2026-06-15,Closed won,Sales Pipeline,New Business,5000050,20
+85000050,Highland Staffing - Renewal,161115.00,2027-06-16,Proposal sent,Renewals,Existing Business,5000050,
+95000051,Cobalt Utilities - New business,15800.00,2026-10-01,Closed won,Sales Pipeline,New Business,5000051,20
+95000052,Falcon Energy - New business,10200.00,2026-04-09,Closed won,Sales Pipeline,New Business,5000052,0
+95000053,Highland Robotics - New business,7200.00,2026-02-02,Closed won,Sales Pipeline,New Business,5000053,15
+85000053,Highland Robotics - Renewal,7704.00,2027-02-03,Proposal sent,Renewals,Existing Business,5000053,
+95000054,Fairhaven Cloudworks - New business,706600.00,2026-07-17,Closed won,Sales Pipeline,New Business,5000054,10
+95000055,Sandstone Media - New business,145900.00,2026-11-10,Closed won,Sales Pipeline,New Business,5000055,5
+95000056,Westbrook Cloudworks - New business,162800.00,2026-08-20,Closed won,Sales Pipeline,New Business,5000056,10
+95000057,Riverbend Media - New business,51300.00,2026-02-06,Closed won,Sales Pipeline,New Business,5000057,10
+85000057,Riverbend Media - Renewal,53865.00,2027-02-07,Proposal sent,Renewals,Existing Business,5000057,
+95000058,Riverbend Media Group - New business,3900.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000058,10
+95000059,Foxglove Legal - New business,499900.00,2026-09-04,Closed won,Sales Pipeline,New Business,5000059,15
+95000060,Foxglove Freight - New business,26300.00,2026-04-16,Closed won,Sales Pipeline,New Business,5000060,0
+85000060,Foxglove Freight - Renewal,26300.00,2027-04-17,Proposal sent,Renewals,Existing Business,5000060,
+95000061,Prairie Clinics - New business,7500.00,2026-11-15,Closed won,Sales Pipeline,New Business,5000061,20
+95000062,Keystone Ventures - New business,3200.00,2026-03-08,Closed won,Sales Pipeline,New Business,5000062,20
+85000062,Keystone Ventures - Renewal,3424.00,2027-03-09,Renewal scoping,Renewals,Existing Business,5000062,
+95000063,Hawthorn Biotech - New business,12500.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000063,0
+95000064,Bluefin Ventures - New business,14000.00,2025-12-12,Closed won,Sales Pipeline,New Business,5000064,20
+95000066,Summit Energy - New business,637000.00,2026-07-29,Closed won,Sales Pipeline,New Business,5000066,20
+95000067,Windward Consulting - New business,130800.00,2026-06-05,Closed won,Sales Pipeline,New Business,5000067,0
+85000067,Windward Consulting - Renewal,130800.00,2027-06-06,Negotiation,Renewals,Existing Business,5000067,
+95000068,Granite Logistics - New business,21300.00,2026-05-07,Closed won,Sales Pipeline,New Business,5000068,10
+85000068,Granite Logistics - Renewal,22365.00,2027-05-08,Negotiation,Renewals,Existing Business,5000068,
+95000069,Tidewater Outfitters - New business,112900.00,2026-04-26,Closed won,Sales Pipeline,New Business,5000069,20
+95000070,Tidewater Ventures - New business,9400.00,2026-10-06,Closed won,Sales Pipeline,New Business,5000070,0
+95000071,Copperline Software - New business,6600.00,2026-11-09,Closed won,Sales Pipeline,New Business,5000071,15
+95000072,Ember Utilities - New business,109200.00,2025-12-08,Closed won,Sales Pipeline,New Business,5000072,0
+85000072,Ember Utilities - Renewal,109200.00,2026-12-09,Proposal sent,Renewals,Existing Business,5000072,
+95000073,Prairie Manufacturing - New business,522400.00,2026-03-03,Closed won,Sales Pipeline,New Business,5000073,5
+95000074,Evergreen Properties - New business,6100.00,2025-12-26,Closed won,Sales Pipeline,New Business,5000074,0
+85000074,Evergreen Properties - Renewal,6283.00,2026-12-27,Proposal sent,Renewals,Existing Business,5000074,
+95000075,Willow Cloudworks - New business,292400.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000075,0
+95000076,Foxglove Telecom - New business,16000.00,2026-08-06,Closed won,Sales Pipeline,New Business,5000076,15
+95000077,Quarry Lane Medical - New business,6800.00,2026-10-12,Closed won,Sales Pipeline,New Business,5000077,20
+95000078,Prairie Hospitality - New business,7700.00,2025-12-25,Closed won,Sales Pipeline,New Business,5000078,0
+85000078,Prairie Hospitality - Renewal,8085.00,2026-12-26,Proposal sent,Renewals,Existing Business,5000078,
+95000079,Copperline Freight - New business,13300.00,2026-07-01,Closed won,Sales Pipeline,New Business,5000079,0
+85000079,Copperline Freight - Renewal,13300.00,2027-07-02,Proposal sent,Renewals,Existing Business,5000079,
+95000080,Tidewater Dental Group - New business,66600.00,2026-04-05,Closed won,Sales Pipeline,New Business,5000080,10
+85000080,Tidewater Dental Group - Renewal,69930.00,2027-04-06,Renewal scoping,Renewals,Existing Business,5000080,
+95000081,Falcon Builders - New business,163700.00,2026-05-28,Closed won,Sales Pipeline,New Business,5000081,15
+85000081,Falcon Builders - Renewal,180070.00,2027-05-29,Renewal scoping,Renewals,Existing Business,5000081,
+95000082,Bluefin Outfitters - New business,215600.00,2026-10-16,Closed won,Sales Pipeline,New Business,5000082,15
+95000084,Ironleaf Pharma - New business,3000.00,2026-07-23,Closed won,Sales Pipeline,New Business,5000084,20
+85000084,Ironleaf Pharma - Renewal,3000.00,2027-07-24,Negotiation,Renewals,Existing Business,5000084,
+95000085,Northgate Wealth - New business,2600.00,2026-10-26,Closed won,Sales Pipeline,New Business,5000085,5
+95000086,Ember Engineering Holdings - New business,239200.00,2026-07-27,Closed won,Sales Pipeline,New Business,5000086,20
+95000087,Maple Bay Engineering - New business,410200.00,2026-02-20,Closed won,Sales Pipeline,New Business,5000087,5
+85000087,Maple Bay Engineering - Renewal,430710.00,2027-02-21,Proposal sent,Renewals,Existing Business,5000087,
+95000088,Atlas Therapeutics - New business,5600.00,2026-01-19,Closed won,Sales Pipeline,New Business,5000088,15
+85000088,Atlas Therapeutics - Renewal,5992.00,2027-01-20,Negotiation,Renewals,Existing Business,5000088,
+95000089,Clearpath Biotech - New business,3300.00,2026-02-15,Closed won,Sales Pipeline,New Business,5000089,0
+85000089,Clearpath Biotech - Renewal,3465.00,2027-02-16,Negotiation,Renewals,Existing Business,5000089,
+95000090,Willow Energy - New business,15900.00,2026-01-01,Closed won,Sales Pipeline,New Business,5000090,20
+85000090,Willow Energy - Renewal,17013.00,2027-01-02,Renewal scoping,Renewals,Existing Business,5000090,
+95000091,Atlas Credit Union - New business,51500.00,2026-11-27,Closed won,Sales Pipeline,New Business,5000091,5
+95000092,Granite Legal - New business,5300.00,2026-10-11,Closed won,Sales Pipeline,New Business,5000092,0
+95000093,Keystone Health - New business,9300.00,2026-05-30,Closed won,Sales Pipeline,New Business,5000093,20
+95000094,Oakmont Insurance Partners - New business,6800.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000094,5
+95000095,Harbor Therapeutics - New business,12800.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000095,10
+95000096,Lakeshore Outfitters - New business,772200.00,2026-09-06,Closed won,Sales Pipeline,New Business,5000096,20
+95000097,Evergreen Pharma - New business,67800.00,2026-08-31,Closed won,Sales Pipeline,New Business,5000097,10
+95000098,Orchard Hospitality - New business,179600.00,2026-11-11,Closed won,Sales Pipeline,New Business,5000098,15
+95000099,Juniper Supply - New business,67500.00,2026-06-16,Closed won,Sales Pipeline,New Business,5000099,20
+85000099,Juniper Supply - Renewal,70875.00,2027-06-17,Renewal scoping,Renewals,Existing Business,5000099,
+95000100,Evergreen Manufacturing - New business,65600.00,2026-03-12,Closed won,Sales Pipeline,New Business,5000100,10
+85000100,Evergreen Manufacturing - Renewal,68880.00,2027-03-13,Negotiation,Renewals,Existing Business,5000100,
+95000101,Blue Heron Software - New business,136800.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000101,0
+95000102,Cedar Ridge Travel - New business,281500.00,2026-10-16,Closed won,Sales Pipeline,New Business,5000102,0
+95000103,Foxglove Pharma - New business,13600.00,2026-04-04,Closed won,Sales Pipeline,New Business,5000103,0
+85000103,Foxglove Pharma - Renewal,14280.00,2027-04-05,Renewal scoping,Renewals,Existing Business,5000103,
+95000104,Quarry Lane Labs - New business,79900.00,2026-10-28,Closed won,Sales Pipeline,New Business,5000104,5
+95000105,Cobalt Engineering - New business,5300.00,2026-06-28,Closed won,Sales Pipeline,New Business,5000105,0
+85000105,Cobalt Engineering - Renewal,5830.00,2027-06-29,Proposal sent,Renewals,Existing Business,5000105,
+95000106,Orchard Travel - New business,13500.00,2026-05-29,Closed won,Sales Pipeline,New Business,5000106,0
+85000106,Orchard Travel - Renewal,15525.00,2027-05-30,Renewal scoping,Renewals,Existing Business,5000106,
+95000107,Tidewater Staffing - New business,142500.00,2026-10-10,Closed won,Sales Pipeline,New Business,5000107,10
+95000108,Silverline Supply - New business,57700.00,2026-08-22,Closed won,Sales Pipeline,New Business,5000108,0
+95000109,Foxglove Distribution - New business,85900.00,2026-07-24,Closed won,Sales Pipeline,New Business,5000109,15
+85000109,Foxglove Distribution - Renewal,88477.00,2027-07-25,Proposal sent,Renewals,Existing Business,5000109,
+95000110,Timberline Labs - New business,8000.00,2025-12-26,Closed won,Sales Pipeline,New Business,5000110,10
+95000112,Silverline Energy - New business,6600.00,2026-01-28,Closed won,Sales Pipeline,New Business,5000112,10
+95000113,Westbrook Supply - New business,269500.00,2026-08-25,Closed won,Sales Pipeline,New Business,5000113,0
+95000115,Amber Distribution - New business,11900.00,2026-04-22,Closed won,Sales Pipeline,New Business,5000115,0
+85000115,Amber Distribution - Renewal,12495.00,2027-04-23,Renewal scoping,Renewals,Existing Business,5000115,
+95000116,Oakmont Hospitality - New business,3700.00,2026-11-10,Closed won,Sales Pipeline,New Business,5000116,5
+95000117,Millbrook Builders - New business,2800.00,2026-09-20,Closed won,Sales Pipeline,New Business,5000117,10
+95000118,Boulder Retail - New business,327800.00,2026-07-02,Closed won,Sales Pipeline,New Business,5000118,0
+85000118,Boulder Retail - Renewal,327800.00,2027-07-03,Renewal scoping,Renewals,Existing Business,5000118,
+95000119,Cobalt Schools - New business,14300.00,2026-08-17,Closed won,Sales Pipeline,New Business,5000119,0
+95000120,Copperline Biotech - New business,6500.00,2026-03-13,Closed won,Sales Pipeline,New Business,5000120,15
+85000120,Copperline Biotech - Renewal,6500.00,2027-03-14,Negotiation,Renewals,Existing Business,5000120,
+95000121,Atlas Foods - New business,130600.00,2025-12-17,Closed won,Sales Pipeline,New Business,5000121,10
+85000121,Atlas Foods - Renewal,137130.00,2026-12-18,Negotiation,Renewals,Existing Business,5000121,
+95000122,Beacon Staffing - New business,5400.00,2025-12-18,Closed won,Sales Pipeline,New Business,5000122,0
+85000122,Beacon Staffing - Renewal,5670.00,2026-12-19,Renewal scoping,Renewals,Existing Business,5000122,
+95000123,Birch Dental Group - New business,108000.00,2026-08-17,Closed won,Sales Pipeline,New Business,5000123,5
+95000124,Oakmont Media - New business,5900.00,2026-01-18,Closed won,Sales Pipeline,New Business,5000124,20
+85000124,Oakmont Media - Renewal,6490.00,2027-01-19,Renewal scoping,Renewals,Existing Business,5000124,
+95000125,Meridian Supply - New business,13400.00,2026-10-21,Closed won,Sales Pipeline,New Business,5000125,0
+95000127,Boulder Ventures - New business,174000.00,2026-11-10,Closed won,Sales Pipeline,New Business,5000127,10
+95000128,Union Grove Retail - New business,73700.00,2026-01-15,Closed won,Sales Pipeline,New Business,5000128,0
+85000128,Union Grove Retail - Renewal,73700.00,2027-01-16,Renewal scoping,Renewals,Existing Business,5000128,
+95000129,Redwood Logistics - New business,13400.00,2026-04-30,Closed won,Sales Pipeline,New Business,5000129,15
+95000130,Maple Bay Robotics - New business,118300.00,2026-05-30,Closed won,Sales Pipeline,New Business,5000130,20
+85000130,Maple Bay Robotics - Renewal,118300.00,2027-05-31,Renewal scoping,Renewals,Existing Business,5000130,
+95000131,Falcon Legal - New business,5700.00,2025-12-27,Closed won,Sales Pipeline,New Business,5000131,15
+85000131,Falcon Legal - Renewal,5871.00,2026-12-28,Renewal scoping,Renewals,Existing Business,5000131,
+95000132,Meridian Therapeutics - New business,16900.00,2026-11-28,Closed won,Sales Pipeline,New Business,5000132,0
+95000133,Harbor Biotech - New business,5100.00,2026-06-18,Closed won,Sales Pipeline,New Business,5000133,0
+85000133,Harbor Biotech - Renewal,5865.00,2027-06-19,Renewal scoping,Renewals,Existing Business,5000133,
+95000134,Boulder Clinics - New business,8900.00,2026-09-04,Closed won,Sales Pipeline,New Business,5000134,5
+95000135,Boulder Telecom - New business,2330800.00,2025-12-19,Closed won,Sales Pipeline,New Business,5000135,10
+85000135,Boulder Telecom - Renewal,2330800.00,2026-12-20,Renewal scoping,Renewals,Existing Business,5000135,
+95000136,Beacon Schools - New business,13700.00,2026-10-22,Closed won,Sales Pipeline,New Business,5000136,0
+95000137,Cedar Ridge Distribution - New business,4200.00,2026-06-20,Closed won,Sales Pipeline,New Business,5000137,10
+85000137,Cedar Ridge Distribution - Renewal,4620.00,2027-06-21,Negotiation,Renewals,Existing Business,5000137,
+95000138,Crescent Manufacturing - New business,106200.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000138,0
+85000138,Crescent Manufacturing - Renewal,106200.00,2026-12-02,Negotiation,Renewals,Existing Business,5000138,
+95000140,Boulder Outfitters - New business,445200.00,2026-04-13,Closed won,Sales Pipeline,New Business,5000140,5
+85000140,Boulder Outfitters - Renewal,467460.00,2027-04-14,Renewal scoping,Renewals,Existing Business,5000140,
+95000141,Blue Heron Telecom - New business,39900.00,2026-06-28,Closed won,Sales Pipeline,New Business,5000141,10
+85000141,Blue Heron Telecom - Renewal,41895.00,2027-06-29,Renewal scoping,Renewals,Existing Business,5000141,
+95000142,Birch Clinics Group - New business,10100.00,2026-09-29,Closed won,Sales Pipeline,New Business,5000142,20
+95000143,Harbor Therapeutics Group - New business,253400.00,2026-08-05,Closed won,Sales Pipeline,New Business,5000143,10
+95000144,Clearpath Insurance Partners - New business,101900.00,2026-11-08,Closed won,Sales Pipeline,New Business,5000144,10
+95000145,Copperline Builders - New business,11700.00,2026-08-27,Closed won,Sales Pipeline,New Business,5000145,0
+95000146,Maple Bay Builders - New business,134500.00,2026-10-22,Closed won,Sales Pipeline,New Business,5000146,0
+95000147,Quarry Lane Clinics - New business,29400.00,2026-05-14,Closed won,Sales Pipeline,New Business,5000147,20
+85000147,Quarry Lane Clinics - Renewal,33810.00,2027-05-15,Negotiation,Renewals,Existing Business,5000147,
+95000148,Highland Hospitality - New business,204400.00,2026-01-01,Closed won,Sales Pipeline,New Business,5000148,0
+85000148,Highland Hospitality - Renewal,218708.00,2027-01-02,Renewal scoping,Renewals,Existing Business,5000148,
+95000149,Riverbend Software - New business,47200.00,2026-02-18,Closed won,Sales Pipeline,New Business,5000149,5
+95000150,Juniper Engineering - New business,196500.00,2026-05-16,Closed won,Sales Pipeline,New Business,5000150,0
+85000150,Juniper Engineering - Renewal,216150.00,2027-05-17,Renewal scoping,Renewals,Existing Business,5000150,
+95000151,Summit Software - New business,49300.00,2026-09-11,Closed won,Sales Pipeline,New Business,5000151,0
+95000152,Driftwood Distribution - New business,9600.00,2026-10-25,Closed won,Sales Pipeline,New Business,5000152,0
+95000153,Tidewater Engineering - New business,55200.00,2026-05-26,Closed won,Sales Pipeline,New Business,5000153,10
+85000153,Tidewater Engineering - Renewal,57960.00,2027-05-27,Negotiation,Renewals,Existing Business,5000153,
+95000154,Brightwater Legal - New business,4600.00,2026-03-03,Closed won,Sales Pipeline,New Business,5000154,20
+85000154,Brightwater Legal - Renewal,4600.00,2027-03-04,Proposal sent,Renewals,Existing Business,5000154,
+95000155,Maple Bay Builders Holdings - New business,3800.00,2026-08-07,Closed won,Sales Pipeline,New Business,5000155,0
+95000156,Ironleaf Properties - New business,5500.00,2026-06-27,Closed won,Sales Pipeline,New Business,5000156,0
+85000156,Ironleaf Properties - Renewal,5500.00,2027-06-28,Renewal scoping,Renewals,Existing Business,5000156,
+95000157,Meridian Travel - New business,73000.00,2026-04-09,Closed won,Sales Pipeline,New Business,5000157,0
+85000157,Meridian Travel - Renewal,76650.00,2027-04-10,Renewal scoping,Renewals,Existing Business,5000157,
+95000158,Silverline Hospitality - New business,9900.00,2026-11-05,Closed won,Sales Pipeline,New Business,5000158,20
+95000159,Beacon Pharma - New business,29200.00,2026-10-26,Closed won,Sales Pipeline,New Business,5000159,0
+95000160,Sandstone Therapeutics - New business,69300.00,2026-10-22,Closed won,Sales Pipeline,New Business,5000160,0
+95000161,Maple Bay Media - New business,13000.00,2026-04-12,Closed won,Sales Pipeline,New Business,5000161,20
+95000162,Meridian Consulting - New business,86900.00,2025-12-01,Closed won,Sales Pipeline,New Business,5000162,10
+95000163,Beacon Legal - New business,3900.00,2026-06-30,Closed won,Sales Pipeline,New Business,5000163,20
+85000163,Beacon Legal - Renewal,4095.00,2027-07-01,Negotiation,Renewals,Existing Business,5000163,
+95000164,Tidewater Foods - New business,92300.00,2026-02-20,Closed won,Sales Pipeline,New Business,5000164,20
+85000164,Tidewater Foods - Renewal,92300.00,2027-02-21,Renewal scoping,Renewals,Existing Business,5000164,
+95000165,Ember Wealth Partners - New business,15200.00,2026-07-13,Closed won,Sales Pipeline,New Business,5000165,10
+85000165,Ember Wealth Partners - Renewal,15960.00,2027-07-14,Negotiation,Renewals,Existing Business,5000165,
+95000166,Blue Heron Media - New business,99500.00,2025-12-17,Closed won,Sales Pipeline,New Business,5000166,5
+85000166,Blue Heron Media - Renewal,109450.00,2026-12-18,Renewal scoping,Renewals,Existing Business,5000166,
+95000167,Atlas Travel - New business,3500.00,2026-06-03,Closed won,Sales Pipeline,New Business,5000167,15
+85000167,Atlas Travel - Renewal,3500.00,2027-06-04,Renewal scoping,Renewals,Existing Business,5000167,
+95000168,Sandstone Outfitters - New business,26000.00,2026-01-30,Closed won,Sales Pipeline,New Business,5000168,20
+85000168,Sandstone Outfitters - Renewal,26780.00,2027-01-31,Proposal sent,Renewals,Existing Business,5000168,
+95000169,Windward Wealth - New business,66700.00,2026-09-13,Closed won,Sales Pipeline,New Business,5000169,10
+95000170,Granite Distribution - New business,46200.00,2026-11-01,Closed won,Sales Pipeline,New Business,5000170,5
+95000171,Ember Retail - New business,3400.00,2026-02-22,Closed won,Sales Pipeline,New Business,5000171,20
+85000171,Ember Retail - Renewal,3740.00,2027-02-23,Renewal scoping,Renewals,Existing Business,5000171,
+95000172,Crescent Medical - New business,693100.00,2026-01-01,Closed won,Sales Pipeline,New Business,5000172,15
+85000172,Crescent Medical - Renewal,727755.00,2027-01-02,Renewal scoping,Renewals,Existing Business,5000172,
+95000173,Keystone Manufacturing - New business,13700.00,2025-12-05,Closed won,Sales Pipeline,New Business,5000173,0
+95000174,Saltmarsh Pharma - New business,14100.00,2026-10-03,Closed won,Sales Pipeline,New Business,5000174,20
+95000175,Larkspur Media - New business,219500.00,2026-01-09,Closed won,Sales Pipeline,New Business,5000175,15
+95000176,Harbor Freight - New business,18100.00,2025-12-24,Closed won,Sales Pipeline,New Business,5000176,20
+95000177,Stonebridge Properties - New business,4300.00,2026-04-24,Closed won,Sales Pipeline,New Business,5000177,10
+85000177,Stonebridge Properties - Renewal,4300.00,2027-04-25,Renewal scoping,Renewals,Existing Business,5000177,
+95000178,Granite Clinics - New business,166500.00,2026-07-01,Closed won,Sales Pipeline,New Business,5000178,15
+85000178,Granite Clinics - Renewal,166500.00,2027-07-02,Renewal scoping,Renewals,Existing Business,5000178,
+95000179,Silverline Logistics - New business,90500.00,2026-08-08,Closed won,Sales Pipeline,New Business,5000179,15
+95000180,Saltmarsh Legal - New business,117800.00,2026-06-05,Closed won,Sales Pipeline,New Business,5000180,0
+85000180,Saltmarsh Legal - Renewal,117800.00,2027-06-06,Renewal scoping,Renewals,Existing Business,5000180,
+95000181,Orchard Distribution - New business,1459200.00,2026-01-09,Closed won,Sales Pipeline,New Business,5000181,15
+85000181,Orchard Distribution - Renewal,1561344.00,2027-01-10,Negotiation,Renewals,Existing Business,5000181,
+95000182,Clearpath Medical - New business,87400.00,2026-10-15,Closed won,Sales Pipeline,New Business,5000182,0
+95000183,Redwood Retail - New business,19000.00,2026-04-22,Closed won,Sales Pipeline,New Business,5000183,10
+85000183,Redwood Retail - Renewal,19570.00,2027-04-23,Negotiation,Renewals,Existing Business,5000183,
+95000184,Prairie Cloudworks - New business,77200.00,2026-07-13,Closed won,Sales Pipeline,New Business,5000184,20
+85000184,Prairie Cloudworks - Renewal,82604.00,2027-07-14,Renewal scoping,Renewals,Existing Business,5000184,
+95000186,Maple Bay Builders Group - New business,47800.00,2026-03-07,Closed won,Sales Pipeline,New Business,5000186,20
+85000186,Maple Bay Builders Group - Renewal,47800.00,2027-03-08,Renewal scoping,Renewals,Existing Business,5000186,
+95000187,Millbrook Ventures - New business,6900.00,2026-01-29,Closed won,Sales Pipeline,New Business,5000187,20
+85000187,Millbrook Ventures - Renewal,7245.00,2027-01-30,Proposal sent,Renewals,Existing Business,5000187,
+95000188,Blue Heron Dental Group - New business,3500.00,2026-06-02,Closed won,Sales Pipeline,New Business,5000188,5
+85000188,Blue Heron Dental Group - Renewal,3605.00,2027-06-03,Proposal sent,Renewals,Existing Business,5000188,
+95000189,Copperline Robotics - New business,645500.00,2026-07-17,Closed won,Sales Pipeline,New Business,5000189,0
+85000189,Copperline Robotics - Renewal,645500.00,2027-07-18,Proposal sent,Renewals,Existing Business,5000189,
+95000190,Ironleaf Supply - New business,63100.00,2026-03-08,Closed won,Sales Pipeline,New Business,5000190,10
+85000190,Ironleaf Supply - Renewal,64993.00,2027-03-09,Negotiation,Renewals,Existing Business,5000190,
+95000191,Ironleaf Travel - New business,56400.00,2026-07-20,Closed won,Sales Pipeline,New Business,5000191,15
+95000192,Atlas Medical - New business,25800.00,2026-04-29,Closed won,Sales Pipeline,New Business,5000192,5
+85000192,Atlas Medical - Renewal,26574.00,2027-04-30,Proposal sent,Renewals,Existing Business,5000192,
+95000193,Willow Software - New business,20500.00,2026-02-07,Closed won,Sales Pipeline,New Business,5000193,15
+85000193,Willow Software - Renewal,21525.00,2027-02-08,Negotiation,Renewals,Existing Business,5000193,
+95000194,Copperline Credit Union - New business,15300.00,2026-08-11,Closed won,Sales Pipeline,New Business,5000194,20
+95000195,Millbrook Clinics - New business,34900.00,2026-10-21,Closed won,Sales Pipeline,New Business,5000195,5
+95000196,Copperline Media - New business,18400.00,2026-08-25,Closed won,Sales Pipeline,New Business,5000196,0
+95000197,Meridian Transit - New business,58600.00,2026-11-12,Closed won,Sales Pipeline,New Business,5000197,10
+95000198,Foxglove Energy - New business,842500.00,2026-10-12,Closed won,Sales Pipeline,New Business,5000198,20
+95000199,Fairhaven Outfitters - New business,39800.00,2026-11-05,Closed won,Sales Pipeline,New Business,5000199,10

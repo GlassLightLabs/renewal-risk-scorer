@@ -188,6 +188,25 @@ FIELDS: tuple[Field, ...] = (
         "Median time to resolution (hours)",
         ("resolution hours", "median resolution hours", "time to resolution", "full resolution time hours"),
     ),
+    # Engineering issues linked to the customer (filled by the Jira add-on, or by a column in the export)
+    Field(
+        "open_bugs",
+        "float",
+        "Open customer bugs",
+        ("open bugs", "open customer bugs", "open defects", "open jira bugs", "open engineering bugs"),
+    ),
+    Field(
+        "open_bug_age_days",
+        "float",
+        "Median age of open bugs (days)",
+        ("open bug age days", "median open bug age", "open bug age", "bug age (days)", "median bug age"),
+    ),
+    Field(
+        "escalations_90d",
+        "float",
+        "Engineering escalations (90d)",
+        ("escalations 90d", "engineering escalations", "escalations (90d)", "jira escalations", "dev escalations"),
+    ),
     Field("nps", "float", "NPS", ("nps", "nps score", "latest nps", "nps response", "likelihood to recommend")),
     Field(
         "csm_sentiment",

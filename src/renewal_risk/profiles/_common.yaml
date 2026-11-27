@@ -46,6 +46,14 @@ alerts:
     severity: medium
     message: Support is struggling to fix issues (a quarter or more of tickets reopened, or a median fix time over five days)
     when: [[tickets_90d, ">=", 3], [support_strain_flag, "==", 1]]
+  - id: engineering_escalations
+    severity: high
+    message: Two or more issues escalated to engineering in the last 90 days
+    when: [[escalations_90d, ">=", 2]]
+  - id: aging_bugs
+    severity: medium
+    message: Three or more customer bugs open, typically for two months or longer
+    when: [[open_bugs, ">=", 3], [open_bug_age_days, ">=", 60]]
   - id: support_gone_quiet
     severity: medium
     message: Support tickets nearly stopped while product usage fell (often disengagement, not a fixed product)

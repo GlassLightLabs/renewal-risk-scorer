@@ -11,7 +11,7 @@ Feed it a Salesforce or Gainsight export of open renewals. It returns every acco
 - **watermelon** flags (green on the scorecard, red underneath),
 - **deal signals from the CRM**: a deep discount at signing and a contract signer who has left, each with its own alert and save play,
 - optional **Claude-written account briefs** for call prep, with a rules-based fallback when no API key is set,
-- **data add-ons** that pull signals from other tools, starting with **Zendesk** (ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution), configured in the app or a YAML file.
+- **data add-ons** that pull signals from other tools: **Zendesk** (ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution), **Jira** (open customer bugs, how long they've been open, engineering escalations), **HubSpot** (days since last contact, renewal deal versus current ARR, competitors, discounts), **ChurnZero** (active users, last login, NPS) and **Pendo** (active visitors, last visit, core feature adoption), configured in the app or a YAML file.
 
 It runs as a Streamlit app for reps and leaders, and as a CLI for RevOps and scheduled runs.
 
@@ -68,7 +68,7 @@ GRR forecast (316 renewals): expected 87.6%, P10 84.7% to P90 90.4%
 4. **Open an account.** Top risk drivers in plain English, alerts, group scores, the recommended play, and a one-click brief for call prep.
 5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons, retention by plan size), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
 
-Data stays on the machine running the app. The outbound calls are the ones you turn on: a data add-on reads from its tool (Zendesk, read-only), and the optional account brief sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
+Data stays on the machine running the app. The outbound calls are the ones you turn on: a data add-on reads from its tool (read-only), or reads a CSV export you point it at, and the optional account brief sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
 
 ## Bring your own data
 
@@ -90,14 +90,25 @@ To tune a profile, copy its YAML from `src/renewal_risk/profiles/`, edit breakpo
 
 ## Data add-ons
 
-A CRM export rarely carries good support data. Add-ons fetch it from the source and merge it into the book before scoring. In the app, open **Data add-ons** in the sidebar, tick Zendesk, enter a subdomain, admin email and API token, and press **Test connection**. The synthetic demo has a simulated Zendesk switched on, so you can see it without an account. On the command line:
+A CRM export rarely carries good support, engineering or product data. Add-ons fetch it from the source and merge it into the book before scoring. In the app, open **Data add-ons** in the sidebar, tick a tool, fill in its settings and press **Test connection**. The synthetic demo has simulated versions of all five switched on, so you can see them without any account. On the command line:
 
 ```bash
 renewal-risk sources test --sources examples/sources.yaml
 renewal-risk score my_renewals.csv --model model.json --sources examples/sources.yaml
+# Jira, HubSpot, ChurnZero and Pendo from CSV exports, no tokens (synthetic sample files included):
+renewal-risk inspect examples/salesforce_report.csv --mapping examples/mapping.yaml \
+  --as-of 2026-12-01 --sources examples/sources.exports.yaml
 ```
 
-The Zendesk add-on doesn't just copy ticket counts. It scores volume per 100 seats, compares each account with its own previous quarter, raises **support strain** when reopens or fix times climb, and raises **support gone quiet** when a formerly active account stops filing tickets while its usage falls. It honors Zendesk's rate limits, explains bad credentials in one line, and never prints a token. Other tools plug in the same way, as separate pip-installable packages. See [docs/add-ons.md](docs/add-ons.md) to set one up or write your own.
+| Add-on | Reads | Adds per account |
+|---|---|---|
+| Zendesk | API | Ticket trend per seat, urgent tickets, CSAT, reopen rate, time to resolution |
+| Jira | Issue export or API | Open customer bugs, their median age, engineering escalations (with two new alerts) |
+| HubSpot | Companies and deals export, or API | Days since last contact, renewal deal versus ARR, competitor in play, discount |
+| ChurnZero | Account export | Active users and trend, last login, NPS, sentiment, sponsor and champion flags |
+| Pendo | Account report export | Active visitors and trend, last visit, core feature adoption, NPS polls |
+
+The Zendesk add-on doesn't just copy ticket counts. It scores volume per 100 seats, compares each account with its own previous quarter, raises **support strain** when reopens or fix times climb, and raises **support gone quiet** when a formerly active account stops filing tickets while its usage falls. It honors Zendesk's rate limits, explains bad credentials in one line, and never prints a token. The export-based add-ons match rows to accounts by ID first, then by company name, and never guess between two records with the same name. Other tools plug in the same way, as separate pip-installable packages. See [docs/add-ons.md](docs/add-ons.md) to set one up or write your own.
 
 ## Profiles
 
@@ -162,14 +173,15 @@ src/renewal_risk/
   report.py      CSV, JSON and Markdown outputs
   synth.py       synthetic history and books for every profile
   cli.py         the renewal-risk command
-  sources/       data add-ons: plug-in contract, HTTP client, registry, Zendesk
+  sources/       data add-ons: plug-in contract, HTTP client, CSV export helpers, registry,
+                 Zendesk, Jira, HubSpot, ChurnZero, Pendo
 app/streamlit_app.py
 tests/           ingest, scorecard, model, pipeline, add-ons, narratives, CLI and app smoke tests
 ```
 
 ## Host the demo
 
-The app runs on [Streamlit Community Cloud](https://streamlit.io/cloud) with no secrets: it opens on synthetic data with a simulated Zendesk. Sign in there with GitHub, choose **Create app**, pick this repository, branch `main` and main file `app/streamlit_app.py`, and set Python 3.12 under Advanced settings. `app/requirements.txt` and `packages.txt` cover the dependencies.
+The app runs on [Streamlit Community Cloud](https://streamlit.io/cloud) with no secrets: it opens on synthetic data with all five data add-ons simulated. Sign in there with GitHub, choose **Create app**, pick this repository, branch `main` and main file `app/streamlit_app.py`, and set Python 3.12 under Advanced settings. `app/requirements.txt` and `packages.txt` cover the dependencies.
 
 ## Development
 

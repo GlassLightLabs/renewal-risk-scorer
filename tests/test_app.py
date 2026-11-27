@@ -36,7 +36,18 @@ def test_account_detail_shows_support_signals() -> None:
     at.run()
     assert not at.exception, at.exception
     assert any(s.value == "Support" for s in at.subheader), "expected a Support panel on the account tab"
-    assert any("Data add-ons: Zendesk (simulated)" in c.value for c in at.caption)
+    assert any("Data add-ons:" in c.value and "Zendesk (simulated)" in c.value for c in at.caption)
+
+
+def test_demo_app_pulls_in_every_simulated_add_on() -> None:
+    at = AppTest.from_file(str(APP), default_timeout=180)
+    at.run()
+    assert not at.exception, at.exception
+    for label in ("Jira", "HubSpot", "ChurnZero", "Pendo"):
+        assert any(f"{label}: matched" in s.value for s in at.success), f"expected the {label} match report"
+    at.checkbox(key="jira_on").uncheck().run()
+    assert not at.exception, at.exception
+    assert not any("Jira: matched" in s.value for s in at.success)
 
 
 def test_real_zendesk_waits_for_settings() -> None:

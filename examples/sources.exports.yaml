@@ -1,0 +1,26 @@
+# Jira, HubSpot, ChurnZero and Pendo add-ons reading CSV exports: no tokens needed.
+# The sample files below are synthetic and match the accounts in examples/salesforce_report.csv:
+#
+#   renewal-risk inspect examples/salesforce_report.csv --mapping examples/mapping.yaml \
+#     --as-of 2026-12-01 --sources examples/sources.exports.yaml
+#   renewal-risk score examples/salesforce_report.csv --mapping examples/mapping.yaml --model model.json \
+#     --as-of 2026-12-01 --sources examples/sources.exports.yaml
+#
+# Paths are relative to the folder you run the command from. Swap in your own exports to use real data.
+# If two add-ons fill the same signal (ChurnZero and Pendo both count active users), the one listed later wins.
+sources:
+  jira:
+    file: examples/jira_issues.csv          # Filters > Export > Export CSV (all fields)
+    customer_field: ""                       # blank detects Customer, Organizations, Account ID...
+    bug_types: Bug,Defect
+    escalation_labels: escalation,customer-escalation,escalated
+    escalation_priorities: Highest,Blocker
+  hubspot:
+    companies_file: examples/hubspot_companies.csv
+    deals_file: examples/hubspot_deals.csv  # optional: renewal deal vs ARR, competitor, discount
+    account_id_column: Account ID            # the company property holding your account ID
+    renewal_keyword: renewal
+  churnzero:
+    file: examples/churnzero_accounts.csv
+  pendo:
+    file: examples/pendo_accounts.csv
