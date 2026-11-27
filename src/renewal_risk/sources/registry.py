@@ -3,9 +3,9 @@
 A third-party add-on is an ordinary Python package that declares, in its ``pyproject.toml``::
 
     [project.entry-points."renewal_risk.sources"]
-    jira = "renewal_risk_jira:JiraSource"
+    statuspage = "renewal_risk_statuspage:StatuspageSource"
 
-Once it is installed (``pip install renewal-risk-jira``), it shows up in ``renewal-risk sources list`` and in
+Once it is installed (``pip install renewal-risk-statuspage``), it shows up in ``renewal-risk sources list`` and in
 the app's Data add-ons panel with no change to this project. An add-on that fails to load is reported, not
 fatal: one broken plug-in must never stop scoring.
 """
@@ -20,9 +20,14 @@ ENTRY_POINT_GROUP = "renewal_risk.sources"
 
 
 def _builtins() -> dict[str, type[DataSource]]:
+    from .churnzero import ChurnZeroSource
+    from .hubspot import HubSpotSource
+    from .jira import JiraSource
+    from .pendo import PendoSource
     from .zendesk import ZendeskSource
 
-    return {ZendeskSource.name: ZendeskSource}
+    built_in: list[type[DataSource]] = [ZendeskSource, JiraSource, HubSpotSource, ChurnZeroSource, PendoSource]
+    return {cls.name: cls for cls in built_in}
 
 
 def discover() -> tuple[dict[str, type[DataSource]], list[str]]:

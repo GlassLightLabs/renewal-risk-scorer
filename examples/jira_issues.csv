@@ -1,0 +1,235 @@
+Issue key,Issue Type,Status,Status Category,Priority,Created,Resolved,Labels,Custom field (Customer)
+ENG-1001,Bug,Done,Done,Medium,29/Sep/26 12:03 PM,11/Oct/26 06:51 PM,,A-90004
+ENG-1002,Bug,In Progress,To Do,Medium,05/Aug/26 09:18 PM,,,A-90005
+ENG-1003,Task,In Progress,To Do,Medium,16/Oct/26 03:43 PM,,,A-90005
+ENG-1004,Improvement,Done,Done,Medium,08/Nov/26 01:38 PM,30/Nov/26 04:58 PM,,A-00003
+ENG-1005,Bug,Done,Done,Medium,13/Jul/26 10:20 PM,21/Jul/26 11:01 PM,,A-00005
+ENG-1006,Improvement,Done,Done,Medium,21/Sep/26 05:16 PM,16/Oct/26 12:34 AM,,A-00005
+ENG-1007,Bug,Done,Done,Medium,20/Jul/26 10:29 AM,29/Jul/26 09:44 PM,,A-00009
+ENG-1008,Story,Done,Done,Medium,05/Sep/26 01:41 AM,10/Sep/26 05:51 AM,,A-00010
+ENG-1009,Bug,Done,Done,Medium,03/Aug/26 12:17 PM,26/Aug/26 06:03 AM,,A-00010
+ENG-1010,Bug,Done,Done,Medium,25/Nov/26 03:01 AM,20/Dec/26 04:08 AM,,Millbrook Biotech
+ENG-1011,Bug,Done,Done,Medium,12/Sep/26 06:08 PM,27/Sep/26 08:01 PM,,Millbrook Biotech
+ENG-1012,Bug,To Do,In Progress,Medium,22/Aug/26 09:08 AM,,,Millbrook Biotech
+ENG-1013,Bug,In Review,To Do,Medium,02/Aug/26 02:25 AM,,,Millbrook Biotech
+ENG-1014,Bug,Done,Done,Medium,27/Jun/26 11:23 AM,12/Jul/26 11:29 AM,,Windward Builders
+ENG-1015,Bug,Done,Done,Medium,28/Oct/26 01:12 AM,12/Nov/26 12:38 AM,,Windward Builders
+ENG-1016,Bug,To Do,To Do,Medium,29/Jul/26 07:02 PM,,,Windward Builders
+ENG-1017,Bug,Done,Done,Medium,11/Jun/26 10:49 PM,13/Jun/26 11:28 AM,,Windward Builders
+ENG-1018,Improvement,Done,Done,Medium,28/Sep/26 11:21 PM,05/Oct/26 04:14 AM,,A-00014
+ENG-1019,Task,In Progress,To Do,Medium,17/Sep/26 01:07 AM,,,Windward Retail
+ENG-1020,Bug,To Do,To Do,Medium,19/Aug/26 10:29 PM,,,A-00018
+ENG-1021,Task,In Progress,In Progress,Medium,28/Jun/26 12:29 AM,,,A-00018
+ENG-1022,Bug,Done,Done,Medium,08/Aug/26 05:29 PM,20/Aug/26 08:33 PM,,A-00018
+ENG-1023,Bug,Done,Done,Medium,28/Jul/26 09:37 PM,10/Aug/26 04:34 AM,,A-00018
+ENG-1024,Bug,Done,Done,Medium,10/Jul/26 12:16 AM,01/Aug/26 03:58 PM,,A-00019
+ENG-1025,Bug,Done,Done,Medium,20/Nov/26 10:02 AM,27/Nov/26 11:46 PM,,A-00019
+ENG-1026,Bug,In Progress,In Progress,Medium,03/Jul/26 02:05 PM,,,A-00020
+ENG-1027,Story,In Progress,To Do,Medium,01/Sep/26 12:27 AM,,,A-00020
+ENG-1028,Bug,Done,Done,Medium,16/Oct/26 07:47 PM,11/Nov/26 02:10 PM,,A-00022
+ENG-1029,Task,In Progress,In Progress,Medium,21/Jul/26 12:20 PM,,,A-00024
+ENG-1030,Bug,Done,Done,Medium,09/Sep/26 06:21 AM,30/Sep/26 08:09 AM,,Oakmont Medical
+ENG-1031,Task,Done,Done,Medium,23/Aug/26 12:22 PM,02/Sep/26 02:12 PM,,A-00027
+ENG-1032,Bug,Done,Done,Medium,19/Nov/26 03:50 PM,25/Nov/26 03:39 PM,,A-00027
+ENG-1033,Bug,Done,Done,Medium,09/Jul/26 10:53 AM,07/Aug/26 07:28 PM,,Atlas Outfitters
+ENG-1034,Bug,Done,Done,Medium,20/Nov/26 03:59 PM,13/Dec/26 01:04 PM,,Atlas Outfitters
+ENG-1035,Bug,To Do,To Do,Medium,20/Jul/26 07:05 AM,,,Atlas Outfitters
+ENG-1036,Bug,In Progress,In Progress,Medium,25/Aug/26 11:40 AM,,,A-00030
+ENG-1037,Task,Done,Done,Medium,26/Sep/26 07:43 AM,25/Oct/26 12:20 AM,,A-00030
+ENG-1038,Bug,Done,Done,Medium,06/Jul/26 04:51 AM,21/Jul/26 08:05 PM,,A-00030
+ENG-1039,Bug,To Do,To Do,Medium,28/Nov/26 11:13 AM,,,A-00030
+ENG-1040,Task,Done,Done,Medium,30/Oct/26 05:05 AM,22/Nov/26 02:10 PM,,A-00030
+ENG-1041,Bug,Done,Done,Highest,10/Jun/26 09:11 PM,01/Jul/26 09:24 AM,escalation,A-00030
+ENG-1042,Bug,Done,Done,Medium,27/Aug/26 06:12 AM,17/Sep/26 03:03 PM,,A-00031
+ENG-1043,Bug,In Review,To Do,Medium,09/Aug/26 03:33 PM,,,A-00032
+ENG-1044,Bug,In Review,In Progress,Medium,03/Aug/26 12:27 PM,,,A-00032
+ENG-1045,Bug,Done,Done,Medium,06/Jul/26 12:18 AM,14/Jul/26 12:34 AM,,A-00032
+ENG-1046,Bug,Done,Done,Medium,27/Sep/26 07:18 PM,09/Oct/26 08:49 PM,,A-00032
+ENG-1047,Bug,Done,Done,Medium,23/Nov/26 06:58 PM,12/Dec/26 09:25 AM,,A-00032
+ENG-1048,Task,Done,Done,Medium,11/Aug/26 03:03 AM,18/Aug/26 10:10 AM,,A-00033
+ENG-1049,Task,Done,Done,Medium,16/Nov/26 02:36 AM,19/Nov/26 11:26 AM,,A-00035
+ENG-1050,Bug,Done,Done,Medium,14/Jul/26 07:43 PM,21/Jul/26 10:43 AM,,A-00038
+ENG-1051,Bug,Done,Done,Medium,17/Oct/26 11:44 PM,04/Nov/26 08:26 AM,,A-00038
+ENG-1052,Bug,Done,Done,Medium,10/Oct/26 03:47 PM,25/Oct/26 08:46 AM,,A-00039
+ENG-1053,Story,Done,Done,Medium,10/Aug/26 10:30 PM,16/Aug/26 09:31 AM,,A-00040
+ENG-1054,Improvement,Done,Done,Medium,28/Aug/26 10:05 AM,31/Aug/26 02:55 AM,,A-00040
+ENG-1055,Story,To Do,In Progress,Medium,26/Jul/26 08:04 PM,,,A-00042
+ENG-1056,Bug,Done,Done,Medium,25/Nov/26 02:27 PM,30/Nov/26 04:02 AM,,A-00043
+ENG-1057,Bug,Done,Done,Medium,29/Oct/26 12:40 PM,11/Nov/26 06:10 AM,,A-00043
+ENG-1058,Bug,In Progress,In Progress,Medium,21/Jun/26 11:20 PM,,,A-00043
+ENG-1059,Bug,To Do,To Do,Medium,06/Aug/26 06:37 PM,,,A-00044
+ENG-1060,Task,Done,Done,Medium,28/Aug/26 10:25 AM,24/Sep/26 11:00 PM,,A-00045
+ENG-1061,Bug,In Progress,In Progress,Medium,06/Oct/26 10:26 PM,,,A-00045
+ENG-1062,Bug,Done,Done,Medium,12/Sep/26 04:26 AM,16/Sep/26 12:54 PM,,A-00046
+ENG-1063,Bug,In Review,To Do,Medium,08/Aug/26 01:55 PM,,,A-00046
+ENG-1064,Bug,Done,Done,Medium,07/Nov/26 09:05 PM,12/Nov/26 07:55 AM,,A-00048
+ENG-1065,Task,Done,Done,Medium,29/Jun/26 10:38 PM,03/Jul/26 12:29 AM,,A-00049
+ENG-1066,Improvement,Done,Done,Medium,30/Jun/26 08:17 AM,07/Jul/26 11:23 PM,,A-00049
+ENG-1067,Bug,Done,Done,Medium,17/Nov/26 08:07 PM,13/Dec/26 10:12 AM,,A-00050
+ENG-1068,Improvement,Done,Done,Medium,17/Aug/26 02:32 AM,14/Sep/26 03:47 PM,,A-00051
+ENG-1069,Bug,Done,Done,Medium,23/Sep/26 08:58 PM,20/Oct/26 02:15 AM,,A-00052
+ENG-1070,Bug,Done,Done,Medium,01/Oct/26 11:34 PM,16/Oct/26 11:02 AM,,A-00054
+ENG-1071,Bug,In Progress,To Do,Medium,09/Jun/26 12:49 AM,,,A-00054
+ENG-1072,Bug,Done,Done,Medium,15/Jun/26 04:59 AM,28/Jun/26 02:08 AM,,A-00056
+ENG-1073,Bug,Done,Done,Medium,17/Sep/26 06:12 PM,15/Oct/26 05:19 AM,,A-00056
+ENG-1074,Bug,Done,Done,Medium,12/Aug/26 07:14 AM,27/Aug/26 02:24 PM,,A-00058
+ENG-1075,Bug,Done,Done,Medium,07/Oct/26 02:58 PM,13/Oct/26 06:32 PM,,A-00058
+ENG-1076,Improvement,Done,Done,Medium,18/Jul/26 02:56 PM,05/Aug/26 03:42 PM,,A-00059
+ENG-1077,Bug,Done,Done,Medium,30/Oct/26 05:04 AM,04/Nov/26 01:06 PM,,A-00061
+ENG-1078,Bug,Done,Done,Medium,19/Aug/26 12:35 AM,11/Sep/26 06:39 AM,,A-00062
+ENG-1079,Bug,Done,Done,Medium,24/Jul/26 04:25 AM,31/Jul/26 03:40 PM,,A-00067
+ENG-1080,Bug,To Do,In Progress,Medium,17/Jun/26 01:35 AM,,,A-00068
+ENG-1081,Task,Done,Done,Medium,30/Sep/26 07:28 PM,21/Oct/26 09:33 AM,,A-00068
+ENG-1082,Bug,In Review,In Progress,Medium,31/Jul/26 08:32 PM,,,A-00068
+ENG-1083,Bug,Done,Done,Medium,20/Nov/26 02:49 PM,24/Nov/26 01:12 PM,,A-00068
+ENG-1084,Bug,Done,Done,Medium,09/Aug/26 10:22 AM,26/Aug/26 10:08 PM,,A-00068
+ENG-1085,Task,In Progress,In Progress,Medium,03/Nov/26 09:28 AM,,,A-00071
+ENG-1086,Improvement,To Do,To Do,Medium,26/Jun/26 07:53 AM,,,A-00071
+ENG-1087,Bug,In Review,In Progress,Medium,03/Sep/26 10:36 PM,,,A-00071
+ENG-1088,Bug,Done,Done,Medium,18/Nov/26 12:20 AM,22/Nov/26 01:56 PM,,A-00073
+ENG-1089,Task,Done,Done,Highest,06/Aug/26 11:48 PM,16/Aug/26 12:15 PM,escalation,A-00074
+ENG-1090,Task,Done,Done,Medium,24/Aug/26 02:01 AM,21/Sep/26 07:15 AM,escalation,A-00074
+ENG-1091,Bug,Done,Done,Medium,20/Oct/26 01:48 PM,25/Oct/26 11:39 AM,,A-00075
+ENG-1092,Bug,In Review,In Progress,Medium,27/Aug/26 03:30 PM,,,A-00075
+ENG-1093,Bug,To Do,To Do,Medium,24/Nov/26 08:14 AM,,,A-00075
+ENG-1094,Bug,Done,Done,Medium,20/Jul/26 12:20 AM,26/Jul/26 11:47 PM,,A-00078
+ENG-1095,Task,Done,Done,Medium,01/Oct/26 05:08 PM,23/Oct/26 12:33 PM,,A-00078
+ENG-1096,Bug,Done,Done,Medium,14/Jun/26 11:34 AM,04/Jul/26 03:25 AM,,A-00079
+ENG-1097,Story,In Review,To Do,Medium,20/Jun/26 02:07 AM,,,A-00081
+ENG-1098,Bug,Done,Done,Medium,14/Nov/26 01:06 AM,15/Nov/26 10:34 PM,,A-00081
+ENG-1099,Task,Done,Done,Medium,15/Nov/26 04:51 AM,08/Dec/26 08:59 PM,,A-00083
+ENG-1100,Task,Done,Done,Medium,28/Jul/26 09:07 PM,11/Aug/26 07:19 AM,,A-00084
+ENG-1101,Bug,In Progress,To Do,Medium,09/Aug/26 01:14 AM,,escalation,A-00084
+ENG-1102,Bug,Done,Done,Medium,20/Nov/26 01:26 AM,21/Nov/26 01:25 PM,,A-00085
+ENG-1103,Task,Done,Done,Medium,25/Aug/26 06:51 PM,16/Sep/26 09:55 AM,escalation,A-00085
+ENG-1104,Story,Done,Done,Medium,15/Nov/26 08:35 PM,24/Nov/26 11:47 PM,,A-00085
+ENG-1105,Bug,Done,Done,Highest,11/Aug/26 01:44 AM,02/Sep/26 06:54 AM,escalation,Atlas Credit Union
+ENG-1106,Story,To Do,To Do,Medium,23/Oct/26 12:37 AM,,,A-00089
+ENG-1107,Task,Done,Done,Medium,21/Jun/26 01:16 PM,24/Jun/26 09:21 PM,,A-00089
+ENG-1108,Story,In Progress,To Do,Medium,31/Aug/26 10:48 PM,,,A-00089
+ENG-1109,Bug,Done,Done,Medium,14/Oct/26 11:07 AM,15/Oct/26 04:01 PM,,A-00090
+ENG-1110,Improvement,Done,Done,Highest,27/Sep/26 04:41 AM,30/Sep/26 10:12 AM,escalation,A-00090
+ENG-1111,Bug,Done,Done,Medium,06/Nov/26 12:32 PM,05/Dec/26 09:27 AM,,A-00090
+ENG-1112,Task,Done,Done,Medium,12/Jun/26 11:38 AM,07/Jul/26 03:16 AM,,A-00092
+ENG-1113,Story,Done,Done,Medium,04/Sep/26 11:11 PM,11/Sep/26 02:51 PM,,A-00092
+ENG-1114,Task,Done,Done,Medium,06/Oct/26 04:43 AM,15/Oct/26 02:14 AM,,A-00092
+ENG-1115,Bug,Done,Done,Medium,23/Aug/26 07:45 PM,31/Aug/26 03:28 PM,,A-00092
+ENG-1116,Bug,Done,Done,Highest,18/Oct/26 04:44 AM,02/Nov/26 02:24 PM,escalation,A-00092
+ENG-1117,Story,Done,Done,Medium,06/Nov/26 07:40 PM,15/Nov/26 12:43 PM,,A-00092
+ENG-1118,Task,Done,Done,Medium,14/Aug/26 07:31 AM,06/Sep/26 08:08 AM,,A-00093
+ENG-1119,Story,Done,Done,Medium,06/Jun/26 05:38 PM,15/Jun/26 08:00 AM,,A-00096
+ENG-1120,Task,Done,Done,Medium,13/Oct/26 01:48 AM,25/Oct/26 11:01 PM,,A-00098
+ENG-1121,Bug,Done,Done,Medium,15/Oct/26 01:48 AM,27/Oct/26 01:10 PM,,A-00098
+ENG-1122,Improvement,Done,Done,Medium,16/Nov/26 05:55 AM,30/Nov/26 07:00 AM,,A-00099
+ENG-1123,Bug,Done,Done,Medium,20/Jul/26 07:30 PM,31/Jul/26 10:05 AM,,A-00099
+ENG-1124,Bug,Done,Done,Medium,11/Nov/26 01:30 AM,19/Nov/26 03:47 AM,,A-00100
+ENG-1125,Story,Done,Done,Medium,30/Nov/26 08:05 AM,18/Dec/26 05:48 PM,,A-00101
+ENG-1126,Bug,Done,Done,Medium,04/Oct/26 04:28 AM,23/Oct/26 06:25 PM,,A-00103
+ENG-1127,Bug,Done,Done,Medium,12/Nov/26 07:05 AM,25/Nov/26 01:12 PM,,A-00103
+ENG-1128,Task,Done,Done,Medium,31/Aug/26 08:43 AM,23/Sep/26 05:57 AM,,A-00103
+ENG-1129,Bug,Done,Done,Medium,09/Nov/26 01:52 PM,03/Dec/26 05:32 AM,,A-00103
+ENG-1130,Bug,Done,Done,Medium,21/Nov/26 11:33 AM,07/Dec/26 03:49 PM,,A-00103
+ENG-1131,Task,Done,Done,Medium,24/Sep/26 01:11 AM,09/Oct/26 01:28 PM,escalation,A-00103
+ENG-1132,Bug,Done,Done,Medium,29/Jun/26 06:59 PM,28/Jul/26 02:43 AM,,A-00103
+ENG-1133,Bug,Done,Done,Medium,24/Jul/26 03:18 AM,18/Aug/26 04:44 AM,,Silverline Supply
+ENG-1134,Bug,Done,Done,Medium,20/Oct/26 07:43 AM,02/Nov/26 11:33 AM,,A-00105
+ENG-1135,Bug,Done,Done,Medium,05/Jul/26 03:43 PM,11/Jul/26 01:10 AM,,A-00106
+ENG-1136,Improvement,Done,Done,Medium,18/Aug/26 09:44 AM,19/Aug/26 09:02 PM,,Silverline Energy
+ENG-1137,Bug,Done,Done,Medium,05/Jul/26 09:28 AM,02/Aug/26 07:50 AM,,Silverline Energy
+ENG-1138,Bug,Done,Done,Medium,26/Oct/26 01:51 AM,07/Nov/26 11:23 PM,,A-00110
+ENG-1139,Bug,In Progress,In Progress,Highest,01/Nov/26 02:47 PM,,escalation,A-00111
+ENG-1140,Bug,In Progress,In Progress,Medium,08/Nov/26 11:11 PM,,,A-00111
+ENG-1141,Bug,Done,Done,Medium,19/Jul/26 05:31 AM,24/Jul/26 10:06 PM,,A-00111
+ENG-1142,Bug,Done,Done,Medium,16/Oct/26 07:51 PM,10/Nov/26 09:33 PM,,A-00116
+ENG-1143,Task,Done,Done,Medium,14/Nov/26 07:20 PM,03/Dec/26 04:46 AM,,A-00116
+ENG-1144,Improvement,Done,Done,Medium,19/Aug/26 02:27 AM,13/Sep/26 05:12 PM,,A-00117
+ENG-1145,Bug,Done,Done,Medium,19/Aug/26 02:21 PM,10/Sep/26 05:36 AM,,A-00117
+ENG-1146,Bug,Done,Done,Medium,13/Aug/26 02:36 AM,28/Aug/26 07:29 PM,,A-00117
+ENG-1147,Improvement,Done,Done,Medium,28/Oct/26 08:54 AM,07/Nov/26 02:06 AM,,A-00119
+ENG-1148,Improvement,In Progress,In Progress,Medium,26/Aug/26 08:37 PM,,escalation,A-00119
+ENG-1149,Bug,Done,Done,Medium,07/Nov/26 08:05 PM,20/Nov/26 05:21 AM,,A-00119
+ENG-1150,Improvement,Done,Done,Medium,21/Jul/26 02:20 PM,15/Aug/26 01:44 PM,,A-00119
+ENG-1151,Bug,To Do,In Progress,Medium,18/Jul/26 12:43 AM,,,A-00119
+ENG-1152,Story,Done,Done,Medium,07/May/26 10:50 AM,14/May/26 12:30 PM,,A-00119
+ENG-1153,Improvement,In Review,To Do,Medium,25/Jun/26 05:53 AM,,,A-00119
+ENG-1154,Bug,Done,Done,Medium,14/Nov/26 04:30 AM,20/Nov/26 04:07 PM,,A-00122
+ENG-1155,Bug,To Do,To Do,Medium,30/Nov/26 11:04 PM,,,A-00122
+ENG-1156,Story,Done,Done,Medium,22/Jul/26 12:33 AM,14/Aug/26 10:09 PM,,Boulder Ventures
+ENG-1157,Improvement,Done,Done,Medium,09/Aug/26 02:39 AM,04/Sep/26 04:15 AM,,Boulder Ventures
+ENG-1158,Bug,In Review,To Do,Medium,16/Aug/26 04:55 PM,,,A-00124
+ENG-1159,Bug,Done,Done,Medium,19/Jul/26 02:28 AM,28/Jul/26 01:25 AM,,A-00126
+ENG-1160,Task,Done,Done,Highest,15/Jul/26 07:50 AM,08/Aug/26 01:05 AM,escalation,A-00126
+ENG-1161,Bug,To Do,To Do,Medium,05/Aug/26 09:07 AM,,,A-00129
+ENG-1162,Bug,To Do,In Progress,Medium,26/Oct/26 05:36 AM,,,A-00129
+ENG-1163,Improvement,To Do,To Do,Medium,31/Jul/26 11:01 PM,,,A-00129
+ENG-1164,Bug,Done,Done,Medium,18/Oct/26 09:18 PM,17/Nov/26 08:39 PM,,A-00129
+ENG-1165,Task,Done,Done,Medium,16/Nov/26 10:58 AM,27/Nov/26 11:05 AM,,A-00129
+ENG-1166,Bug,Done,Done,Highest,13/Nov/26 04:10 PM,19/Nov/26 06:52 AM,escalation,A-00131
+ENG-1167,Bug,Done,Done,Medium,25/Aug/26 02:24 PM,17/Sep/26 07:58 AM,,A-00131
+ENG-1168,Task,Done,Done,Medium,31/Aug/26 07:10 PM,29/Sep/26 12:59 PM,,Cedar Ridge Distribution
+ENG-1169,Bug,Done,Done,Medium,24/Jul/26 12:51 PM,11/Aug/26 11:25 PM,,Cedar Ridge Distribution
+ENG-1170,Bug,Done,Done,Medium,21/Nov/26 02:27 AM,13/Dec/26 07:56 PM,,Cedar Ridge Distribution
+ENG-1171,Bug,Done,Done,Medium,07/Sep/26 04:45 AM,21/Sep/26 06:29 AM,,A-00134
+ENG-1172,Bug,Done,Done,Medium,15/Jun/26 11:56 PM,08/Jul/26 07:08 PM,,A-00135
+ENG-1173,Bug,Done,Done,Medium,24/Oct/26 05:19 PM,06/Nov/26 03:28 AM,,A-00136
+ENG-1174,Bug,Done,Done,Medium,18/Aug/26 04:37 AM,25/Aug/26 11:14 AM,,A-00136
+ENG-1175,Bug,To Do,To Do,Medium,26/Sep/26 06:25 AM,,,A-00137
+ENG-1176,Bug,Done,Done,Medium,25/Aug/26 07:14 PM,01/Sep/26 02:35 AM,,A-00138
+ENG-1177,Story,To Do,To Do,Medium,07/Jul/26 07:56 AM,,,A-00142
+ENG-1178,Bug,Done,Done,Medium,15/Sep/26 11:10 PM,09/Oct/26 09:29 PM,,A-00142
+ENG-1179,Bug,In Progress,In Progress,Medium,11/Jun/26 11:13 AM,,,A-00142
+ENG-1180,Bug,Done,Done,Medium,07/Jul/26 12:15 AM,21/Jul/26 11:14 PM,,A-00143
+ENG-1181,Bug,Done,Done,Medium,01/Jul/26 11:36 PM,04/Jul/26 03:13 PM,,A-00144
+ENG-1182,Bug,Done,Done,Highest,29/Nov/26 11:20 PM,26/Dec/26 12:42 AM,escalation,A-00146
+ENG-1183,Bug,Done,Done,Medium,02/Sep/26 11:33 AM,21/Sep/26 10:23 PM,,A-00147
+ENG-1184,Bug,To Do,To Do,Medium,02/Aug/26 11:11 AM,,,A-00148
+ENG-1185,Bug,To Do,In Progress,Medium,09/Jul/26 05:23 AM,,,A-00151
+ENG-1186,Task,Done,Done,Highest,04/Aug/26 11:17 AM,11/Aug/26 02:50 AM,escalation,A-00151
+ENG-1187,Story,Done,Done,Medium,31/Aug/26 03:58 AM,12/Sep/26 09:04 PM,,A-00151
+ENG-1188,Story,Done,Done,Medium,27/Sep/26 05:53 PM,13/Oct/26 06:31 PM,,A-00151
+ENG-1189,Bug,Done,Done,Medium,20/Oct/26 03:50 AM,17/Nov/26 04:39 AM,,A-00155
+ENG-1190,Task,Done,Done,Medium,17/Sep/26 01:03 PM,19/Sep/26 10:09 AM,,A-00157
+ENG-1191,Bug,In Review,To Do,Medium,27/Oct/26 02:58 PM,,escalation,A-00158
+ENG-1192,Task,Done,Done,Medium,13/Sep/26 01:22 PM,15/Sep/26 01:04 PM,,A-00158
+ENG-1193,Improvement,In Review,To Do,Medium,15/Apr/26 08:35 AM,,escalation,A-00158
+ENG-1194,Bug,Done,Done,Medium,07/Oct/26 02:29 PM,10/Oct/26 03:44 PM,escalation,A-00158
+ENG-1195,Bug,In Progress,In Progress,Medium,12/Jul/26 06:40 AM,,,A-00158
+ENG-1196,Bug,To Do,In Progress,Medium,10/Sep/26 03:02 PM,,,A-00158
+ENG-1197,Story,In Progress,In Progress,Medium,18/May/26 12:34 AM,,,A-00158
+ENG-1198,Bug,In Progress,To Do,Medium,14/Nov/26 05:28 AM,,,A-00160
+ENG-1199,Improvement,In Progress,To Do,Medium,26/Sep/26 12:25 AM,,,A-00161
+ENG-1200,Bug,Done,Done,Medium,15/Jun/26 11:26 PM,09/Jul/26 12:35 AM,,A-00162
+ENG-1201,Improvement,Done,Done,Medium,07/Jul/26 05:18 AM,20/Jul/26 06:44 PM,,A-00165
+ENG-1202,Story,Done,Done,Medium,22/Jul/26 10:20 AM,25/Jul/26 12:49 AM,,A-00165
+ENG-1203,Improvement,Done,Done,Medium,02/Aug/26 01:37 PM,29/Aug/26 10:31 PM,,Ember Retail
+ENG-1204,Improvement,Done,Done,Medium,04/Oct/26 07:39 AM,17/Oct/26 08:36 AM,,Ember Retail
+ENG-1205,Task,Done,Done,Medium,10/Aug/26 09:58 AM,22/Aug/26 04:43 PM,,A-00168
+ENG-1206,Story,Done,Done,Highest,15/Aug/26 09:48 AM,04/Sep/26 08:53 AM,escalation,A-00168
+ENG-1207,Task,Done,Done,Medium,18/Oct/26 12:30 AM,11/Nov/26 10:38 AM,,A-00171
+ENG-1208,Story,In Progress,To Do,Medium,24/Jul/26 04:12 AM,,,A-00171
+ENG-1209,Improvement,In Review,To Do,Medium,04/Nov/26 04:20 PM,,,A-00171
+ENG-1210,Story,Done,Done,Medium,20/Jul/26 08:01 PM,03/Aug/26 02:07 AM,,A-00171
+ENG-1211,Bug,Done,Done,Medium,31/Aug/26 03:06 PM,13/Sep/26 04:57 PM,,A-00172
+ENG-1212,Bug,Done,Done,Medium,07/Jun/26 05:25 AM,21/Jun/26 02:54 AM,,A-00172
+ENG-1213,Improvement,To Do,To Do,Medium,20/Sep/26 09:22 PM,,,A-00172
+ENG-1214,Story,Done,Done,Medium,10/Jul/26 05:02 PM,26/Jul/26 07:23 AM,,A-00172
+ENG-1215,Improvement,Done,Done,Medium,05/Nov/26 04:36 PM,04/Dec/26 11:39 PM,,A-00172
+ENG-1216,Bug,Done,Done,Medium,19/Nov/26 11:42 AM,13/Dec/26 06:40 PM,,A-00172
+ENG-1217,Bug,Done,Done,Medium,21/Sep/26 07:24 PM,14/Oct/26 08:59 PM,,A-00173
+ENG-1218,Bug,Done,Done,Medium,23/Sep/26 01:23 AM,14/Oct/26 05:56 AM,,A-00173
+ENG-1219,Bug,Done,Done,Medium,23/Jul/26 10:54 AM,17/Aug/26 06:59 PM,,A-00175
+ENG-1220,Bug,In Progress,To Do,Medium,02/Jul/26 09:55 PM,,,A-00175
+ENG-1221,Story,Done,Done,Medium,18/Aug/26 11:05 PM,08/Sep/26 06:26 AM,,A-00176
+ENG-1222,Task,To Do,To Do,Medium,22/Oct/26 12:55 AM,,,A-00176
+ENG-1223,Bug,Done,Done,Medium,09/Oct/26 01:56 AM,16/Oct/26 05:10 PM,,A-00179
+ENG-1224,Task,In Review,To Do,Medium,11/Aug/26 06:26 PM,,,A-00181
+ENG-1225,Bug,Done,Done,Medium,07/Jul/26 12:30 AM,31/Jul/26 09:04 AM,,A-00188
+ENG-1226,Bug,To Do,To Do,Medium,15/Oct/26 09:29 PM,,,A-00189
+ENG-1227,Bug,To Do,To Do,Medium,22/Oct/26 10:56 AM,,,A-00189
+ENG-1228,Bug,In Review,To Do,Medium,15/Nov/26 08:32 PM,,,A-00189
+ENG-1229,Task,In Progress,To Do,Medium,15/Sep/26 04:20 PM,,,A-00190
+ENG-1230,Bug,In Progress,To Do,Medium,25/Oct/26 05:31 AM,,,A-00190
+ENG-1231,Bug,Done,Done,Medium,13/Oct/26 12:51 PM,15/Oct/26 08:26 AM,,A-00190
+ENG-1232,Bug,In Review,To Do,Medium,15/Oct/26 03:20 AM,,,A-00193
+ENG-1233,Bug,Done,Done,Medium,19/Sep/26 10:11 PM,19/Oct/26 08:27 PM,escalation,A-00193
+ENG-1,Bug,,,,29/Nov/26 12:00 AM,,,Internal QA

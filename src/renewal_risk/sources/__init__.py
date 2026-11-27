@@ -1,4 +1,4 @@
-"""Data-source add-ons: pull signals from tools beyond the CRM export (Zendesk first) into the book.
+"""Data-source add-ons: pull signals from tools beyond the CRM export (Zendesk, Jira, HubSpot, ChurnZero, Pendo).
 
 See docs/add-ons.md for how to configure one and how to write your own.
 """

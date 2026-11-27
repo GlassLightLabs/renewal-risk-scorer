@@ -1,5 +1,13 @@
-# Simulated Zendesk for demos: no account or credentials needed.
+# Simulated add-ons for demos: no accounts, files or credentials needed.
 #   renewal-risk demo --profile saas --sources examples/sources.demo.yaml
 sources:
   zendesk:
+    simulate: true
+  jira:
+    simulate: true
+  hubspot:
+    simulate: true
+  churnzero:
+    simulate: true
+  pendo:
     simulate: true
