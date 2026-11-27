@@ -22,12 +22,27 @@ import pandas as pd
 from .config import FeatureSpec, ScorecardConfig
 from .ingest import DataQualityReport
 from .model import RiskModel, reason_codes
-from .playbook import recommend
+from .playbook import Playbook, default_playbook, plays_summary, recommend
 from .scorecard import ScorecardResult, compute_health, scorecard_prior_probability, urgency
 
 # Used only when there is no trained model: industry-typical contraction odds and depth for a renewal.
 DEFAULT_CONTRACTION_RATE = 0.15
 DEFAULT_CONTRACTION_DEPTH = 0.25
+
+# Output column -> key in the play returned by :func:`renewal_risk.playbook.recommend`.
+PLAY_COLUMNS = {
+    "save_play": "play",
+    "play_id": "id",
+    "play_owner": "owner",
+    "play_timing": "timing",
+    "play_actions": "actions",
+    "play_motion": "motion",
+    "play_cadence": "cadence",
+    "play_escalation": "escalation",
+    "play_talk_track": "talk_track",
+    "play_exit_criteria": "exit_criteria",
+    "supporting_plays": "supporting",
+}
 
 
 @dataclass
@@ -240,8 +255,13 @@ def score(
     quality: DataQualityReport | None = None,
     simulations: int = 5000,
     seed: int = 0,
+    playbook: Playbook | None = None,
 ) -> ScoreResult:
-    """Score a canonical book of business (from :func:`renewal_risk.ingest.ingest`)."""
+    """Score a canonical book of business (from :func:`renewal_risk.ingest.ingest`).
+
+    ``playbook`` defaults to the built-in one; pass :func:`renewal_risk.playbook.load_playbook` output to use
+    a team's own plays.
+    """
     if model is not None and model.profile != config.profile:
         raise ValueError(
             f"Model was trained for the '{model.profile}' profile but the book is scored as "
@@ -306,16 +326,20 @@ def score(
     out["alert_count"] = sc.alerts.map(len)
     out["top_reason"] = [_headline(d, a) for d, a in zip(out["risk_drivers"], out["alerts"], strict=True)]
 
+    pb = playbook or default_playbook()
     plays = [
-        recommend(config.profile, d, a, days, w)
-        for d, a, days, w in zip(
-            out["risk_drivers"], out["alerts"], book["days_to_renewal"], out["watermelon"], strict=True
+        recommend(config.profile, d, a, days, w, tier=t, playbook=pb)
+        for d, a, days, w, t in zip(
+            out["risk_drivers"],
+            out["alerts"],
+            book["days_to_renewal"],
+            out["watermelon"],
+            out["risk_tier"],
+            strict=True,
         )
     ]
-    out["save_play"] = [pl["play"] for pl in plays]
-    out["play_owner"] = [pl["owner"] for pl in plays]
-    out["play_timing"] = [pl["timing"] for pl in plays]
-    out["play_actions"] = [pl["actions"] for pl in plays]
+    for col, key in PLAY_COLUMNS.items():
+        out[col] = [pl[key] for pl in plays]
 
     out = out.sort_values(["priority_arr", "expected_arr_loss"], ascending=False).reset_index(drop=True)
     out.insert(0, "rank", np.arange(1, len(out) + 1))
@@ -351,6 +375,8 @@ def score(
         "health_bands": {k: int(v) for k, v in out["health_band"].value_counts().items()},
         "forecast": fc,
         "by_plan_size": by_plan_size(out, config.profile),
+        "plays": plays_summary(out, tier_order=[t.name for t in config.tiers]),
+        "play_tiers": {t.name: pb.tiers[t.name] for t in config.tiers if t.name in pb.tiers},
     }
     return ScoreResult(
         accounts=out,

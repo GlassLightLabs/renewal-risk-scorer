@@ -1,363 +1,120 @@
-"""Rule-based save plays: map an account's strongest risk signal to the play a CS team would run.
+"""Renewal playbooks: turn each account's risk into the play a CS team would run, sized to its risk tier.
 
-These follow common customer success practice (the "success plan" and "save play" motions found in CS
-platforms and TSIA's LAER model): fix the specific cause, put the right owner on it, and pace it to the
-renewal window. They are the deterministic baseline that the optional Claude narrative builds on, so the
-tool still recommends something useful with no API key.
+The plays follow common customer success practice (the "success plan" and "save play" motions found in CS
+platforms and TSIA's LAER model): fix the specific cause, put the right owner on it, say the right thing on
+the next call, know when it worked, and pace it to the renewal window. Plays live in a YAML file
+(``playbooks/default.yaml``) that a team can copy and edit, so changing a play never means changing code.
+
+This is the deterministic baseline the optional Claude narrative builds on, so the tool still recommends
+something useful with no API key.
 """
 
 from __future__ import annotations
 
 import math
+from collections.abc import Iterable
+from dataclasses import dataclass, field
+from functools import lru_cache
+from importlib import resources
+from pathlib import Path
 from typing import Any
+
+import yaml
+
+from .config import ConfigError
 
 Play = dict[str, Any]
 
-# Specific, high-signal alerts take precedence over model drivers: they name the cause outright.
-ALERT_PLAYS: dict[str, Play] = {
-    "champion_left": {
-        "play": "Re-establish sponsorship",
-        "owner": "CSM + Account Executive",
-        "actions": [
-            "Identify the new decision maker and book an intro within two weeks",
-            "Re-sell the business case with outcomes delivered to date",
-            "Multi-thread: add an executive sponsor and one more day-to-day champion",
-        ],
-    },
-    "competitor_eval": {
-        "play": "Competitive defense",
-        "owner": "Account Executive + CS leader",
-        "actions": [
-            "Find out what triggered the evaluation and who is running it",
-            "Bring a quantified value review and a roadmap briefing to the economic buyer",
-            "Prepare a retention offer with a clear walk-away point before negotiation",
-        ],
-    },
-    "signer_gone": {
-        "play": "Find the new economic buyer",
-        "owner": "Account Executive + CSM",
-        "actions": [
-            "Ask your champion who now approves the renewal and get a meeting with them",
-            "Rebuild the business case for that person: outcomes delivered, cost of switching, what's next",
-            "Confirm the procurement path and paperwork early, before the old signer's absence stalls it",
-        ],
-    },
-    "discount_cliff": {
-        "play": "Plan the discount step-down",
-        "owner": "Account Executive + RevOps",
-        "actions": [
-            "Decide the renewal price before the conversation: hold, step down part of the discount, or go to list",
-            "Tie any price move to value delivered and to added scope or term",
-            "Give the customer notice early so the change is budgeted, not a surprise at signature",
-        ],
-    },
-    "payment_risk": {
-        "play": "Collections and commercial review",
-        "owner": "Finance + Account Executive",
-        "actions": [
-            "Confirm the invoice reached the right AP contact and is not disputed",
-            "Agree a payment plan if cash is the issue; flag the account to leadership",
-            "Hold renewal pricing changes until the balance is current",
-        ],
-    },
-    "critical_support": {
-        "play": "Technical escalation",
-        "owner": "Support manager + CSM",
-        "actions": [
-            "Open an executive escalation with a named engineering owner",
-            "Send the customer a dated remediation plan and run a weekly status call",
-            "Hold a post-incident review before the renewal conversation",
-        ],
-    },
-    "support_strain": {
-        "play": "Support quality recovery",
-        "owner": "Support manager + CSM",
-        "actions": [
-            "Review the account's reopened and slow tickets with the support lead and find the common cause",
-            "Assign a named support contact until reopen rate and fix time are back to normal",
-            "Share the fix plan with the customer's admin before the renewal conversation",
-        ],
-    },
-    "support_gone_quiet": {
-        "play": "Re-engagement check",
-        "owner": "CSM",
-        "actions": [
-            "Ask the customer's admin directly whether they are still rolling out, or working around problems",
-            "Compare which teams stopped using the product with which stopped filing tickets",
-            "Book a working session on their next milestone before the renewal conversation starts",
-        ],
-    },
-    "eosl_cliff": {
-        "play": "Lifecycle refresh",
-        "owner": "Account Executive + Solutions Engineer",
-        "actions": [
-            "Share the end-of-support timeline and the risk of running unsupported",
-            "Propose a refresh or migration path with trade-in credit",
-            "Bundle support renewal with the refresh to avoid a coverage gap",
-        ],
-    },
-    "coverage_erosion": {
-        "play": "Contract coverage recovery",
-        "owner": "Service sales + CSM",
-        "actions": [
-            "Reconcile the install base against contracts and list uncovered units",
-            "Quote coverage for the gap with a co-terming offer",
-            "Show the cost of break-fix and third-party maintenance versus coverage",
-        ],
-    },
-    "under_consuming": {
-        "play": "Commit recovery",
-        "owner": "CSM + Solutions Architect",
-        "actions": [
-            "Find the workloads planned at signing that never launched and why",
-            "Run a workshop to activate one new workload in the next 30 days",
-            "Right-size the commit early rather than lose the renewal outright",
-        ],
-    },
-    "consumption_decline": {
-        "play": "Consumption recovery",
-        "owner": "Solutions Architect",
-        "actions": [
-            "Diagnose the drop: migration away, optimization, or a project ending",
-            "Offer an architecture review and cost optimization that keeps workloads on platform",
-            "Identify the next workload to land before the commit renews",
-        ],
-    },
-    "sla_breach": {
-        "play": "Delivery recovery",
-        "owner": "Delivery lead + Engagement manager",
-        "actions": [
-            "Publish a root-cause analysis and a corrective plan with dates",
-            "Offer service credits where the contract calls for them",
-            "Review staffing on the account and add senior oversight",
-        ],
-    },
-    "delivery_lead_change": {
-        "play": "Delivery continuity",
-        "owner": "Engagement manager",
-        "actions": [
-            "Introduce the new delivery lead in person with a written handover",
-            "Re-confirm milestones and success criteria with the client sponsor",
-            "Schedule a 30-day check-in to confirm confidence is back",
-        ],
-    },
-    # AI products
-    "stalled_pilot": {
-        "play": "Pilot-to-production push",
-        "owner": "CSM + Solutions Engineer",
-        "actions": [
-            "Agree written success criteria and a production go-live date with the pilot sponsor",
-            "Ship one production workflow with an integration before the pilot end date",
-            "Line up the economic buyer and a core budget line for the conversion",
-        ],
-    },
-    "bill_shock": {
-        "play": "Spend governance and re-commit",
-        "owner": "Account Executive + CSM",
-        "actions": [
-            "Walk the customer through usage, overage and throttling before the next invoice lands",
-            "Offer a right-sized larger commit or burst capacity at committed rates",
-            "Set spend alerts and model-routing guidance so costs stay predictable",
-        ],
-    },
-    "under_burn": {
-        "play": "Burn recovery before true-up",
-        "owner": "CSM + Solutions Engineer",
-        "actions": [
-            "Find the planned use cases that never launched and the blocker for each",
-            "Launch one new production use case in the next 30 days",
-            "Propose a commit rollover or right-size early instead of losing the renewal",
-        ],
-    },
-    "seat_compression": {
-        "play": "Seat-to-usage repricing",
-        "owner": "Account Executive + Deal desk",
-        "actions": [
-            "Show the customer the shift: fewer seats, more AI-driven output",
-            "Offer a credits or outcome-based plan that prices the work, not the headcount",
-            "Protect ARR by trading seats for a usage commit at renewal",
-        ],
-    },
-    "model_retirement": {
-        "play": "Model migration plan",
-        "owner": "Solutions Engineer",
-        "actions": [
-            "List the customer's workflows on retiring models and their shutdown dates",
-            "Run evals on the replacement model and share the results",
-            "Schedule the cutover well before both the shutdown and the renewal",
-        ],
-    },
-    "experimental_budget": {
-        "play": "Budget conversion",
-        "owner": "Account Executive",
-        "actions": [
-            "Quantify outcomes delivered so far in the buyer's own metrics",
-            "Find the core budget owner and present a business case",
-            "Time the renewal proposal to the customer's planning cycle",
-        ],
-    },
-    "usage_decline": {
-        "play": "Usage recovery",
-        "owner": "CSM + Solutions Engineer",
-        "actions": [
-            "Find out what changed: a reorg, a cheaper model, or a project ending",
-            "Re-engage the team that owned the workload and agree a recovery plan",
-            "Land a second use case so one decline cannot sink the renewal",
-        ],
-    },
-}
-
-GROUP_PLAYS: dict[str, Play] = {
-    "product_adoption": {
-        "play": "Adoption recovery",
-        "owner": "CSM",
-        "actions": [
-            "Find the teams with inactive seats and the reason they stalled",
-            "Run enablement for the two highest-value unused features",
-            "Agree adoption targets with the customer and review them monthly",
-        ],
-    },
-    "relationship": {
-        "play": "Executive re-engagement",
-        "owner": "CSM + Account Executive",
-        "actions": [
-            "Book an executive business review with the economic buyer",
-            "Map stakeholders and close gaps in sponsor and champion coverage",
-            "Set a meeting cadence and keep it until renewal",
-        ],
-    },
-    "support": {
-        "play": "Support experience recovery",
-        "owner": "Support manager",
-        "actions": [
-            "Review open and recent tickets for repeat issues",
-            "Assign a named support contact until the backlog clears",
-            "Close the loop with the customer on fixes delivered",
-        ],
-    },
-    "sentiment": {
-        "play": "Voice-of-customer follow-up",
-        "owner": "CSM",
-        "actions": [
-            "Call the detractors and find the root cause",
-            "Agree one visible fix and deliver it before renewal",
-            "Re-survey after the fix to confirm sentiment moved",
-        ],
-    },
-    "commercial": {
-        "play": "Commercial structuring",
-        "owner": "Account Executive + Deal desk",
-        "actions": [
-            "Model renewal options: term length, price protection, right-sizing",
-            "Tie any price increase to delivered value and a roadmap commitment",
-            "Get verbal agreement before the formal quote goes out",
-        ],
-    },
-    "consumption": {
-        "play": "Consumption recovery",
-        "owner": "Solutions Architect",
-        "actions": [
-            "Review commit burn-down and the gap to plan",
-            "Land a new workload or use case before the commit period ends",
-            "Discuss commit right-sizing early if the gap cannot close",
-        ],
-    },
-    "capacity": {
-        "play": "Capacity optimization",
-        "owner": "Solutions Architect",
-        "actions": [
-            "Find idle reserved capacity and the workloads it was meant for",
-            "Move or launch workloads onto the reserved capacity",
-            "Adjust the reservation mix at renewal to match real use",
-        ],
-    },
-    "installed_base": {
-        "play": "Install base review",
-        "owner": "Service sales",
-        "actions": [
-            "Reconcile installed units against contracts and support status",
-            "Quote coverage for uncovered units and a refresh for aging ones",
-            "Co-term contracts to simplify the renewal",
-        ],
-    },
-    "product_health": {
-        "play": "Fleet health review",
-        "owner": "Support engineering",
-        "actions": [
-            "Review RMA history and firmware levels across the fleet",
-            "Schedule firmware upgrades and proactive replacements",
-            "Turn on telemetry for unmonitored units",
-        ],
-    },
-    "service": {
-        "play": "Service experience recovery",
-        "owner": "Support manager",
-        "actions": [
-            "Review recent cases and time to resolution",
-            "Assign a technical account manager until stable",
-            "Share a service report with the customer",
-        ],
-    },
-    "delivery": {
-        "play": "Delivery recovery",
-        "owner": "Engagement manager",
-        "actions": [
-            "Re-baseline milestones with the client sponsor",
-            "Fix staffing gaps and add senior oversight",
-            "Report progress weekly until back on plan",
-        ],
-    },
-    "burn": {
-        "play": "Burn recovery before true-up",
-        "owner": "CSM + Solutions Engineer",
-        "actions": [
-            "Review projected commit use and the usage trend with the customer",
-            "Launch or expand a production use case to close the gap",
-            "Discuss rollover or right-sizing early if the gap cannot close",
-        ],
-    },
-    "production": {
-        "play": "Embed in production",
-        "owner": "CSM + Solutions Engineer",
-        "actions": [
-            "Move sandbox and pilot usage into production workflows",
-            "Add integrations to the customer's core systems",
-            "Expand to a second team or use case",
-        ],
-    },
-    "experience": {
-        "play": "Client experience recovery",
-        "owner": "Engagement manager",
-        "actions": [
-            "Hold a candid feedback session with the client sponsor",
-            "Agree on what success looks like for the next term",
-            "Deliver one visible quick win before renewal",
-        ],
-    },
-}
-
-DEFAULT_PLAY: Play = {
-    "play": "Standard renewal motion",
-    "owner": "CSM",
-    "actions": [
-        "Confirm renewal intent and decision process",
-        "Share a value summary before the quote",
-        "Send the renewal quote on the normal schedule",
-    ],
-}
-
-WATERMELON_PLAY: Play = {
-    "play": "Watermelon check",
-    "owner": "CSM + CS leader",
-    "actions": [
-        "Pressure-test the green score: ask the customer directly about renewal plans",
-        "Verify usage and sponsor data are current, not stale",
-        "Escalate if the call surfaces a risk the scorecard is not seeing",
-    ],
-}
+PLAY_FIELDS = ("name", "owner", "actions", "talk_track", "exit_criteria")
+SPECIAL_PLAYS = ("watermelon", "healthy", "default")
+TIER_FIELDS = ("motion", "cadence", "escalation")
+# Model drivers that describe the account rather than a cause anyone can fix. They never pick a play.
+NOT_ACTIONABLE = frozenset({"log_arr", "segment_code"})
+MAX_SUPPORTING = 2
 
 
-def timing(days_to_renewal: float) -> str:
+@dataclass(frozen=True)
+class Playbook:
+    alerts: dict[str, Play]
+    groups: dict[str, Play]
+    special: dict[str, Play]
+    tiers: dict[str, dict[str, str]] = field(default_factory=dict)
+
+
+def _parse_play(raw: Any, where: str) -> Play:
+    if not isinstance(raw, dict):
+        raise ConfigError(f"{where}: a play is a mapping with {', '.join(PLAY_FIELDS)}")
+    missing = [f for f in PLAY_FIELDS if not raw.get(f)]
+    if missing:
+        raise ConfigError(f"{where}: missing {', '.join(missing)}")
+    unknown = set(raw) - set(PLAY_FIELDS)
+    if unknown:
+        raise ConfigError(f"{where}: unknown field(s) {', '.join(sorted(unknown))}")
+    actions = raw["actions"]
+    if not isinstance(actions, list) or not all(isinstance(a, str) and a.strip() for a in actions):
+        raise ConfigError(f"{where}: actions must be a list of steps")
+    play: Play = {f: str(raw[f]).strip() for f in PLAY_FIELDS if f != "actions"}
+    play["actions"] = [a.strip() for a in actions]
+    return play
+
+
+def parse_playbook(data: dict[str, Any], base: Playbook | None = None) -> Playbook:
+    """Validate a playbook mapping. With ``base``, entries in ``data`` add to or replace the base's."""
+    unknown = set(data) - {"alerts", "groups", "special", "tiers"}
+    if unknown:
+        raise ConfigError(f"playbook: unknown section(s) {', '.join(sorted(unknown))}")
+    sections: dict[str, dict[str, Play]] = {}
+    for section in ("alerts", "groups", "special"):
+        raw = data.get(section) or {}
+        if not isinstance(raw, dict):
+            raise ConfigError(f"playbook.{section}: must map ids to plays")
+        merged: dict[str, Play] = dict(getattr(base, section)) if base else {}
+        merged |= {str(k): _parse_play(v, f"playbook.{section}.{k}") for k, v in raw.items()}
+        sections[section] = merged
+    bad_special = set(sections["special"]) - set(SPECIAL_PLAYS)
+    if bad_special:
+        raise ConfigError(f"playbook.special: unknown play(s) {', '.join(sorted(bad_special))}")
+    absent = [s for s in SPECIAL_PLAYS if s not in sections["special"]]
+    if absent:
+        raise ConfigError(f"playbook.special: missing {', '.join(absent)}")
+
+    tiers: dict[str, dict[str, str]] = {k: dict(v) for k, v in base.tiers.items()} if base else {}
+    raw_tiers = data.get("tiers") or {}
+    if not isinstance(raw_tiers, dict):
+        raise ConfigError("playbook.tiers: must map tier names to settings")
+    for name, t in raw_tiers.items():
+        if not isinstance(t, dict) or set(t) - set(TIER_FIELDS):
+            raise ConfigError(f"playbook.tiers.{name}: use only {', '.join(TIER_FIELDS)}")
+        tiers[str(name)] = tiers.get(str(name), {}) | {k: str(v) for k, v in t.items()}
+    return Playbook(sections["alerts"], sections["groups"], sections["special"], tiers)
+
+
+@lru_cache(maxsize=1)
+def default_playbook() -> Playbook:
+    text = resources.files("renewal_risk").joinpath("playbooks").joinpath("default.yaml").read_text()
+    return parse_playbook(yaml.safe_load(text) or {})
+
+
+def load_playbook(path: str | Path | None = None) -> Playbook:
+    """The built-in playbook, or a custom YAML file layered on top of it."""
+    if path is None:
+        return default_playbook()
+    p = Path(path)
+    if not p.is_file():
+        raise ConfigError(f"Playbook file not found: {p}")
+    data = yaml.safe_load(p.read_text()) or {}
+    if not isinstance(data, dict):
+        raise ConfigError(f"{p}: a playbook is a YAML mapping with alerts, groups, special and tiers")
+    return parse_playbook(data, base=default_playbook())
+
+
+def missing_alert_plays(alert_ids: Iterable[str], playbook: Playbook | None = None) -> list[str]:
+    """Alert ids that would fire with no play behind them."""
+    pb = playbook or default_playbook()
+    return sorted({a for a in alert_ids if a not in pb.alerts})
+
+
+def timing(days_to_renewal: float | None) -> str:
     if days_to_renewal is None or (isinstance(days_to_renewal, float) and math.isnan(days_to_renewal)):
         return "Renewal date unknown"
     d = float(days_to_renewal)
@@ -372,28 +129,105 @@ def timing(days_to_renewal: float) -> str:
     return "Early: monitor and fix root causes"
 
 
+_SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
+
+
 def recommend(
     profile: str,
     drivers: list[dict[str, Any]],
     alerts: list[dict[str, str]],
-    days_to_renewal: float,
+    days_to_renewal: float | None,
     watermelon: bool = False,
+    *,
+    tier: str | None = None,
+    playbook: Playbook | None = None,
 ) -> Play:
-    """Pick one play: the first high-severity alert with a play, else the top driver's group."""
-    chosen: Play | None = None
-    for sev in ("high", "medium"):
-        for a in alerts:
-            if a["severity"] == sev and a["id"] in ALERT_PLAYS:
-                chosen = ALERT_PLAYS[a["id"]]
-                break
-        if chosen:
+    """Pick the primary play and up to two supporting plays for one account.
+
+    Order: a high or medium alert with a play; the watermelon check; the healthy renewal play for a
+    low-tier account; the play for the top actionable driver's group; the default motion. Leaving out
+    ``tier`` skips the healthy-renewal step. ``profile`` is accepted for callers that pass it and does not
+    change the choice: plays are keyed by alert and group, which are already profile-specific.
+    """
+    del profile
+    pb = playbook or default_playbook()
+    ranked = sorted(
+        (a for a in alerts if a.get("id") in pb.alerts),
+        key=lambda a: _SEVERITY_ORDER.get(a.get("severity", "low"), 3),
+    )
+    alert_plays = [(f"alert:{a['id']}", pb.alerts[a["id"]], a.get("severity")) for a in ranked]
+
+    chosen: tuple[str, Play] | None = None
+    for pid, play, sev in alert_plays:
+        if sev in ("high", "medium"):
+            chosen = (pid, play)
             break
-    if chosen is None and drivers:
-        for d in drivers:
-            if d["group"] in GROUP_PLAYS:
-                chosen = GROUP_PLAYS[d["group"]]
-                break
     if chosen is None and watermelon:
-        chosen = WATERMELON_PLAY
-    chosen = chosen or DEFAULT_PLAY
-    return {**chosen, "actions": list(chosen["actions"]), "timing": timing(days_to_renewal)}
+        chosen = ("special:watermelon", pb.special["watermelon"])
+    if chosen is None and tier == "low":
+        chosen = ("special:healthy", pb.special["healthy"])
+    if chosen is None:
+        for d in drivers:
+            if d.get("feature") in NOT_ACTIONABLE:
+                continue
+            if d.get("group") in pb.groups:
+                chosen = (f"group:{d['group']}", pb.groups[d["group"]])
+                break
+    if chosen is None:
+        chosen = ("special:default", pb.special["default"])
+
+    pid, play = chosen
+    supporting: list[str] = []
+    # A watermelon flag is the reason the account needs a second look, so its check leads the supporting plays.
+    candidates = [("special:watermelon", pb.special["watermelon"])] if watermelon else []
+    candidates += [(c_id, c_play) for c_id, c_play, _ in alert_plays]
+    for c_id, c_play in candidates:
+        if c_id == pid or c_play["name"] == play["name"] or c_play["name"] in supporting:
+            continue
+        supporting.append(c_play["name"])
+        if len(supporting) == MAX_SUPPORTING:
+            break
+
+    tier_info = pb.tiers.get(tier or "", {})
+    return {
+        "id": pid,
+        "play": play["name"],
+        "owner": play["owner"],
+        "actions": list(play["actions"]),
+        "talk_track": play["talk_track"],
+        "exit_criteria": play["exit_criteria"],
+        "timing": timing(days_to_renewal),
+        "motion": tier_info.get("motion", ""),
+        "cadence": tier_info.get("cadence", ""),
+        "escalation": tier_info.get("escalation", ""),
+        "supporting": supporting,
+    }
+
+
+def plays_summary(
+    accounts: Any, *, tier_order: Iterable[str] = (), exclude_tiers: tuple[str, ...] = ("low",)
+) -> list[dict[str, Any]]:
+    """Plays to run across the book: accounts, ARR and expected loss per primary play, largest loss first.
+
+    Low-tier accounts are left out by default: their healthy-renewal motion is business as usual, not work
+    to staff.
+    """
+    df = accounts[~accounts["risk_tier"].isin(exclude_tiers)]
+    if df.empty:
+        return []
+    order = {t: i for i, t in enumerate(tier_order)}
+    rows = []
+    for (name, owner), part in df.groupby(["save_play", "play_owner"], sort=False):
+        counts = part["risk_tier"].value_counts()
+        tiers = counts.loc[sorted(counts.index, key=lambda t: order.get(t, len(order)))]
+        rows.append(
+            {
+                "play": name,
+                "owner": owner,
+                "accounts": int(len(part)),
+                "arr": round(float(part["arr"].sum()), 2),
+                "expected_arr_loss": round(float(part["expected_arr_loss"].sum()), 2),
+                "by_tier": {str(k): int(v) for k, v in tiers.items()},
+            }
+        )
+    return sorted(rows, key=lambda r: r["expected_arr_loss"], reverse=True)

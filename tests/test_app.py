@@ -19,6 +19,9 @@ def test_demo_app_renders_without_errors() -> None:
     assert len(at.tabs) >= 4
     assert at.metric, "expected KPI metrics on the first screen"
     assert any(s.value == "Retention by plan size" for s in at.subheader), "expected the plan-size breakdown"
+    assert any(s.value == "Plays to run" for s in at.subheader), "expected the plays panel on the portfolio tab"
+    assert any(s.value.startswith("Play: ") for s in at.subheader), "expected the account's play"
+    assert any(m.value == "**Talk track**" for m in at.markdown), "expected the play's talk track"
 
 
 def test_demo_app_pulls_in_simulated_zendesk() -> None:

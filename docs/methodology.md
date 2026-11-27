@@ -78,7 +78,7 @@ Two facts about how the current contract was won often sit in the CRM and nowher
 - **Urgency** follows the common 180/120/90-day renewal cadence (plan, engage, negotiate). An account renewing in 30 days counts fully; one renewing in a year counts about a fifth.
 - **Priority** ranks accounts by expected loss × urgency, so the list answers "where should I spend this week" in dollars.
 - **Tiers** use churn probability and time left: critical (45%+ inside 180 days), high (25%+ inside 270 days), watch (12%+), low. Downsell risk shows in the dollars and the rank, not the tier.
-- **Save plays** come from the strongest alert, then the top driver group: an owner, a timing window and concrete steps (for example "Pilot-to-production push" or "Seat-to-usage repricing").
+- **Plays** come from a YAML playbook: the strongest alert first, then the watermelon check, then a healthy-renewal play for low-tier accounts, then the top actionable driver group. Each has an owner, concrete steps, a talk track and exit criteria, and the risk tier sets the motion, review cadence and escalation. Up to two supporting plays cover the account's other alerts. See [playbooks.md](playbooks.md).
 
 ## 6. GRR forecast
 

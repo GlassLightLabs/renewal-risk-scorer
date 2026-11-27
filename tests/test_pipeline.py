@@ -41,6 +41,7 @@ def test_planted_stories_land(trained, books, as_of):
     assert a.loc["A-90003", "risk_tier"] == "critical"  # stalled pilot, overdue
     assert a.loc["A-90003", "save_play"] == "Pilot-to-production push"
     assert a.loc["A-90004", "risk_tier"] == "low"  # healthy control
+    assert a.loc["A-90004", "save_play"] == "Healthy renewal"
     assert "seat_compression" in {x["id"] for x in a.loc["A-90005", "alerts"]}
     assert "bill_shock" in {x["id"] for x in a.loc["A-90002", "alerts"]}
     assert "model_retirement" in {x["id"] for x in a.loc["A-90001", "alerts"]}

@@ -34,9 +34,16 @@ CSV_COLUMNS = [
     "scorecard_gaps",
     "alerts",
     "save_play",
+    "play_id",
     "play_owner",
     "play_timing",
+    "play_motion",
+    "play_cadence",
+    "play_escalation",
     "play_actions",
+    "play_talk_track",
+    "play_exit_criteria",
+    "supporting_plays",
     "model_churn_probability",
     "scorecard_churn_probability",
     "risk_source",
@@ -63,6 +70,8 @@ def accounts_table(result: ScoreResult) -> pd.DataFrame:
     df["scorecard_gaps"] = df["scorecard_gaps"].map(_fmt_items)
     df["alerts"] = df["alerts"].map(lambda xs: "; ".join(a["message"] for a in xs))
     df["play_actions"] = df["play_actions"].map(lambda xs: " | ".join(xs))
+    if "supporting_plays" in df.columns:
+        df["supporting_plays"] = df["supporting_plays"].map(lambda xs: "; ".join(xs))
     group_cols = [c for c in df.columns if c.endswith("_score") and c != "health_score"]
     cols = [c for c in CSV_COLUMNS if c in df.columns] + group_cols
     return df[cols]
@@ -178,6 +187,36 @@ def markdown_report(result: ScoreResult, *, top: int = 15, briefs_md: str | None
             ].rename(columns={"rank": "#", "risk_tier": "Tier"})
         ),
     ]
+    plays = s.get("plays") or []
+    if plays:
+        lines += [
+            "",
+            "## Plays to run",
+            "",
+            "Primary plays for every account above the low tier, largest expected loss first. The account's risk "
+            "tier sets how hard to run its play:",
+            "",
+            *(
+                f"- **{name} ({info['motion']}):** {info['cadence']}. {info['escalation']}."
+                for name, info in (s.get("play_tiers") or {}).items()
+            ),
+            "",
+            _md_table(
+                pd.DataFrame(
+                    [
+                        {
+                            "Play": p["play"],
+                            "Owner": p["owner"],
+                            "Accounts": p["accounts"],
+                            "By tier": ", ".join(f"{t} {n}" for t, n in p["by_tier"].items()),
+                            "ARR": _money(p["arr"]),
+                            "Exp. loss": _money(p["expected_arr_loss"]),
+                        }
+                        for p in plays
+                    ]
+                )
+            ),
+        ]
     wm = a[a["watermelon"]].head(10)
     if len(wm):
         lines += [

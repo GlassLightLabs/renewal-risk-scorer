@@ -1,0 +1,621 @@
+# The built-in renewal playbook: what to do about each risk the scorer finds.
+#
+# Every scored account gets one primary play and up to two supporting plays. The play says what to do
+# (actions), who leads it (owner), what to say on the next call (talk_track) and how you know it worked
+# (exit_criteria). The account's risk tier then sets how hard to run it: the motion, the review cadence
+# and when to escalate.
+#
+# How the primary play is chosen, in order:
+#   1. A high or medium alert with a play below. Alerts name the cause outright, so they come first.
+#   2. A watermelon (green score, model sees risk) with no such alert gets the watermelon check.
+#   3. A low-tier account with no such alert gets the healthy renewal play. Its model drivers are mild
+#      pushes on a low probability, not a reason to run a save play.
+#   4. Otherwise the play for the group of the account's top actionable risk driver. Contract size and
+#      segment are not actionable, so they never pick a play.
+#   5. Otherwise the default renewal motion.
+# Other alerts that fired (low severity included) and the watermelon check become supporting plays.
+#
+# To tune it, copy this file, change any play or tier, and pass it with --playbook. Your file only
+# needs the entries you change: anything you leave out comes from this one. A play you define fully
+# replaces the built-in play with the same key.
+#
+# Each play needs: name, owner, actions (a list), talk_track and exit_criteria.
+
+tiers:
+  critical:
+    motion: Save
+    cadence: Review the save plan weekly with the CS leader until the renewal is signed
+    escalation: Put an executive sponsor on it from both companies and mark the renewal at risk in the forecast
+  high:
+    motion: Recover
+    cadence: Review progress every two weeks with the CS leader
+    escalation: Mark it at risk in the forecast call and bring in an executive if it moves to critical
+  watch:
+    motion: Monitor
+    cadence: CSM checks the signal monthly and logs what changed
+    escalation: Raise it with the CS leader if the account moves up a tier
+  low:
+    motion: Standard
+    cadence: Normal renewal cadence
+    escalation: None needed
+
+special:
+  watermelon:
+    name: Watermelon check
+    owner: CSM + CS leader
+    actions:
+      - Ask the customer directly about renewal plans instead of trusting the green score
+      - Check that the usage, sponsor and survey data behind the score are current, not stale
+      - Escalate if the call surfaces a risk the scorecard is not seeing
+    talk_track: >-
+      Before we get to renewal paperwork, I want to make sure we are seeing what you are seeing. How is
+      the rollout going from your side, and is anything getting in the way that we should know about?
+    exit_criteria: The customer confirms renewal intent, or the hidden risk is named and has its own play
+  healthy:
+    name: Healthy renewal
+    owner: CSM
+    actions:
+      - Confirm renewal intent and who signs, at least 90 days out
+      - Send a short value summary in the customer's own metrics before the quote
+      - Ask about new teams or use cases while sentiment is good
+    talk_track: >-
+      Your renewal is coming up and things look like they are working well. I'd love 20 minutes to
+      recap what your team got out of this year and hear what you want to do next.
+    exit_criteria: Renewal intent and signer confirmed, value summary sent, any expansion lead passed to the Account Executive
+  default:
+    name: Standard renewal motion
+    owner: CSM
+    actions:
+      - Confirm renewal intent and the decision process
+      - Share a value summary before the quote
+      - Send the renewal quote on the normal schedule
+    talk_track: >-
+      I'd like to make sure the next term is set up around what matters most to your team. Can we find
+      30 minutes to look at how things are going and what you need from us?
+    exit_criteria: Renewal intent and decision process confirmed before the quote goes out
+
+# Plays for alerts, keyed by alert id. A data add-on or custom profile that adds an alert should add a
+# play here too.
+alerts:
+  # Relationship and commercial alerts every profile shares
+  champion_left:
+    name: Re-establish sponsorship
+    owner: CSM + Account Executive
+    actions:
+      - Identify the new decision maker and book an intro within two weeks
+      - Re-sell the business case with outcomes delivered to date
+      - Multi-thread with an executive sponsor and one more day-to-day champion
+    talk_track: >-
+      I heard about the change on your side and wanted to reach out early. I'd like to bring you up to
+      speed on what your team has achieved with us and hear what matters most to you going forward.
+    exit_criteria: A new champion and an executive sponsor are named and have met with us
+  competitor_eval:
+    name: Competitive defense
+    owner: Account Executive + CS leader
+    actions:
+      - Find out what triggered the evaluation and who is running it
+      - Bring a quantified value review and a roadmap briefing to the economic buyer
+      - Prepare a retention offer with a clear walk-away point before negotiation
+    talk_track: >-
+      I understand you are looking at other options, and that's fair. Could you share what prompted it?
+      I'd like to make sure you are comparing against everything you get from us today, including what's
+      coming next.
+    exit_criteria: The evaluation is closed in our favor, or its gaps have a dated plan the buyer accepts
+  signer_gone:
+    name: Find the new economic buyer
+    owner: Account Executive + CSM
+    actions:
+      - Ask your champion who now approves the renewal and get a meeting with them
+      - Rebuild the business case for that person with outcomes delivered, cost of switching and what's next
+      - Confirm the procurement path and paperwork early, before the old signer's absence stalls it
+    talk_track: >-
+      Since the person who signed the original agreement has moved on, I want to make sure the renewal
+      lands with the right person. Who will own that decision now, and could you introduce us?
+    exit_criteria: The new economic buyer is named, has met with us and the procurement path is confirmed
+  discount_cliff:
+    name: Plan the discount step-down
+    owner: Account Executive + RevOps
+    actions:
+      - Decide the renewal price before the conversation, whether to hold, step down part of the discount, or go to list
+      - Tie any price move to value delivered and to added scope or term
+      - Give the customer notice early so the change is budgeted, not a surprise at signature
+    talk_track: >-
+      I want to give you plenty of notice on renewal pricing so it fits your budget cycle. Can we walk
+      through what you've used this year and the options for next term?
+    exit_criteria: A renewal price is agreed internally and the customer has heard it at least 60 days before signature
+  payment_risk:
+    name: Collections and commercial review
+    owner: Finance + Account Executive
+    actions:
+      - Confirm the invoice reached the right AP contact and is not disputed
+      - Agree a payment plan if cash is the issue and flag the account to leadership
+      - Hold renewal pricing changes until the balance is current
+    talk_track: >-
+      I noticed an open invoice and wanted to check it reached the right person on your side. Is anything
+      holding it up that we can help sort out?
+    exit_criteria: The balance is current, or a signed payment plan is in place
+  detractor:
+    name: Detractor recovery
+    owner: CSM
+    actions:
+      - Call the person who gave the low score within a week and find the root cause
+      - Agree one visible fix with a date, and deliver it before the renewal conversation
+      - Ask them to rate us again once the fix is in
+    talk_track: >-
+      Thank you for the honest feedback in the survey. I'd like to understand what's behind it and what
+      would make the biggest difference for you before your renewal.
+    exit_criteria: The fix is delivered and a follow-up score or conversation shows sentiment moved
+  dark_account:
+    name: Re-engage a quiet account
+    owner: CSM
+    actions:
+      - Reach out to your contact and one other stakeholder with a specific reason to meet
+      - Offer something useful, such as a usage review, a roadmap preview or a benchmark against peers
+      - Agree a standing check-in cadence through the renewal
+    talk_track: >-
+      It's been a while since we connected, and I'd like to catch up before your renewal. I can bring a
+      short review of how your team is using the product and a few ideas on getting more from it.
+    exit_criteria: A meeting is held and a recurring cadence is on the calendar
+  no_exec_sponsor_enterprise:
+    name: Secure an executive sponsor
+    owner: Account Executive + CS leader
+    actions:
+      - Ask your champion which executive owns the outcome the product supports
+      - Set up an executive-to-executive introduction with a short agenda on results and priorities
+      - Hold an executive business review before the renewal window opens
+    talk_track: >-
+      As we plan the next term, it would help to make sure the right leader on your side sees the
+      results your team is getting. Who should we include, and would a short review with them be useful?
+    exit_criteria: A named executive sponsor has attended an executive business review
+  first_renewal:
+    name: First renewal readiness
+    owner: CSM
+    actions:
+      - Check the outcomes promised at the sale against what the customer has achieved
+      - Close any onboarding gaps before the renewal conversation
+      - Confirm the original buyer still owns the decision
+    talk_track: >-
+      You're coming up on your first renewal with us, so I'd like to check in on the goals you had when
+      you signed. How close are we, and what's left to get there?
+    exit_criteria: Original goals reviewed with the customer and any gaps have an owner and a date
+  critical_support:
+    name: Technical escalation
+    owner: Support manager + CSM
+    actions:
+      - Open an executive escalation with a named engineering owner
+      - Send the customer a dated remediation plan and run a weekly status call
+      - Hold a post-incident review before the renewal conversation
+    talk_track: >-
+      I know the recent issues have been painful, and I'm sorry. We've put a named engineering owner on
+      it. I'd like to walk you through the plan and check in weekly until it's fixed.
+    exit_criteria: No new urgent tickets for 30 days and the post-incident review is shared with the customer
+  support_strain:
+    name: Support quality recovery
+    owner: Support manager + CSM
+    actions:
+      - Review the account's reopened and slow tickets with the support lead and find the common cause
+      - Assign a named support contact until reopen rate and fix time are back to normal
+      - Share the fix plan with the customer's admin before the renewal conversation
+    talk_track: >-
+      Some of your recent tickets have taken longer than they should, and a few came back. I've asked our
+      support lead to look at the pattern, and I'd like to share what we're changing.
+    exit_criteria: Reopen rate and median fix time are back within normal range for a full month
+  support_gone_quiet:
+    name: Re-engagement check
+    owner: CSM
+    actions:
+      - Ask the customer's admin directly whether they are still rolling out, or working around problems
+      - Compare which teams stopped using the product with which stopped filing tickets
+      - Book a working session on their next milestone before the renewal conversation starts
+    talk_track: >-
+      We haven't heard from your team in a while, which can be great or can mean people are working
+      around something. How is the rollout going, and is anything getting in the way?
+    exit_criteria: The cause of the drop is known and usage is stable or recovering
+
+  # AI products
+  stalled_pilot:
+    name: Pilot-to-production push
+    owner: CSM + Solutions Engineer
+    actions:
+      - Agree written success criteria and a production go-live date with the pilot sponsor
+      - Ship one production workflow with an integration before the pilot end date
+      - Line up the economic buyer and a core budget line for the conversion
+    talk_track: >-
+      The pilot has shown what's possible, and I want to make sure it turns into results your team keeps.
+      Can we agree on what success looks like and pick one workflow to put into production this month?
+    exit_criteria: A production workflow is live and the economic buyer has agreed the conversion budget
+  bill_shock:
+    name: Spend governance and re-commit
+    owner: Account Executive + CSM
+    actions:
+      - Walk the customer through usage, overage and throttling before the next invoice lands
+      - Offer a right-sized larger commit or burst capacity at committed rates
+      - Set spend alerts and model-routing guidance so costs stay predictable
+    talk_track: >-
+      Your team is using a lot more than planned, which is good news, but I don't want the next invoice
+      to be a surprise. Let's look at the usage together and find a plan that keeps costs predictable.
+    exit_criteria: The customer is on a commit that matches their run rate and has spend alerts set
+  under_burn:
+    name: Burn recovery before true-up
+    owner: CSM + Solutions Engineer
+    actions:
+      - Find the planned use cases that never launched and the blocker for each
+      - Launch one new production use case in the next 30 days
+      - Propose a commit rollover or right-size early instead of losing the renewal
+    talk_track: >-
+      You're on track to use less than you committed, and I'd rather help you get the value than have
+      credits go unused. Which of the projects you planned at signing are stuck, and what's blocking them?
+    exit_criteria: Projected commit use is back above 80%, or a right-sized commit is agreed early
+  seat_compression:
+    name: Seat-to-usage repricing
+    owner: Account Executive + Deal desk
+    actions:
+      - Show the customer the shift toward fewer seats and more AI-driven output
+      - Offer a credits or outcome-based plan that prices the work, not the headcount
+      - Protect ARR by trading seats for a usage commit at renewal
+    talk_track: >-
+      Your team is getting more done with fewer seats, which is exactly what the product is for. Let's
+      talk about a plan that matches how you work now rather than paying per person.
+    exit_criteria: A repriced proposal is accepted that holds or grows ARR
+  model_retirement:
+    name: Model migration plan
+    owner: Solutions Engineer
+    actions:
+      - List the customer's workflows on retiring models and their shutdown dates
+      - Run evals on the replacement model and share the results
+      - Schedule the cutover well before both the shutdown and the renewal
+    talk_track: >-
+      Some of your workflows run on a model that's being retired. I'd like to show you how the replacement
+      performs on your use cases and agree a cutover date well before the deadline.
+    exit_criteria: Every workflow on a retiring model has moved or has a cutover date before the renewal
+  experimental_budget:
+    name: Budget conversion
+    owner: Account Executive
+    actions:
+      - Quantify outcomes delivered so far in the buyer's own metrics
+      - Find the core budget owner and present a business case
+      - Time the renewal proposal to the customer's planning cycle
+    talk_track: >-
+      This started as an innovation project, and it's delivering. I'd like to help you make the case to
+      move it into a permanent budget. Who owns that budget, and when does planning happen?
+    exit_criteria: The spend is in a core budget line for next year
+  usage_decline:
+    name: Usage recovery
+    owner: CSM + Solutions Engineer
+    actions:
+      - Find out what changed, whether a reorg, a cheaper model or a project ending
+      - Re-engage the team that owned the workload and agree a recovery plan
+      - Land a second use case so one decline cannot sink the renewal
+    talk_track: >-
+      I noticed usage has dropped over the last few weeks. Did something change on your side? I'd like
+      to understand it and see whether we can help.
+    exit_criteria: The cause is known and usage has been flat or growing for 30 days
+
+  # Seat-based SaaS
+  usage_collapse:
+    name: Usage collapse response
+    owner: CSM + CS leader
+    actions:
+      - Call your champion this week to learn why active users fell, whether a reorg, a rival tool or a broken workflow
+      - Pull the list of teams that went inactive and target the largest first
+      - Agree a 30-day recovery plan with named teams and a usage target
+    talk_track: >-
+      We've seen a big drop in people logging in, and I wanted to call before guessing at why. What's
+      changed on your side, and what would it take to get those teams back?
+    exit_criteria: Active users recover to within 10% of the prior level, or the downsell is planned early
+  shelfware:
+    name: Shelfware activation
+    owner: CSM
+    actions:
+      - Find the teams holding unused seats and the reason they never activated
+      - Run targeted onboarding for the largest inactive group
+      - Decide early whether to rightsize seats or reallocate them, rather than discover it at renewal
+    talk_track: >-
+      A good number of your licenses aren't in use yet. I'd like to help get those people onboarded, or
+      if your needs have changed, plan the right number of seats together.
+    exit_criteria: Seat utilization above 60%, or a seat change agreed before the quote
+  uplift_without_value:
+    name: Justify or soften the uplift
+    owner: Account Executive + CSM
+    actions:
+      - Review whether the planned price increase is defensible at current seat use
+      - Build an adoption plan that raises value before the increase lands
+      - Offer to hold price for a longer term, or phase the uplift
+    talk_track: >-
+      Before we talk about pricing for next term, I want to make sure you're getting the full value from
+      what you have. Can we look at adoption together and agree a plan?
+    exit_criteria: Adoption is rising and the customer has accepted the pricing or a phased version of it
+
+  # Consumption and compute
+  under_consuming:
+    name: Commit recovery
+    owner: CSM + Solutions Architect
+    actions:
+      - Find the workloads planned at signing that never launched and why
+      - Run a workshop to activate one new workload in the next 30 days
+      - Right-size the commit early rather than lose the renewal outright
+    talk_track: >-
+      You're pacing below your commit, and I'd like to help close the gap. Which workloads did you plan
+      to bring over that haven't moved yet?
+    exit_criteria: Commit pacing back above 80%, or a right-sized commit agreed early
+  consumption_decline:
+    name: Consumption recovery
+    owner: Solutions Architect
+    actions:
+      - Diagnose the drop, whether a migration away, optimization or a project ending
+      - Offer an architecture review and cost optimization that keeps workloads on platform
+      - Identify the next workload to land before the commit renews
+    talk_track: >-
+      We've seen consumption trend down and wanted to understand why. If you're optimizing costs, we can
+      help with that so the work stays with us.
+    exit_criteria: Consumption is flat or growing for 30 days and the next workload is identified
+  single_workload:
+    name: Diversify workloads
+    owner: Solutions Architect + CSM
+    actions:
+      - Map the customer's other workloads that fit the platform
+      - Run a proof of concept for the most likely second workload
+      - Introduce the owner of that workload to the current champion
+    talk_track: >-
+      Your main workload is running well on our platform. I'd like to explore whether another one of your
+      projects could benefit too. What's next on your roadmap?
+    exit_criteria: A second workload is in production
+  idle_capacity:
+    name: Capacity optimization
+    owner: Solutions Architect
+    actions:
+      - Find idle reserved capacity and the workloads it was meant for
+      - Move or launch workloads onto the reserved capacity
+      - Adjust the reservation mix at renewal to match real use
+    talk_track: >-
+      Part of the capacity you've reserved is sitting idle. Let's look at what could run on it, or adjust
+      the reservation so you only pay for what you use.
+    exit_criteria: Reserved capacity utilization above 70%, or the reservation is resized
+  # Hardware and support
+  eosl_cliff:
+    name: Lifecycle refresh
+    owner: Account Executive + Solutions Engineer
+    actions:
+      - Share the end-of-support timeline and the risk of running unsupported
+      - Propose a refresh or migration path with trade-in credit
+      - Bundle support renewal with the refresh to avoid a coverage gap
+    talk_track: >-
+      Some of your equipment reaches end of support soon. I want to give you time to plan a refresh so
+      you're never running without coverage.
+    exit_criteria: A refresh plan is agreed for every unit reaching end of support before renewal
+  coverage_erosion:
+    name: Contract coverage recovery
+    owner: Service sales + CSM
+    actions:
+      - Reconcile the install base against contracts and list uncovered units
+      - Quote coverage for the gap with a co-terming offer
+      - Show the cost of break-fix and third-party maintenance versus coverage
+    talk_track: >-
+      We found some units that aren't under a support contract. I'd like to show you what that exposure
+      looks like and an easy way to bring them under one renewal date.
+    exit_criteria: Uncovered units are quoted and coverage is back above 90%
+  reliability:
+    name: Fleet reliability review
+    owner: Support engineering + CSM
+    actions:
+      - Review failure and RMA history for patterns by model, site or firmware
+      - Schedule firmware upgrades and proactive replacements for the worst units
+      - Share a reliability report and the fix plan with the customer
+    talk_track: >-
+      Your failure rate has been higher than it should be, and I want to get ahead of it. We've looked at
+      the pattern and I'd like to walk you through the fix plan.
+    exit_criteria: Failure rate back under 4% for a full quarter
+  blind_fleet:
+    name: Turn on telemetry
+    owner: Support engineering
+    actions:
+      - List the units that don't report telemetry and why
+      - Help the customer connect them, starting with the most critical sites
+      - Use the new data to spot problems before they turn into tickets
+    talk_track: >-
+      Many of your units aren't sending health data, so we can't warn you before something fails. Can we
+      help your team connect them?
+    exit_criteria: Over 70% of units report telemetry
+
+  # Professional and managed services
+  sla_breach:
+    name: Delivery recovery
+    owner: Delivery lead + Engagement manager
+    actions:
+      - Publish a root-cause analysis and a corrective plan with dates
+      - Offer service credits where the contract calls for them
+      - Review staffing on the account and add senior oversight
+    talk_track: >-
+      We missed our commitments, and I'm sorry. Here's what went wrong, what we're changing and the dates
+      you can hold us to.
+    exit_criteria: SLAs met for 60 consecutive days and the corrective plan is closed
+  underused_retainer:
+    name: Retainer utilization plan
+    owner: Engagement manager
+    actions:
+      - Review the client's backlog for work the unused hours could cover
+      - Propose a plan to use the remaining hours before the term ends
+      - Discuss a right-sized retainer early if demand has changed
+    talk_track: >-
+      You have hours left on your retainer, and I'd like to make sure you get full value from them. Can
+      we go through your priorities and plan how to use them?
+    exit_criteria: Hours pacing above 80%, or a right-sized retainer agreed early
+  delivery_slipping:
+    name: Milestone recovery
+    owner: Engagement manager
+    actions:
+      - Re-baseline the late milestones with the client sponsor
+      - Fix the staffing or dependency behind the slips
+      - Report progress weekly until milestones are back on plan
+    talk_track: >-
+      A few milestones have slipped, and I want to reset expectations honestly. Here's the revised plan
+      and what we're doing to keep it.
+    exit_criteria: Two consecutive milestones delivered on the revised dates
+  delivery_lead_change:
+    name: Delivery continuity
+    owner: Engagement manager
+    actions:
+      - Introduce the new delivery lead in person with a written handover
+      - Re-confirm milestones and success criteria with the client sponsor
+      - Schedule a 30-day check-in to confirm confidence is back
+    talk_track: >-
+      I'd like to introduce your new delivery lead and walk through the handover together, so nothing
+      gets lost in the transition.
+    exit_criteria: The client sponsor confirms confidence at the 30-day check-in
+
+# Plays for an account's top risk driver, keyed by scorecard group. Used when no alert names the cause.
+groups:
+  product_adoption:
+    name: Adoption recovery
+    owner: CSM
+    actions:
+      - Find the teams with inactive seats and the reason they stalled
+      - Run enablement for the two highest-value unused features
+      - Agree adoption targets with the customer and review them monthly
+    talk_track: >-
+      I'd like to help more of your team get value from the product. Which groups have been slow to
+      adopt, and what's getting in their way?
+    exit_criteria: The agreed adoption targets are met for two monthly reviews in a row
+  relationship:
+    name: Executive re-engagement
+    owner: CSM + Account Executive
+    actions:
+      - Book an executive business review with the economic buyer
+      - Map stakeholders and close gaps in sponsor and champion coverage
+      - Set a meeting cadence and keep it until renewal
+    talk_track: >-
+      I'd like to set up a short review with your leadership on what your team has achieved and what's
+      next. Who should be in the room?
+    exit_criteria: An executive business review is held and sponsor and champion are both named
+  support:
+    name: Support experience recovery
+    owner: Support manager
+    actions:
+      - Review open and recent tickets for repeat issues
+      - Assign a named support contact until the backlog clears
+      - Close the loop with the customer on fixes delivered
+    talk_track: >-
+      I've been reviewing your recent support cases and want to make sure we're fixing the root causes,
+      not just the tickets. Can I share what we've found?
+    exit_criteria: The backlog is clear and support satisfaction is back above target
+  sentiment:
+    name: Voice-of-customer follow-up
+    owner: CSM
+    actions:
+      - Call the detractors and find the root cause
+      - Agree one visible fix and deliver it before renewal
+      - Re-survey after the fix to confirm sentiment moved
+    talk_track: >-
+      I want to hear honestly how things are going for your team. What's one thing we could fix that
+      would make the biggest difference?
+    exit_criteria: The fix is delivered and the follow-up survey improves
+  commercial:
+    name: Commercial structuring
+    owner: Account Executive + Deal desk
+    actions:
+      - Model renewal options such as term length, price protection and right-sizing
+      - Tie any price increase to delivered value and a roadmap commitment
+      - Get verbal agreement before the formal quote goes out
+    talk_track: >-
+      I'd like to walk through a few options for next term so we land on the structure that works best
+      for you, before anything formal goes out.
+    exit_criteria: Verbal agreement on terms before the quote is sent
+  consumption:
+    name: Consumption recovery
+    owner: Solutions Architect
+    actions:
+      - Review commit burn-down and the gap to plan
+      - Land a new workload or use case before the commit period ends
+      - Discuss commit right-sizing early if the gap cannot close
+    talk_track: >-
+      Let's look at how your usage is tracking against the commit and what we can do to close the gap
+      before the term ends.
+    exit_criteria: Commit pacing back above 80%, or a right-sized commit agreed early
+  capacity:
+    name: Capacity optimization
+    owner: Solutions Architect
+    actions:
+      - Find idle reserved capacity and the workloads it was meant for
+      - Move or launch workloads onto the reserved capacity
+      - Adjust the reservation mix at renewal to match real use
+    talk_track: >-
+      Part of the capacity you've reserved isn't being used. Let's find work that could run on it, or
+      adjust the reservation so it matches what you need.
+    exit_criteria: Reserved capacity utilization above 70%, or the reservation is resized
+  installed_base:
+    name: Install base review
+    owner: Service sales
+    actions:
+      - Reconcile installed units against contracts and support status
+      - Quote coverage for uncovered units and a refresh for aging ones
+      - Co-term contracts to simplify the renewal
+    talk_track: >-
+      I'd like to walk through your installed equipment with you, so every unit is covered and the
+      aging ones have a plan.
+    exit_criteria: Every unit is under contract or has an agreed refresh plan
+  product_health:
+    name: Fleet health review
+    owner: Support engineering
+    actions:
+      - Review RMA history and firmware levels across the fleet
+      - Schedule firmware upgrades and proactive replacements
+      - Turn on telemetry for unmonitored units
+    talk_track: >-
+      We'd like to do a health check on your fleet to catch problems before they cause downtime. Can we
+      schedule a review with your team?
+    exit_criteria: Firmware is current and failure rate is within the normal range
+  service:
+    name: Service experience recovery
+    owner: Support manager
+    actions:
+      - Review recent cases and time to resolution
+      - Assign a technical account manager until stable
+      - Share a service report with the customer
+    talk_track: >-
+      I want to make sure your support experience is where it should be. I've put together a summary of
+      recent cases and what we're improving.
+    exit_criteria: Time to resolution back within target for a full month
+  delivery:
+    name: Delivery recovery
+    owner: Engagement manager
+    actions:
+      - Re-baseline milestones with the client sponsor
+      - Fix staffing gaps and add senior oversight
+      - Report progress weekly until back on plan
+    talk_track: >-
+      I'd like to reset the delivery plan with you and agree dates we're confident in, with weekly
+      updates until we're back on track.
+    exit_criteria: Milestones back on plan for a full month
+  burn:
+    name: Burn recovery before true-up
+    owner: CSM + Solutions Engineer
+    actions:
+      - Review projected commit use and the usage trend with the customer
+      - Launch or expand a production use case to close the gap
+      - Discuss rollover or right-sizing early if the gap cannot close
+    talk_track: >-
+      Let's look at how your usage is pacing against the commit and pick a use case that would close the
+      gap before the term ends.
+    exit_criteria: Projected commit use between 80% and 120%, or a right-sized commit agreed early
+  production:
+    name: Embed in production
+    owner: CSM + Solutions Engineer
+    actions:
+      - Move sandbox and pilot usage into production workflows
+      - Add integrations to the customer's core systems
+      - Expand to a second team or use case
+    talk_track: >-
+      A lot of your usage is still in testing. I'd like to help you get one more workflow into production
+      where it can show results your leadership will see.
+    exit_criteria: Production share of usage above 60% and at least one integration live
+  experience:
+    name: Client experience recovery
+    owner: Engagement manager
+    actions:
+      - Hold a candid feedback session with the client sponsor
+      - Agree on what success looks like for the next term
+      - Deliver one visible quick win before renewal
+    talk_track: >-
+      I'd value your candid feedback on how the engagement is going and what success should look like
+      next term.
+    exit_criteria: The sponsor agrees the success criteria for next term and the quick win is delivered

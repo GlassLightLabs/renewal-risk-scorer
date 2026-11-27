@@ -27,6 +27,7 @@ from .ingest import IngestError, ingest, load_mapping
 from .model import RiskModel, train
 from .narrate import narrate, to_markdown
 from .pipeline import ScoreResult, score
+from .playbook import load_playbook, missing_alert_plays
 from .report import write_outputs
 from .sources import SourceError, apply_sources, discover, get_source, load_sources_config
 
@@ -157,7 +158,15 @@ def cmd_train(args: argparse.Namespace) -> int:
 def _score(args: argparse.Namespace, cfg: ScorecardConfig, model: RiskModel | None) -> ScoreResult:
     df, report = ingest(args.book, as_of=_as_of(args), mapping=load_mapping(args.mapping))
     df = _with_sources(args, df, _as_of(args))
-    return score(df, cfg, model, as_of=_as_of(args), horizon_days=args.horizon_days, quality=report)
+    return score(
+        df,
+        cfg,
+        model,
+        as_of=_as_of(args),
+        horizon_days=args.horizon_days,
+        quality=report,
+        playbook=load_playbook(args.playbook),
+    )
 
 
 def _write(result: ScoreResult, args: argparse.Namespace) -> None:
@@ -191,6 +200,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
     from .synth import generate_book, generate_history
 
     cfg = load_config(args.profile)
+    playbook = load_playbook(args.playbook)
     as_of = _as_of(args) or date.today()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -204,9 +214,29 @@ def cmd_demo(args: argparse.Namespace) -> int:
     print(_metrics_table(m, model.blend.metrics if model.blend else None))
     book, report = ingest(generate_book(args.book, profile=args.profile, as_of=as_of), as_of=as_of)
     book = _with_sources(args, book, as_of)
-    result = score(book, cfg, model, as_of=as_of, horizon_days=args.horizon_days, quality=report)
+    result = score(book, cfg, model, as_of=as_of, horizon_days=args.horizon_days, quality=report, playbook=playbook)
     _write(result, args)
     return 0
+
+
+def cmd_playbook(args: argparse.Namespace) -> int:
+    """Validate a playbook and show which alerts, in which profiles, have no play behind them."""
+    pb = load_playbook(args.playbook)
+    cfgs = [_config(args)] if args.config else [load_config(p) for p in list_profiles()]
+    print(f"Playbook OK: {len(pb.alerts)} alert plays, {len(pb.groups)} group plays, tiers {', '.join(pb.tiers)}")
+    gaps = 0
+    for cfg in cfgs:
+        no_group = sorted(g.name for g in cfg.groups if g.name not in pb.groups)
+        missing = missing_alert_plays((a.id for a in cfg.alerts), pb)
+        if missing or no_group:
+            gaps += 1
+            print(
+                f"  {cfg.profile}: alerts with no play: {', '.join(missing) or 'none'}; "
+                f"groups with no play: {', '.join(no_group) or 'none'}"
+            )
+        else:
+            print(f"  {cfg.profile}: every alert and group has a play")
+    return 1 if gaps else 0
 
 
 def cmd_evaluate(args: argparse.Namespace) -> int:
@@ -331,6 +361,7 @@ def build_parser() -> argparse.ArgumentParser:
             metavar="N",
             help="write briefs for the top N accounts (uses Claude if ANTHROPIC_API_KEY is set)",
         )
+        sp.add_argument("--playbook", help="your playbook YAML, layered on the built-in plays (see docs/playbooks.md)")
 
     sp = sub.add_parser("score", help="score a book of open renewals")
     sp.add_argument("book")
@@ -357,6 +388,12 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--seed", type=int, default=42)
     sp.add_argument("--out", default="evaluation.md")
     sp.set_defaults(func=cmd_evaluate)
+
+    sp = sub.add_parser("playbook", help="check a playbook covers every alert and group")
+    sp.add_argument("--playbook", help="your playbook YAML (default: the built-in one)")
+    sp.add_argument("--config", help="check against this custom profile instead of every built-in one")
+    sp.add_argument("--profile", default=None, help=argparse.SUPPRESS)
+    sp.set_defaults(func=cmd_playbook)
 
     sp = sub.add_parser("sources", help="list data add-ons or test their settings")
     sp.add_argument("action", choices=["list", "test"])
