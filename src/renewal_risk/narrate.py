@@ -32,6 +32,8 @@ Rules:
 - The talk track is what the rep would actually say on the next call: plain, warm and specific, two or
   three sentences, no jargon, no mention of scores or models.
 - If the data shows little risk, say so plainly and keep the plan light.
+- The recommended play comes from the team's playbook. Build the save plan on it, adapt its talk track to
+  this account's facts, and keep its exit criteria as the definition of done.
 - Write in plain English without em dashes."""
 
 NARRATIVE_SCHEMA: dict[str, Any] = {
@@ -88,6 +90,11 @@ def account_facts(row: pd.Series) -> dict[str, Any]:
             "owner": row.get("play_owner"),
             "timing": row.get("play_timing"),
             "actions": list(row.get("play_actions", [])),
+            "motion": row.get("play_motion") or None,
+            "cadence": row.get("play_cadence") or None,
+            "talk_track": row.get("play_talk_track") or None,
+            "exit_criteria": row.get("play_exit_criteria") or None,
+            "supporting_plays": list(row.get("supporting_plays") or []),
         },
     }
 
@@ -107,11 +114,14 @@ def fallback_narrative(row: pd.Series) -> dict[str, Any]:
         why = ["No material risk drivers in the data"]
     play = f["recommended_play"]
     plan = [{"action": a, "owner": play["owner"] or "CSM", "when": play["timing"] or ""} for a in play["actions"]]
-    talk = (
+    talk = play.get("talk_track") or (
         "I'd like to make sure the next term is set up around what matters most to your team. "
         "Can we find 30 minutes this week to look at how things are going and what you need from us?"
     )
-    return {"headline": headline, "why_at_risk": why[:4], "save_plan": plan, "talk_track": talk, "source": "rules"}
+    out = {"headline": headline, "why_at_risk": why[:4], "save_plan": plan, "talk_track": talk, "source": "rules"}
+    if play.get("exit_criteria"):
+        out["done_when"] = play["exit_criteria"]
+    return out
 
 
 def _client() -> Any | None:
@@ -147,7 +157,9 @@ def narrate_one(row: pd.Series, client: Any | None = None, *, model: str = MODEL
             return fallback_narrative(row) | {"note": "model declined; rules-based brief used"}
         text = next(b.text for b in response.content if getattr(b, "type", None) == "text")
         data = json.loads(text)
-        return {**data, "source": model}
+        done = row.get("play_exit_criteria")
+        # The definition of done comes from the playbook word for word, not from the model.
+        return {**data, **({"done_when": done} if done else {}), "source": model}
     except Exception as exc:  # network, auth, rate limit, schema: never break scoring over a narrative
         return fallback_narrative(row) | {"note": f"Claude call failed ({type(exc).__name__}); rules-based brief used"}
 
@@ -173,6 +185,8 @@ def to_markdown(briefs: list[dict[str, Any]]) -> str:
         out.extend(f"1. {s['action']} ({s['owner']}, {s['when']})" for s in b["save_plan"])
         out.append("")
         out.append(f"**Talk track:** {b['talk_track']}")
+        if b.get("done_when"):
+            out.append(f"**Done when:** {b['done_when']}")
         out.append(f"\n_Source: {b.get('source', 'rules')}_" + (f" _({b['note']})_" if b.get("note") else ""))
         out.append("")
     return "\n".join(out)

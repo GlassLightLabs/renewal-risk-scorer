@@ -270,6 +270,54 @@ def support_panel(book: pd.DataFrame, account_id: object, run: SourceRun) -> Non
         cols[i % len(cols)].metric(label, value)
 
 
+def play_panel(row: pd.Series) -> None:
+    """The account's play from the playbook: what to do, who leads, what to say and when it's done."""
+    motion = row.get("play_motion") or ""
+    st.subheader(f"Play: {row['save_play']}")
+    st.caption(" · ".join(x for x in (motion, row["play_owner"], row["play_timing"]) if x))
+    for step in row["play_actions"]:
+        st.markdown(f"1. {step}")
+    if row.get("play_cadence"):
+        st.markdown(f"**Cadence:** {row['play_cadence']}. {row.get('play_escalation') or ''}".rstrip())
+    if row.get("play_talk_track"):
+        st.markdown("**Talk track**")
+        st.info(row["play_talk_track"])
+    if row.get("play_exit_criteria"):
+        st.markdown(f"**Done when:** {row['play_exit_criteria']}")
+    if row.get("supporting_plays"):
+        st.caption("Also run: " + "; ".join(row["supporting_plays"]))
+
+
+def plays_panel(plays: list[dict]) -> None:
+    """Plays to staff across the book, by primary play, largest expected loss first."""
+    st.subheader("Plays to run")
+    if not plays:
+        st.caption("Every account is in the low tier: business as usual.")
+        return
+    st.dataframe(
+        pd.DataFrame(
+            [
+                {
+                    "Play": p["play"],
+                    "Owner": p["owner"],
+                    "Accounts": p["accounts"],
+                    "By tier": ", ".join(f"{t} {n}" for t, n in p["by_tier"].items()),
+                    "ARR": p["arr"],
+                    "Expected loss": p["expected_arr_loss"],
+                }
+                for p in plays
+            ]
+        ),
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "ARR": st.column_config.NumberColumn("ARR", format="$%d"),
+            "Expected loss": st.column_config.NumberColumn("Expected loss", format="$%d"),
+        },
+    )
+    st.caption("Accounts above the low tier. Each account's tier sets how hard to run its play.")
+
+
 def account_tab(r: ScoreResult, book: pd.DataFrame, run: SourceRun) -> None:
     a = r.accounts
     labels = (a["rank"].astype(str) + ". " + a["account_name"].fillna(a["account_id"])).tolist()
@@ -306,10 +354,7 @@ def account_tab(r: ScoreResult, book: pd.DataFrame, run: SourceRun) -> None:
         groups = {g.label: row.get(f"{g.name}_score") for g in r.config.groups}
         st.bar_chart(pd.Series(groups, name="Group score").dropna(), horizontal=True)
     with right:
-        st.subheader(f"Play: {row['save_play']}")
-        st.caption(f"{row['play_owner']} · {row['play_timing']}")
-        for step in row["play_actions"]:
-            st.markdown(f"1. {step}")
+        play_panel(row)
         support_panel(book, row["account_id"], run)
         if st.button("Write account brief"):
             brief = narrate_one(row)
@@ -317,6 +362,8 @@ def account_tab(r: ScoreResult, book: pd.DataFrame, run: SourceRun) -> None:
             st.markdown("\n".join(f"- {w}" for w in brief["why_at_risk"]))
             st.markdown("\n".join(f"1. {s['action']} ({s['owner']}, {s['when']})" for s in brief["save_plan"]))
             st.info(brief["talk_track"])
+            if brief.get("done_when"):
+                st.markdown(f"**Done when:** {brief['done_when']}")
             st.caption(f"Source: {brief.get('source')}" + (f" ({brief['note']})" if brief.get("note") else ""))
 
 
@@ -324,6 +371,7 @@ def portfolio_tab(r: ScoreResult) -> None:
     st.subheader("What is driving risk across the book")
     d = r.drivers.head(12)
     st.bar_chart(d.set_index("driver")["share_of_risk"], horizontal=True)
+    plays_panel(r.summary.get("plays") or [])
     st.subheader("Watermelons")
     wm = r.accounts[r.accounts["watermelon"]]
     if len(wm):

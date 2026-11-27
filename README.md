@@ -6,7 +6,7 @@ Feed it a Salesforce or Gainsight export of open renewals. It returns every acco
 
 - a **health scorecard** CS teams can read and tune (Gainsight-style weighted measures and groups),
 - a **calibrated churn and downsell model** trained on your renewal history, with plain-English reason codes for every account,
-- a **save play** with an owner, timing and steps,
+- a **playbook**: every account gets a play with steps, an owner, a talk track for the next call and exit criteria, run harder as its risk tier rises (save, recover, monitor), plus a **plays to run** view of where the team's time needs to go,
 - a **GRR forecast** with a P10 to P90 range for the quarter, plus **retention by plan size** (monthly spend bands, with the AI-native benchmark for the `ai_usage` profile) so small self-serve plans don't hide inside a blended number,
 - **watermelon** flags (green on the scorecard, red underneath),
 - **deal signals from the CRM**: a deep discount at signing and a contract signer who has left, each with its own alert and save play,
@@ -65,8 +65,8 @@ GRR forecast (316 renewals): expected 87.6%, P10 84.7% to P90 90.4%
 1. **Load the book.** Export open renewals from Salesforce or Gainsight as a CSV and upload it. Columns are matched automatically. Optionally upload past renewals with outcomes so the model learns your customers, or load a `model.json` RevOps trained.
 2. **Read the top line.** ARR, expected ARR loss, GRR forecast range, critical and high counts, watermelons.
 3. **Work the priority list.** Ranked by expected loss × renewal urgency. Filter by tier and by CSM.
-4. **Open an account.** Top risk drivers in plain English, alerts, group scores, the recommended play, and a one-click brief for call prep.
-5. **Leaders and RevOps** use the Portfolio tab (what drives risk across the book, watermelons, retention by plan size), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
+4. **Open an account.** Top risk drivers in plain English, alerts, group scores, the play from the playbook (steps, cadence, talk track, and what done looks like), and a one-click brief for call prep.
+5. **Leaders and RevOps** use the Portfolio tab (plays to run across the book, what drives risk, watermelons, retention by plan size), Model quality (accuracy against the scorecard, calibration) and Data quality (what mapped, what's missing).
 
 Data stays on the machine running the app. The outbound calls are the ones you turn on: a data add-on reads from its tool (Zendesk, read-only), and the optional account brief sends that one account's computed facts to Claude when `ANTHROPIC_API_KEY` is set.
 
@@ -86,7 +86,7 @@ renewal-risk inspect examples/salesforce_report.csv --mapping examples/mapping.y
 
 The minimum is an account ID, ARR and a renewal date. Every other signal is optional: missing measures are reweighted, and each account gets a confidence level so thin data is visible. For training, history needs an outcome column (renewed, contracted or churned; common CRM values like "Closed Lost" are recognized).
 
-To tune a profile, copy its YAML from `src/renewal_risk/profiles/`, edit breakpoints, weights or alerts, and pass `--config my_profile.yaml`.
+To tune a profile, copy its YAML from `src/renewal_risk/profiles/`, edit breakpoints, weights or alerts, and pass `--config my_profile.yaml`. To change the plays, write a YAML file with just the plays you want to change and pass `--playbook my_playbook.yaml`; `renewal-risk playbook` checks that every alert has a play. See [docs/playbooks.md](docs/playbooks.md).
 
 ## Data add-ons
 
@@ -157,14 +157,15 @@ src/renewal_risk/
   model.py       LightGBM churn and downsell models, calibration, SHAP reasons, stacking
   pipeline.py    expected loss, urgency, tiers, watermelons, GRR forecast
   evaluate.py    time-ordered backtest and the accuracy report
-  playbook.py    save plays
+  playbook.py    picks and sizes a play for every account; loads and checks playbooks
+  playbooks/     the built-in playbook (YAML)
   narrate.py     Claude account briefs with rules fallback
   report.py      CSV, JSON and Markdown outputs
   synth.py       synthetic history and books for every profile
   cli.py         the renewal-risk command
   sources/       data add-ons: plug-in contract, HTTP client, registry, Zendesk
 app/streamlit_app.py
-tests/           ingest, scorecard, model, pipeline, add-ons, narratives, CLI and app smoke tests
+tests/           ingest, scorecard, model, pipeline, playbooks, add-ons, narratives, CLI and app smoke tests
 ```
 
 ## Host the demo
